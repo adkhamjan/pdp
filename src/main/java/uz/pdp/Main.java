@@ -140,11 +140,11 @@ public class Main {
             int step = 10;
             while (step != 0) {
                 System.out.println("""
-                        1. Create Cart
+                        1. cart yaratish
                         2. Add Product to Cart
                         3. Get My Carts
                         4. Get all Carts
-                        0. Exit
+                        0. chiqish
                         """);
                 step = scannerInt.nextInt();
                 switch (step) {
