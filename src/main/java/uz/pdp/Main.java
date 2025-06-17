@@ -26,7 +26,7 @@ public class Main {
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
-                    System.out.print(" Ismingizni kiriting:");
+                    System.out.print(" enter name:");
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
