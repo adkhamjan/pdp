@@ -30,7 +30,7 @@ public class Main {
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" Passwordingizni kiriting:");
+                    System.out.print(" enter password:");
                     String password = scannerStr.nextLine();
                     userService.add(new User(name, userName, password, USER));
                 }
