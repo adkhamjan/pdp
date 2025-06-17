@@ -1,0 +1,25 @@
+[ {
+  "id" : "cc644535-9b12-4e40-a401-60ee14f7f3d7",
+  "active" : false,
+  "categoryId" : "84a4c897-f5a8-42cf-afc1-920c085220be",
+  "productName" : "aaaaaaaaa",
+  "price" : 100
+}, {
+  "id" : "cdd0fa54-bb85-4a90-9f5d-8baaa3c2418d",
+  "active" : false,
+  "categoryId" : "f07863e7-9777-4e95-9514-cd82dbf5b950",
+  "productName" : "AAAAAAAAAAAAAAAA",
+  "price" : 50
+}, {
+  "id" : "a4acbccf-94ed-4cb0-9a28-0a26dccb47a0",
+  "active" : false,
+  "categoryId" : "3539edfe-be23-441b-8728-f9751fa0f3ac",
+  "productName" : "WWWWWWWWW",
+  "price" : 40
+}, {
+  "id" : "cc3365a3-1e59-4c54-b118-4c5e23bb2414",
+  "active" : true,
+  "categoryId" : "5e7ca41c-6b82-4788-86d3-c4c8011406d3",
+  "productName" : "PPPPPPPPPP",
+  "price" : 20
+} ]
