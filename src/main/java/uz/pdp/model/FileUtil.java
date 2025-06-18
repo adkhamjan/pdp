@@ -1,4 +1,4 @@
-package uz.pdp.util;
+package uz.pdp.model;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
