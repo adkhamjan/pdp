@@ -234,6 +234,8 @@ public class Main {
         }
     }
 
+
+    // to find parent
     public static UUID enterParentCategory() {
         List<Category> categories = categoryService.getParentCategories();
         for (Category category : categories) {
