@@ -39,7 +39,7 @@ public class Main {
                     String username = scannerStr.nextLine();
                     System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
-                    User currUser = userService.login(username, password);
+                     User currUser = userService.login(username, password);
                     if (currUser == null) {
                         System.out.println("Parol yoki Username xato qayta kiriting !!! ");
                     }else{
