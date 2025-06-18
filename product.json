@@ -22,4 +22,16 @@
   "categoryId" : "5e7ca41c-6b82-4788-86d3-c4c8011406d3",
   "productName" : "PPPPPPPPPP",
   "price" : 20
+}, {
+  "id" : "f26fa39d-7be7-4243-b817-81a75fd70383",
+  "active" : true,
+  "categoryId" : "1cd29f7f-2988-4d21-8e8e-0b9f49150fcb",
+  "productName" : "telefon",
+  "price" : 30
+}, {
+  "id" : "c63a943c-170b-4e5c-a90b-dcc2a1004448",
+  "active" : false,
+  "categoryId" : "b0780fa7-5222-4c11-b0d1-268aa57fa343",
+  "productName" : "Product",
+  "price" : 50
 } ]

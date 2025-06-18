@@ -2,49 +2,55 @@ package uz.pdp.service;
 
 import lombok.SneakyThrows;
 import uz.pdp.model.*;
-import uz.pdp.model.FileUtil;
+import uz.pdp.util.FileUtil;
+import uz.pdp.wrapper.CategoryListWrapper;
 
 import java.util.*;
 
 
 
 public class CategoryService {
-    private static final String fileJson = "categories.json";
-    private static final String fileXml = "categories.xml";
+    private static final String fileName = "categories.xml";
     private static List<Category> categories;
+
+//    @SneakyThrows
+//    public CategoryService() {
+//        categories = new ArrayList<>();
+//        categories = FileUtil.readFromXml(fileName, CategoryListWrapper.class);
+//    }
 
     @SneakyThrows
     public CategoryService() {
-        categories = new ArrayList<>();
-        categories = FileUtil.read(fileJson, Category.class);
+        CategoryListWrapper wrapper = FileUtil.readFromXml(fileName, CategoryListWrapper.class);
+        categories = wrapper.getCategories() != null ? wrapper.getCategories() : new ArrayList<>();
     }
 
-    public List<CategoryNode> buildTree() {
-        Map<UUID, CategoryNode> map = new HashMap<>();
-        List<CategoryNode> roots = new ArrayList<>();
 
-        for (Category category : categories) {
-            map.put(category.getId(), new CategoryNode(category));
-        }
-
-        for (Category category : categories) {
-            CategoryNode node = map.get(category.getId());
-            if (category.getParentId() == null) {
-                roots.add(node);
-            } else {
-                CategoryNode parent = map.get(category.getParentId());
-                if (parent != null){
-                    parent.getChildren().add(node);
-                }
-            }
-        }
-        return roots;
-    }
+//    public List<CategoryNode> buildTree() {
+//        Map<UUID, CategoryNode> map = new HashMap<>();
+//        List<CategoryNode> roots = new ArrayList<>();
+//
+//        for (Category category : categories) {
+//            map.put(category.getId(), new CategoryNode(category));
+//        }
+//
+//        for (Category category : categories) {
+//            CategoryNode node = map.get(category.getId());
+//            if (category.getParentId() == null) {
+//                roots.add(node);
+//            } else {
+//                CategoryNode parent = map.get(category.getParentId());
+//                if (parent != null){
+//                    parent.getChildren().add(node);
+//                }
+//            }
+//        }
+//        return roots;
+//    }
 
     @SneakyThrows
     public void saveCategories() {
-        FileUtil.write(fileJson, categories);
-        FileUtil.writeToXml(fileXml, new CategoryListWrapper(buildTree()));
+        FileUtil.writeToXml(fileName, new CategoryListWrapper(categories));
     }
 
     public String addCategory(Category category, UUID id) {
@@ -117,6 +123,16 @@ public class CategoryService {
         List<Category> categoryList = new ArrayList<>();
         for (Category category : categories) {
             if (category.isActive()) {
+                categoryList.add(category);
+            }
+        }
+        return categoryList;
+    }
+
+    public List<Category> getParentCategories() {
+        List<Category> categoryList = new ArrayList<>();
+        for (Category category : categories) {
+            if (category.isActive() && category.getParentId() == null) {
                 categoryList.add(category);
             }
         }
