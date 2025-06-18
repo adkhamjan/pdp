@@ -1,9 +1,9 @@
 package uz.pdp.service;
 
 import lombok.SneakyThrows;
-import uz.pdp.model.FileUtil;
+import uz.pdp.util.FileUtil;
 import uz.pdp.model.User;
-import uz.pdp.model.UserListWrapper;
+import uz.pdp.wrapper.UserListWrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,8 @@ public class UserService {
     public UserService() {
         users = new ArrayList<>();
         try {
-            users = FileUtil.readFromXml(fileName, User.class);
+            UserListWrapper wrapper = FileUtil.readFromXml(fileName, UserListWrapper.class);
+            users = wrapper.getUsers() != null ? wrapper.getUsers() : new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,6 +46,6 @@ public class UserService {
     }
 
     public List<User> getAllUsers() throws IOException{
-        return FileUtil.readFromXml(fileName, User.class);
+        return users;
     }
 }
