@@ -5,15 +5,17 @@ import uz.pdp.model.*;
 
 import java.util.*;
 
+
+
 public class CategoryService {
-    private static final String fileName = "categories.json";
+    private static final String fileJson = "categories.json";
     private static final String fileXml = "categories.xml";
     private static List<Category> categories;
 
     @SneakyThrows
     public CategoryService() {
         categories = new ArrayList<>();
-        categories = FileUtil.read(fileName, Category.class);
+        categories = FileUtil.read(fileJson, Category.class);
     }
 
     public List<CategoryNode> buildTree() {
@@ -40,7 +42,7 @@ public class CategoryService {
 
     @SneakyThrows
     public void saveCategories() {
-        FileUtil.write(fileName, categories);
+        FileUtil.write(fileJson, categories);
         FileUtil.writeToXml(fileXml, new CategoryListWrapper(buildTree()));
     }
 
