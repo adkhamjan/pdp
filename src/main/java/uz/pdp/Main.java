@@ -154,7 +154,7 @@ public class Main {
                 switch (step) {
                     case 1 -> {
                         cartId = cartService.createCart();
-                        System.out.println("Successful \n");
+                        System.out.println("Ajoyib \n");
                     }
                     case 2 -> {
                         if (cartId != null) {
