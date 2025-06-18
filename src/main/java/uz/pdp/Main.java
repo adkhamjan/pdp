@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-import static uz.pdp.model.UserType.ADMIN;
-import static uz.pdp.model.UserType.USER;
+import static uz.pdp.Enums.UserType.ADMIN;
+import static uz.pdp.Enums.UserType.USER;
 
 public class Main {
     static Scanner scannerStr = new Scanner(System.in);

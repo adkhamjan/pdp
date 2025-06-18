@@ -1,4 +1,4 @@
-package uz.pdp.model;
+package uz.pdp.BaceClass;
 
 import lombok.Data;
 import lombok.Getter;
