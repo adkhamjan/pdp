@@ -30,7 +30,7 @@ public class Main {
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" enter password:");
+                    System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
                     userService.add(new User(name, userName, password, USER));
                 }
@@ -55,13 +55,17 @@ public class Main {
             int step = 10;
             while (step != 0) {
                 System.out.println("""
-                        1. Add Category
-                        2. Get ChildCategory By Id
-                        3. Delete Category
-                        4. Add Product
-                        5. Get Product By CategoryId
-                        6. Delete Product
-                        0. Exit
+                        ========== ASOSIY MENYU ==========
+                               1. Kategoriya qo‘shish
+                               2. ID bo‘yicha ichki (quyi) kategoriyani ko‘rish
+                               3. Kategoriyani o‘chirish
+                               4. Mahsulot qo‘shish
+                               5. Kategoriya ID bo‘yicha mahsulotlarni ko‘rish
+                               6. Mahsulotni o‘chirish
+                               0. Chiqish
+                               ==================================
+                               Iltimos, amal raqamini tanlang:
+                        
                         """);
                 step = scannerInt.nextInt();
                 switch (step) {
@@ -120,7 +124,7 @@ public class Main {
                         System.out.println(productService.addProduct(product));
                     }
                     case 5 -> {
-                        System.out.println("Enter CategoryId");
+                        System.out.println(" CategoryId kiriting");
                         UUID categoryId = UUID.fromString(scannerStr.nextLine());
                         List<Product> productList = productService.getProductsByCategoryId(categoryId);
                         for (Product product : productList) {
@@ -129,7 +133,7 @@ public class Main {
                         System.out.println();
                     }
                     case 6 -> {
-                        System.out.println("Enter ProductId");
+                        System.out.println("ProductId kiriting:");
                         UUID productId = UUID.fromString(scannerStr.nextLine());
                         System.out.println(productService.deletedProduct(productId));
                     }
@@ -150,7 +154,7 @@ public class Main {
                 switch (step) {
                     case 1 -> {
                         cartId = cartService.createCart();
-                        System.out.println("Successful \n");
+                        System.out.println("Ajoyib \n");
                     }
                     case 2 -> {
                         if (cartId != null) {
