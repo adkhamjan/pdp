@@ -13,4 +13,14 @@ public class Product extends BaseModel {
     private UUID categoryId;
     private String productName;
     private int price;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productName='" + productName + '\'' +
+                ", id=" + id +
+                ", price=" + price +
+                ", categoryId=" + categoryId +
+                '}';
+    }
 }

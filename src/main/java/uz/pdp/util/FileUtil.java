@@ -1,5 +1,6 @@
-package uz.pdp.model;
+package uz.pdp.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -15,7 +16,8 @@ public class FileUtil {
 
     static {
         objectMapper = JsonMapper.builder().enable(MapperFeature.PROPAGATE_TRANSIENT_MARKER).build();
-        xmlMapper = XmlMapper.builder().build();
+        xmlMapper = XmlMapper.builder().serializationInclusion(JsonInclude.Include.NON_NULL) // <<<< MUHIM QATOR
+                .build();
     }
 
     public static <T> void write(String path, T t) throws IOException {
@@ -32,9 +34,14 @@ public class FileUtil {
         xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path), t);
     }
 
-    public static <T> List<T> readFromXml(String path, Class<T> clazz) throws IOException {
-        return xmlMapper.readValue(new File(path),
-                xmlMapper.getTypeFactory().constructCollectionType(List.class, clazz)
-        );
+//    public static <T> List<T> readFromXml(String path, Class<T> clazz) throws IOException {
+//        return xmlMapper.readValue(new File(path),
+//                xmlMapper.getTypeFactory().constructCollectionType(List.class, clazz)
+//        );
+//    }
+
+    public static <T> T readFromXml(String path, Class<T> clazz) throws IOException {
+        return xmlMapper.readValue(new File(path), clazz);
     }
+
 }
