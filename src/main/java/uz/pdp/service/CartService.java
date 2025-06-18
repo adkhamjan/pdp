@@ -10,8 +10,9 @@ import java.util.*;
 public class CartService {
     private final String fileName = "carts.json";
     private List<Cart> cartList;
-    private Map<UUID, List<Cart>> cartMapByCartId;
     private Map<UUID, Set<UUID>> cartMapByUserId;
+    private Map<UUID, List<Cart>> cartMapByCartId;
+
 
     @SneakyThrows
     public CartService() {
@@ -37,36 +38,6 @@ public class CartService {
             cartMapByUserId.put(cart.getUserId(), cartIds);
         }
     }
-
-    private List<Cart> getCartListByCartId(UUID cartId) {
-        return cartMapByCartId.get(cartId);
-    }
-
-    @SneakyThrows
-    private void saveCarts() {
-        FileUtil.write(fileName, cartList);
-    }
-
-    public List<List<Cart>> getCartByUserId(UUID userId) {
-        Set<UUID> cartIds = cartMapByUserId.get(userId);
-        List<List<Cart>> list = new ArrayList<>(new ArrayList<>());
-        if (cartIds == null) {
-            return list;
-        }
-        for (UUID cartId : cartIds) {
-            list.add(getCartListByCartId(cartId));
-        }
-        return list;
-    }
-
-    public List<Cart> getAllCarts() {
-        return cartList;
-    }
-
-    public UUID createCart(){
-        return UUID.randomUUID();
-    }
-
     public String addProductToCart(UUID productId, UUID userId, UUID cartId, int quantity) {
         Product product = ProductService.getProductById(productId);
         if (product != null && product.isActive()) {
@@ -102,4 +73,35 @@ public class CartService {
         }
         return "not found product \n";
     }
+
+    private List<Cart> getCartListByCartId(UUID cartId) {
+        return cartMapByCartId.get(cartId);
+    }
+
+    @SneakyThrows
+    private void saveCarts() {
+        FileUtil.write(fileName, cartList);
+    }
+
+    public List<List<Cart>> getCartByUserId(UUID userId) {
+        Set<UUID> cartIds = cartMapByUserId.get(userId);
+        List<List<Cart>> list = new ArrayList<>(new ArrayList<>());
+        if (cartIds == null) {
+            return list;
+        }
+        for (UUID cartId : cartIds) {
+            list.add(getCartListByCartId(cartId));
+        }
+        return list;
+    }
+
+    public List<Cart> getAllCarts() {
+        return cartList;
+    }
+
+    public UUID createCart(){
+        return UUID.randomUUID();
+    }
+
+
 }
