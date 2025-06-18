@@ -1,7 +1,7 @@
 package uz.pdp.service;
 
 import lombok.SneakyThrows;
-import uz.pdp.model.FileUtil;
+import uz.pdp.util.FileUtil;
 import uz.pdp.model.User;
 import uz.pdp.model.UserListWrapper;
 
