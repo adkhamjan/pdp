@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import static uz.pdp.enums.UserType.ADMIN;
-import static uz.pdp.enums.UserType.USER;
+import static uz.pdp.enums.UserType.USER
 
 public class Main {
     static Scanner scannerStr = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Main {
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" Passwordingizni kiriting:");
+                    System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
                     userService.add(new User(name, userName, password, USER));
                 }
@@ -55,6 +55,7 @@ public class Main {
             int step = 1;
             while (step != 0) {
                 System.out.println("1. Category    2.Product  0.Exit");
+                
                 step = scannerInt.nextInt();
                 if (step == 1) {
                     setCategoryService(currUser);
