@@ -10,8 +10,9 @@ import java.util.*;
 public class CartService {
     private final String fileName = "carts.json";
     private List<Cart> cartList;
-    private Map<UUID, List<Cart>> cartMapByCartId;
     private Map<UUID, Set<UUID>> cartMapByUserId;
+    private Map<UUID, List<Cart>> cartMapByCartId;
+
 
     @SneakyThrows
     public CartService() {

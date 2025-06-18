@@ -8,13 +8,13 @@ import uz.pdp.model.Product;
 import java.util.*;
 
 public class ProductService {
-    private static final String fileName = "product.json";
+    private static final String fileJson = "product.json";
     private static List<Product> products;
     private static Map<UUID,Product> productMap;
 
     @SneakyThrows
     public ProductService() {
-        products = FileUtil.read(fileName, Product.class);
+        products = FileUtil.read(fileJson, Product.class);
         productMap = new HashMap<>();
 
         for (Product p : products) {
@@ -24,7 +24,7 @@ public class ProductService {
 
     @SneakyThrows
     static private void saveProducts(){
-        FileUtil.write(fileName, products);
+        FileUtil.write(fileJson, products);
     }
 
     public List<Product> getProductsByCategoryId(UUID categoryId) {

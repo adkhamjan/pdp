@@ -30,7 +30,7 @@ public class Main {
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" Passwordingizni kiriting:");
+                    System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
                     userService.add(new User(name, userName, password, USER));
                 }
@@ -39,7 +39,7 @@ public class Main {
                     String username = scannerStr.nextLine();
                     System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
-                    User currUser = userService.login(username, password);
+                     User currUser = userService.login(username, password);
                     if (currUser == null) {
                         System.out.println("Parol yoki Username xato qayta kiriting !!! ");
                     }else{
@@ -55,6 +55,7 @@ public class Main {
             int step = 1;
             while (step != 0) {
                 System.out.println("1. Category    2.Product  0.Exit");
+
                 step = scannerInt.nextInt();
                 if (step == 1) {
                     setCategoryService(currUser);
