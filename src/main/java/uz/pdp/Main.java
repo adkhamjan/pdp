@@ -30,7 +30,7 @@ public class Main {
                     String name = scannerStr.nextLine();
                     System.out.print(" Username kiriting:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" enter password:");
+                    System.out.print(" password kiriting:");
                     String password = scannerStr.nextLine();
                     userService.add(new User(name, userName, password, USER));
                 }
@@ -124,7 +124,7 @@ public class Main {
                         System.out.println(productService.addProduct(product));
                     }
                     case 5 -> {
-                        System.out.println("Enter CategoryId");
+                        System.out.println(" CategoryId kiriting");
                         UUID categoryId = UUID.fromString(scannerStr.nextLine());
                         List<Product> productList = productService.getProductsByCategoryId(categoryId);
                         for (Product product : productList) {
@@ -133,7 +133,7 @@ public class Main {
                         System.out.println();
                     }
                     case 6 -> {
-                        System.out.println("Enter ProductId");
+                        System.out.println("ProductId kiriting:");
                         UUID productId = UUID.fromString(scannerStr.nextLine());
                         System.out.println(productService.deletedProduct(productId));
                     }
