@@ -2,7 +2,7 @@ package uz.pdp.service;
 
 import lombok.SneakyThrows;
 import uz.pdp.model.*;
-import uz.pdp.util.FileUtil;
+import uz.pdp.model.FileUtil;
 
 import java.util.*;
 
