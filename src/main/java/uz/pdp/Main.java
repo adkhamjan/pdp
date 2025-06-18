@@ -55,13 +55,17 @@ public class Main {
             int step = 10;
             while (step != 0) {
                 System.out.println("""
-                        1. Add Category
-                        2. Get ChildCategory By Id
-                        3. Delete Category
-                        4. Add Product
-                        5. Get Product By CategoryId
-                        6. Delete Product
-                        0. Exit
+                        ========== ASOSIY MENYU ==========
+                               1. Kategoriya qo‘shish
+                               2. ID bo‘yicha ichki (quyi) kategoriyani ko‘rish
+                               3. Kategoriyani o‘chirish
+                               4. Mahsulot qo‘shish
+                               5. Kategoriya ID bo‘yicha mahsulotlarni ko‘rish
+                               6. Mahsulotni o‘chirish
+                               0. Chiqish
+                               ==================================
+                               Iltimos, amal raqamini tanlang:
+                        
                         """);
                 step = scannerInt.nextInt();
                 switch (step) {
