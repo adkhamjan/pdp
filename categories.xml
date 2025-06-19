@@ -1,51 +1,20 @@
 <categories>
   <Category>
-    <id>324f599a-9e8e-477e-b889-b9ee33f35ffc</id>
+    <id>1be0b97c-34e9-4341-90f9-6dce6b8a1a57</id>
     <active>true</active>
-    <name>333333333333333</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <nodeType>true</nodeType>
-  </Category>
-  <Category>
-    <id>61cca7b4-e481-4bf6-8f89-f13427454184</id>
-    <active>true</active>
-    <name>11111111111111111</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <nodeType>true</nodeType>
-  </Category>
-  <Category>
-    <id>8261d697-401f-46a5-8b0c-bd361cc8e131</id>
-    <active>true</active>
-    <name>2222222222222222</name>
+    <name>Texnika</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
   </Category>
   <Category>
-    <id>526a67c4-3b0a-4366-adb7-0b5312aaf298</id>
+    <id>51c7856d-d909-4091-8daa-628bba91d51c</id>
     <active>true</active>
-    <name>6666666666666666</name>
+    <name>FastFood</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>324f599a-9e8e-477e-b889-b9ee33f35ffc</parentId>
-    <nodeType>true</nodeType>
   </Category>
   <Category>
-    <id>b0780fa7-5222-4c11-b0d1-268aa57fa343</id>
+    <id>46a95890-172a-4c44-a501-3518bf2b9e40</id>
     <active>true</active>
-    <name>9999999999999999</name>
+    <name>Avtomobil</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>526a67c4-3b0a-4366-adb7-0b5312aaf298</parentId>
-  </Category>
-  <Category>
-    <id>b975a89d-de16-4a21-b477-029915277415</id>
-    <active>true</active>
-    <name>1010101001010101010</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>61cca7b4-e481-4bf6-8f89-f13427454184</parentId>
-  </Category>
-  <Category>
-    <id>146f3052-f8ac-4dca-af2b-c1c562c07312</id>
-    <active>true</active>
-    <name>444444444444444</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>324f599a-9e8e-477e-b889-b9ee33f35ffc</parentId>
   </Category>
 </categories>

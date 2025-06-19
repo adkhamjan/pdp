@@ -40,4 +40,10 @@
   "categoryId" : "b0780fa7-5222-4c11-b0d1-268aa57fa343",
   "productName" : "tel1",
   "price" : 50
+}, {
+  "id" : "f0f4a990-61ef-4a2d-9182-99e66dbbcb12",
+  "active" : true,
+  "categoryId" : "1be0b97c-34e9-4341-90f9-6dce6b8a1a57",
+  "productName" : "Telefon",
+  "price" : 150000
 } ]
