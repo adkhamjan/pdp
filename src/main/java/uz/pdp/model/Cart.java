@@ -12,6 +12,7 @@ import java.util.UUID;
 public class Cart extends BaseModel {
     private UUID userId;
     private List<CartItem> cartList;
+    private  int totalPrice;
 
     public Cart(UUID userId) {
         super();
