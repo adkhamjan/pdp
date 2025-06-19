@@ -16,7 +16,7 @@ public class Main {
 
     static UserService userService = new UserService();
     static ProductService productService = new ProductService();
-//    static CartService cartService = new CartService();
+    static CartService cartService = new CartService();
     static CategoryService categoryService = new CategoryService();
 
     public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class Main {
                     User currUser = userService.login(username, password);
                     if (currUser == null) {
                         System.out.println("Parol yoki Username xato qayta kiriting !!! ");
-                    }else{
+                    } else {
                         login(currUser);
                     }
                 }
@@ -51,7 +51,7 @@ public class Main {
     }
 
     public static void login(User currUser) {
-        if (currUser.getTypeUser().equals(ADMIN)){
+        if (currUser.getTypeUser().equals(ADMIN)) {
             int step = 1;
             while (step != 0) {
                 System.out.println("1. Category    2.Product  0.Exit");
@@ -63,56 +63,89 @@ public class Main {
                 }
             }
         } else {
-            UUID cartId = null;
-//            int step = 10;
-//            while (step != 0) {
-//                System.out.println("""
-//                        1. Create Cart
-//                        2. Add Product to Cart
-//                        3. Get My Carts
-//                        4. Get all Carts
-//                        0. Exit
-//                        """);
-//                step = scannerInt.nextInt();
-//                switch (step) {
-//                    case 1 -> {
-//                        cartId = cartService.createCart();
-//                        System.out.println("Successful \n");
-//                    }
-//                    case 2 -> {
-//                        if (cartId != null) {
-//                            System.out.println("Enter ProductId");
-//                            UUID productId = UUID.fromString(scannerStr.nextLine());
-//                            System.out.println("Enter quantity");
-//                            int quantity = scannerInt.nextInt();
-//                            System.out.println(cartService.addProductToCart(productId, currUser.getId(), cartId, quantity));
-//                        }
-//                        else {
-//                            System.out.println("Not found cart! create cart");
-//                        }
-//                    }
-//                    case 3 -> {
-//                        List<List<Cart>> cartlist = cartService.getCartByUserId(currUser.getId());
-//                        for (List<Cart> carts : cartlist) {
-//                            for (Cart cart : carts) {
-//                                Product product = ProductService.getProductById(cart.getProductId());
-//                                String productName = product.getProductName();
-//                                System.out.print(productName + ":" + cart.getQuantity() + ", productActive:" + product.isActive() + "; ");
-//                            }
-//                            System.out.println();
-//                        }
-//                    }
-//                    case 4 -> {
-//                        List<Cart> carts = cartService.getAllCarts();
-//                        for (Cart cart : carts) {
-//                            boolean productActive = ProductService.getProductById(cart.getProductId()).isActive();
-//                            String productName = ProductService.getProductById(cart.getProductId()).getProductName();
-//                            System.out.println(productName + ":" + cart.getQuantity() + ", productActive:" + productActive + ", "+ cart);
-//                        }
-//                        System.out.println();
-//                    }
-//                }
-//            }
+            Cart cart = new Cart(currUser.getId());
+            int step = 10;
+            while (step != 0) {
+                System.out.println("""
+                        1. Add Product to Cart
+                        2. My cart
+                        3. Deleted Cart
+                        4. To Order
+                        5. My Orders list
+                        6. List all Orders
+                        0. Exit
+                        """);
+                step = scannerInt.nextInt();
+                switch (step) {
+                    case 1 -> {
+                        int step1 = 1;
+                        while (step1 != 0) {
+                            UUID productId = selectProduct(null);
+                            if (productId == null) {
+                                break;
+                            }
+                            System.out.println("Enter quantity");
+                            int quantity = scannerInt.nextInt();
+                            CartItem cartItem = new CartItem(cart.getId(), productId, quantity);
+                            System.out.println(cartService.addProductToCart(cart.getId(), cartItem));
+                            System.out.println("0.Back    1.Sotib olishni davom ettirish");
+                            step1 = scannerInt.nextInt();
+                        }
+                    }
+                    case 2 -> {
+                        Cart cart1 = cartService.getCartByCartId(cart.getId());
+                        if (cart1 == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
+                            break;
+
+                        }
+                        List<CartItem> cartItems = cart1.getCartList();
+                        for (CartItem cartItem : cartItems) {
+                            String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
+                            System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
+                        }
+                        System.out.println();
+                    }
+                    case 3 -> {
+                        System.out.println(cartService.deletedCart(cart.getId()));
+                        cart = new Cart(currUser.getId());
+                    }
+                    case 4 -> {
+                        Cart currCart = cartService.getCartByCartId(cart.getId());
+                        if (currCart == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
+                            break;
+                        }
+                        cartService.addCartToOrders(currCart);
+                    }
+                    case 5 -> {
+                        List<Cart> userOrders = cartService.getOrdersByUserId(currUser.getId());
+                        for (Cart order : userOrders) {
+                            List<CartItem> cartItems = order.getCartList();
+                            for (CartItem cartItem : cartItems) {
+                                Product product = ProductService.getProductById(cartItem.getProductId());
+                                String productName = product.getProductName();
+                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+                            }
+                            System.out.println();
+                        }
+                        System.out.println();
+                    }
+                    case 6 -> {
+                        List<Cart> orders = cartService.getAllOrders();
+                        for (Cart order : orders) {
+                            List<CartItem> cartItems = order.getCartList();
+                            for (CartItem cartItem : cartItems) {
+                                Product product = ProductService.getProductById(cartItem.getProductId());
+                                String productName = product.getProductName();
+                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+                            }
+                            System.out.println();
+                        }
+                        System.out.println();
+                    }
+                }
+            }
         }
     }
 
@@ -120,12 +153,12 @@ public class Main {
         int step = 1;
         while (step != 0) {
             System.out.println("""
-                            1. Add Category
-                            2. Get ChildCategory By Id
-                            3. Delete Category
-                            4. All Category
-                            0. Exit
-                            """);
+                    1. Add Category
+                    2. Get ChildCategory By Id
+                    3. Delete Category
+                    4. All Category
+                    0. Exit
+                    """);
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
@@ -139,7 +172,7 @@ public class Main {
                     category.setCreatedById(currUser.getId());
                     if (String.valueOf(parentId).equals("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e")) {
                         System.out.println(categoryService.addCategory(category));
-                    }else {
+                    } else {
                         System.out.println(categoryService.addCategory(category, parentId));
                     }
                 }
@@ -177,13 +210,13 @@ public class Main {
         int step = 1;
         while (step != 0) {
             System.out.println("""
-                            1. Add Product
-                            2. Get Product By CategoryId
-                            3. Delete Product
-                            4. All Product
-                            5. All Category
-                            0. Exit
-                            """);
+                    1. Add Product
+                    2. Get Product By CategoryId
+                    3. Delete Product
+                    4. All Product
+                    5. All Category
+                    0. Exit
+                    """);
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
@@ -209,7 +242,7 @@ public class Main {
                     System.out.println();
                 }
                 case 3 -> {
-                    UUID id = enterProduct(null);
+                    UUID id = selectProduct(null);
                     if (id == null) {
                         break;
                     }
@@ -294,7 +327,7 @@ public class Main {
 
     public static UUID enterLastCategory(UUID id) {
         Category category = CategoryService.getCategoryById(id);
-        if (category.getNodeType() == null || category.getNodeType()) {
+        if (category.getNodeType() == null || category.getNodeType()){
             System.out.println("0.Back   1.Add");
             int step = scannerInt.nextInt();
             if (step == 0) {
@@ -319,8 +352,7 @@ public class Main {
                 System.out.println(category);
             }
             System.out.println();
-        }
-        else {
+        } else {
             categories = categoryService.getChildCategoryById(id);
             for (Category category : categories) {
                 System.out.println(category);
@@ -336,7 +368,7 @@ public class Main {
                 System.out.println(product);
             }
             System.out.println();
-            if (category.getNodeType() == null || !category.getNodeType()) {
+            if (category.getNodeType() == null || !category.getNodeType()){
                 System.out.println("0.Back   1.Add");
                 step = scannerInt.nextInt();
                 if (step == 0) {
@@ -374,7 +406,7 @@ public class Main {
         return enterCategory(id);
     }
 
-    public static UUID enterProduct(UUID id) {
+    public static UUID selectProduct(UUID id) {
         List<Category> categories;
         if (id == null) {
             categories = categoryService.getParentCategories();
@@ -382,8 +414,7 @@ public class Main {
                 System.out.println(category);
             }
             System.out.println();
-        }
-        else {
+        } else {
             categories = categoryService.getChildCategoryById(id);
             for (Category category : categories) {
                 System.out.println(category);
@@ -403,14 +434,14 @@ public class Main {
                 System.out.println("0.Back");
                 step = scannerInt.nextInt();
                 if (step == 0) {
-                    return enterProduct(category.getParentId());
+                    return selectProduct(category.getParentId());
                 }
-                return enterProduct(id);
+                return selectProduct(id);
             }
             System.out.println("0.Back   1.Choice");
             step = scannerInt.nextInt();
             if (step == 0) {
-                return enterProduct(category.getParentId());
+                return selectProduct(category.getParentId());
             }
             if (step == 1) {
                 System.out.println("Enter product Id");
@@ -421,7 +452,7 @@ public class Main {
                     }
                 }
                 System.out.println("Not found productId");
-                return enterProduct(id);
+                return selectProduct(id);
             }
         }
         System.out.println("0.Back   1.Enter");
@@ -431,18 +462,18 @@ public class Main {
                 return null;
             }
             Category category = CategoryService.getCategoryById(id);
-            return enterProduct(category.getParentId());
+            return selectProduct(category.getParentId());
         }
         if (step == 1) {
             System.out.println("Enter Id");
             id = UUID.fromString(scannerStr.nextLine());
             for (Category category : categories) {
                 if (category.getId().equals(id)) {
-                    return enterProduct(id);
+                    return selectProduct(id);
                 }
             }
             System.out.println("Not found category");
         }
-        return enterProduct(id);
+        return selectProduct(id);
     }
 }

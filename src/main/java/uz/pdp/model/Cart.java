@@ -2,6 +2,7 @@ package uz.pdp.model;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -9,6 +10,12 @@ import java.util.UUID;
 @AllArgsConstructor @NoArgsConstructor
 public class Cart extends BaseModel {
     private UUID userId;
+    private List<CartItem> cartList;
+
+    public Cart(UUID userId) {
+        super();
+        this.userId = userId;
+    }
 
     @Override
     public String toString() {
