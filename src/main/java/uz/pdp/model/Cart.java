@@ -2,6 +2,7 @@ package uz.pdp.model;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class Cart extends BaseModel {
 
     public Cart(UUID userId) {
         super();
+        cartList = new ArrayList<>();
         this.userId = userId;
     }
 

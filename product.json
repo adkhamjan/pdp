@@ -34,4 +34,10 @@
   "categoryId" : "b0780fa7-5222-4c11-b0d1-268aa57fa343",
   "productName" : "Product",
   "price" : 50
+}, {
+  "id" : "ead1b767-1c91-49fa-818d-feef4880e73f",
+  "active" : true,
+  "categoryId" : "b0780fa7-5222-4c11-b0d1-268aa57fa343",
+  "productName" : "tel1",
+  "price" : 50
 } ]
