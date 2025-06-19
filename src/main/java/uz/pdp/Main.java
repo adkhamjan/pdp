@@ -353,8 +353,10 @@ public class Main {
         if (categories.isEmpty()) {
             System.out.println();
             Category category = CategoryService.getCategoryById(id);
-             assert category != null;
-             List<Product> productList = productService.getProductsByCategoryId(category.getId());
+            if (category == null) {
+                return null;
+            }
+            List<Product> productList = productService.getProductsByCategoryId(category.getId());
             System.out.println(category.getName());
             for (Product product : productList) {
                 System.out.println(product);

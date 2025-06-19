@@ -168,4 +168,11 @@
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
   </Category>
+  <Category>
+    <id>27b6a248-28be-4f44-a9be-cf3cd7f0ada5</id>
+    <active>true</active>
+    <name>Chevrolet</name>
+    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
+    <parentId>bf766b3a-a4a7-4e93-b761-f291e9f1892c</parentId>
+  </Category>
 </categories>
