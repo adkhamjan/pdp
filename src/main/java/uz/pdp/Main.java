@@ -1,4 +1,3 @@
-
 package uz.pdp;
 
 import uz.pdp.model.*;
@@ -71,42 +70,77 @@ public class Main {
                         1. Add Product to Cart
                         2. My cart
                         3. Deleted Cart
-                        4. My Orders list
-                        5. List all Orders
+                        4. To Order
+                        5. My Orders list
+                        6. List all Orders
                         0. Exit
                         """);
                 step = scannerInt.nextInt();
                 switch (step) {
                     case 1 -> {
-                        UUID productId = selectProduct(null);
-                        if (productId == null) {
-                            break;
-                        }
-                        System.out.println("Enter quantity");
-                        int quantity = scannerInt.nextInt();
-                        System.out.println(cartService.addProductToCart(productId, currUser.getId(), cartId, quantity));
-                        else{
-                            System.out.println("Not found cart! create cart");
+                        int step1 = 1;
+                        while (step1 != 0) {
+                            UUID productId = selectProduct(null);
+                            if (productId == null) {
+                                break;
+                            }
+                            System.out.println("Enter quantity");
+                            int quantity = scannerInt.nextInt();
+                            CartItem cartItem = new CartItem(cart.getId(), productId, quantity);
+                            System.out.println(cartService.addProductToCart(cart.getId(), cartItem));
+                            System.out.println("0.Back    1.Sotib olishni davom ettirish");
+                            step1 = scannerInt.nextInt();
                         }
                     }
-                    case 3 -> {
-                        List<List<Cart>> cartlist = cartService.getCartByUserId(currUser.getId());
-                        for (List<Cart> carts : cartlist) {
-                            for (Cart cart : carts) {
-                                Product product = ProductService.getProductById(cart.getProductId());
-                                String productName = product.getProductName();
+                    case 2 -> {
+                        Cart cart1 = cartService.getCartByCartId(cart.getId());
+                        if (cart1 == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
+                            break;
 
-                                System.out.print(productName + ":" + cart.getQuantity() + ", productActive:" + product.isActive() + "; ");
+                        }
+                        List<CartItem> cartItems = cart1.getCartList();
+                        for (CartItem cartItem : cartItems) {
+                            String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
+                            System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
+                        }
+                        System.out.println();
+                    }
+                    case 3 -> {
+                        System.out.println(cartService.deletedCart(cart.getId()));
+                        cart = new Cart(currUser.getId());
+                    }
+                    case 4 -> {
+                        Cart currCart = cartService.getCartByCartId(cart.getId());
+                        if (currCart == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
+                            break;
+                        }
+                        cartService.addCartToOrders(currCart);
+                    }
+                    case 5 -> {
+                        List<Cart> userOrders = cartService.getOrdersByUserId(currUser.getId());
+                        for (Cart order : userOrders) {
+                            List<CartItem> cartItems = order.getCartList();
+                            for (CartItem cartItem : cartItems) {
+                                Product product = ProductService.getProductById(cartItem.getProductId());
+                                String productName = product.getProductName();
+                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
                             }
                             System.out.println();
                         }
+                        System.out.println();
                     }
-                    case 4 -> {
-                        List<Cart> carts = cartService.getAllCarts();
-                        for (Cart cart : carts) {
-                            boolean productActive = ProductService.getProductById(cart.getProductId()).isActive();
-                            String productName = ProductService.getProductById(cart.getProductId()).getProductName();
-                            System.out.println(productName + ":" + cart.getQuantity() + ", productActive:" + productActive + ", " + cart);
+                    case 6 -> {
+                        List<Cart> orders = cartService.getAllOrders();
+                        for (Cart order : orders) {
+                            List<CartItem> cartItems = order.getCartList();
+                            for (CartItem cartItem : cartItems) {
+                                Product product = ProductService.getProductById(cartItem.getProductId());
+                                String productName = product.getProductName();
+                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+                            }
+                            System.out.println();
                         }
                         System.out.println();
                     }

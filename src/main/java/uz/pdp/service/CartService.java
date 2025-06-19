@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
 import uz.pdp.model.CartItem;
 import uz.pdp.util.FileUtil;
-import uz.pdp.model.Product;
 
 import java.util.*;
 
@@ -16,10 +15,6 @@ public class CartService {
     @SneakyThrows
     public CartService() {
         orderList = FileUtil.read(fileName, Cart.class);
-    }
-
-    private List<Cart> getCartListByCartId(UUID cartId) {
-        return cartMapByCartId.get(cartId);
     }
 
     @SneakyThrows
@@ -40,20 +35,31 @@ public class CartService {
         return "Successful";
     }
 
-    public List<List<Cart>> getCartByUserId(UUID userId) {
-        Set<UUID> cartIds = cartMapByUserId.get(userId);
-        List<List<Cart>> list = new ArrayList<>(new ArrayList<>());
-        if (cartIds == null) {
-            return list;
-        }
-        for (UUID cartId : cartIds) {
-            list.add(getCartListByCartId(cartId));
-        }
-        return list;
+    public Cart getCartByCartId(UUID cartId) {
+        return null;
     }
 
-    public List<Cart> getAllCarts() {
-        return cartList;
+    public String deletedCart(UUID cartId) {
+        return "Successful";
+    }
+
+    public void addCartToOrders(Cart cart) {
+        orderList.add(cart);
+        saveCarts();
+    }
+
+    public List<Cart> getOrdersByUserId(UUID userId) {
+        List<Cart> carts = new ArrayList<>();
+        for (Cart cart : orderList) {
+            if (cart.getUserId().equals(userId)) {
+                carts.add(cart);
+            }
+        }
+        return carts;
+    }
+
+    public List<Cart> getAllOrders() {
+        return orderList;
     }
 
     public void createCart(Cart cart){
