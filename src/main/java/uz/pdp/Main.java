@@ -99,6 +99,7 @@ public class Main {
                             break;
                         }
                         List<CartItem> cartItems = cart1.getCartList();
+                        System.out.print("Total price:" + cart1.getTotalPrice()+" ");
                         for (CartItem cartItem : cartItems) {
                             String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
                             System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
@@ -119,30 +120,12 @@ public class Main {
                         cart = new Cart(currUser.getId());
                     }
                     case 5 -> {
-                        List<Cart> userOrders = cartService.getOrdersByUserId(currUser.getId());
-                        for (Cart order : userOrders) {
-                            List<CartItem> cartItems = order.getCartList();
-                            for (CartItem cartItem : cartItems) {
-                                Product product = ProductService.getProductById(cartItem.getProductId());
-                                String productName = product.getProductName();
-                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
-                            }
-                            System.out.println();
-                        }
-                        System.out.println();
+                        List<Cart> orders = cartService.getOrdersByUserId(currUser.getId());
+                        showCart(orders, currUser);
                     }
                     case 6 -> {
                         List<Cart> orders = cartService.getAllOrders();
-                        for (Cart order : orders) {
-                            List<CartItem> cartItems = order.getCartList();
-                            for (CartItem cartItem : cartItems) {
-                                Product product = ProductService.getProductById(cartItem.getProductId());
-                                String productName = product.getProductName();
-                                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
-                            }
-                            System.out.println();
-                        }
-                        System.out.println();
+                        showCart(orders, currUser);
                     }
                 }
             }
@@ -370,7 +353,8 @@ public class Main {
         if (categories.isEmpty()) {
             System.out.println();
             Category category = CategoryService.getCategoryById(id);
-            List<Product> productList = productService.getProductsByCategoryId(category.getId());
+             assert category != null;
+             List<Product> productList = productService.getProductsByCategoryId(category.getId());
             System.out.println(category.getName());
             for (Product product : productList) {
                 System.out.println(product);
@@ -399,7 +383,8 @@ public class Main {
                 return null;
             }
             Category category = CategoryService.getCategoryById(id);
-            return enterCategoryProduct(category.getParentId());
+             assert category != null;
+             return enterCategoryProduct(category.getParentId());
         }
         if (step == 1) {
             System.out.println("Enter Id");
@@ -437,7 +422,6 @@ public class Main {
             for (Product product : productList) {
                 System.out.println(product);
             }
-            System.out.println();
             if (productList.isEmpty()) {
                 System.out.println("0.Back");
                 step = scannerInt.nextInt();
@@ -470,7 +454,8 @@ public class Main {
                 return null;
             }
             Category category = CategoryService.getCategoryById(id);
-            return selectProduct(category.getParentId());
+             assert category != null;
+             return selectProduct(category.getParentId());
         }
         if (step == 1) {
             System.out.println("Enter Id");
@@ -483,5 +468,19 @@ public class Main {
             System.out.println("Not found category");
         }
         return selectProduct(id);
+    }
+
+    public static  void showCart(List<Cart> orders, User currUser) {
+        for (Cart order : orders) {
+            List<CartItem> cartItems = order.getCartList();
+            System.out.print("Total price:" + order.getTotalPrice()+" ");
+            for (CartItem cartItem : cartItems) {
+                Product product = ProductService.getProductById(cartItem.getProductId());
+                String productName = product.getProductName();
+                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
