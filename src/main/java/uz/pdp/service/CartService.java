@@ -25,6 +25,8 @@ public class CartService {
     }
 
     public String addProductToCart(Cart currCart, CartItem cartItem) {
+        int price = ProductService.getProductById(cartItem.getProductId()).getPrice();
+        int totalPrice = price * cartItem.getQuantity();
         for (Cart cart : cartList) {
             if (cart.getId().equals(currCart.getId())) {
                 CartItem cartItem1 = hasCartItem(cart.getCartList(), cartItem);
@@ -33,11 +35,13 @@ public class CartService {
                 } else {
                     cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
                 }
+                cart.setTotalPrice(cart.getTotalPrice() + totalPrice);
                 return "Successful";
             }
         }
         createCart(currCart);
         currCart.getCartList().add(cartItem);
+        currCart.setTotalPrice(totalPrice);
         return "Successful";
     }
 
@@ -101,39 +105,4 @@ public class CartService {
         cartList.add(cart);
     }
 
-//    public String addProductToCart(UUID productId, UUID userId, UUID cartId, int quantity) {
-//        Product product = ProductService.getProductById(productId);
-//        if (product != null && product.isActive()) {
-//            Cart newCart = new Cart(cartId, userId, productId, quantity);
-//            List<Cart> carts = cartMapByCartId.get(cartId);
-//            if (carts == null) {
-//                carts = new ArrayList<>();
-//                carts.add(newCart);
-//                cartMapByCartId.put(cartId, carts);
-//
-//                Set<UUID> cartIds = cartMapByUserId.get(userId);
-//                if (cartIds == null) {
-//                    cartIds = new HashSet<>();
-//                }
-//                cartIds.add(cartId);
-//                cartMapByUserId.put(userId, cartIds);
-//
-//                cartList.add(newCart);
-//                saveCarts();
-//                return "Successful \n";
-//            }
-//            for (Cart cart : carts) {
-//                if (cart.getProductId().equals(productId)) {
-//                    cart.setQuantity(cart.getQuantity() + quantity);
-//                    saveCarts();
-//                    return "Successful \n";
-//                }
-//            }
-//            cartList.add(newCart);
-//            carts.add(newCart);
-//            saveCarts();
-//            return "Successful \n";
-//        }
-//        return "not found product \n";
-//    }
 }
