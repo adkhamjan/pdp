@@ -1,37 +1,55 @@
 [ {
-  "id" : "cc644535-9b12-4e40-a401-60ee14f7f3d7",
-  "active" : false,
-  "categoryId" : "84a4c897-f5a8-42cf-afc1-920c085220be",
-  "productName" : "aaaaaaaaa",
-  "price" : 100
-}, {
-  "id" : "cdd0fa54-bb85-4a90-9f5d-8baaa3c2418d",
-  "active" : false,
-  "categoryId" : "f07863e7-9777-4e95-9514-cd82dbf5b950",
-  "productName" : "AAAAAAAAAAAAAAAA",
-  "price" : 50
-}, {
-  "id" : "a4acbccf-94ed-4cb0-9a28-0a26dccb47a0",
-  "active" : false,
-  "categoryId" : "3539edfe-be23-441b-8728-f9751fa0f3ac",
-  "productName" : "WWWWWWWWW",
-  "price" : 40
-}, {
-  "id" : "cc3365a3-1e59-4c54-b118-4c5e23bb2414",
+  "id" : "7a14a5d3-a302-47ed-be8c-590f42a8ebfd",
   "active" : true,
-  "categoryId" : "5e7ca41c-6b82-4788-86d3-c4c8011406d3",
-  "productName" : "PPPPPPPPPP",
-  "price" : 20
+  "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
+  "productName" : "Big lavash",
+  "price" : 30000
 }, {
-  "id" : "f26fa39d-7be7-4243-b817-81a75fd70383",
+  "id" : "2ccb8ac3-bf56-44b6-9172-167d422c234f",
   "active" : true,
-  "categoryId" : "1cd29f7f-2988-4d21-8e8e-0b9f49150fcb",
-  "productName" : "telefon",
-  "price" : 30
+  "categoryId" : "a5db7a53-e3a4-40f4-a1db-c5b9e569feea",
+  "productName" : "Iphone 14 pro max",
+  "price" : 15000000
 }, {
-  "id" : "c63a943c-170b-4e5c-a90b-dcc2a1004448",
+  "id" : "0fa0438e-983a-4a35-8dd9-8e16f92515e5",
+  "active" : true,
+  "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
+  "productName" : "Artel",
+  "price" : 3500000
+}, {
+  "id" : "d7383cc2-58b6-44e9-8e76-19cd6e56325f",
+  "active" : true,
+  "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
+  "productName" : "mac Air m3",
+  "price" : 150000000
+}, {
+  "id" : "3b636de3-ca4b-4bf9-b8a3-1f53a7d3065d",
+  "active" : true,
+  "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
+  "productName" : "mac pro m3",
+  "price" : 25000000
+}, {
+  "id" : "03beb0f8-f897-478a-97be-d75385960d85",
+  "active" : true,
+  "categoryId" : "feae06ae-4d59-45ec-921d-b92e2f2c8001",
+  "productName" : "Galaxy S25 Ultra",
+  "price" : 12000000
+}, {
+  "id" : "f46fd74b-6f70-471f-a897-ed41d65a14f0",
+  "active" : true,
+  "categoryId" : "88594fae-1e0f-40d9-9f76-4c061eb5e425",
+  "productName" : "Vaz 2106",
+  "price" : 16000000
+}, {
+  "id" : "9d7b1a8e-8ca1-48c5-b294-49f50715bc1f",
   "active" : false,
-  "categoryId" : "b0780fa7-5222-4c11-b0d1-268aa57fa343",
-  "productName" : "Product",
-  "price" : 50
+  "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
+  "productName" : "klassik lavash",
+  "price" : 29000000
+}, {
+  "id" : "bb69919b-9627-4e5e-818a-c4d6850bec36",
+  "active" : true,
+  "categoryId" : "b5ade57a-7148-418d-bd79-f123f20f73cd",
+  "productName" : "ruchka",
+  "price" : 3000
 } ]
