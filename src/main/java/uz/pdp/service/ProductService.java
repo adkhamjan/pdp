@@ -2,7 +2,7 @@ package uz.pdp.service;
 
 import lombok.SneakyThrows;
 import uz.pdp.model.Category;
-import uz.pdp.model.FileUtil;
+import uz.pdp.util.FileUtil;
 import uz.pdp.model.Product;
 
 import java.util.*;
@@ -82,5 +82,9 @@ public class ProductService {
             return "Successful \n";
         }
         return "Not found product \n";
+    }
+
+    public List<Product> getAllProducts() {
+        return products;
     }
 }
