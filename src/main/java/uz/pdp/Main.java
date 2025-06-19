@@ -87,7 +87,7 @@ public class Main {
                             System.out.println("Enter quantity");
                             int quantity = scannerInt.nextInt();
                             CartItem cartItem = new CartItem(cart.getId(), productId, quantity);
-                            System.out.println(cartService.addProductToCart(cart.getId(), cartItem));
+                            System.out.println(cartService.addProductToCart(cart, cartItem));
                             System.out.println("0.Back    1.Sotib olishni davom ettirish");
                             step1 = scannerInt.nextInt();
                         }
@@ -97,7 +97,6 @@ public class Main {
                         if (cart1 == null) {
                             System.out.println("Sizda cart mavjud emas \n");
                             break;
-
                         }
                         List<CartItem> cartItems = cart1.getCartList();
                         for (CartItem cartItem : cartItems) {
@@ -117,6 +116,7 @@ public class Main {
                             break;
                         }
                         cartService.addCartToOrders(currCart);
+                        cart = new Cart(currUser.getId());
                     }
                     case 5 -> {
                         List<Cart> userOrders = cartService.getOrdersByUserId(currUser.getId());
@@ -273,6 +273,7 @@ public class Main {
         for (Category category : categories) {
             System.out.println(category);
         }
+        System.out.println();
         System.out.println("0.Back   1.Add   2.Enter");
         int step = scannerInt.nextInt();
         if (step == 0) {
@@ -289,7 +290,7 @@ public class Main {
                     return enterCategory(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category \n");
         }
         return enterParentCategory();
     }
@@ -302,31 +303,36 @@ public class Main {
         if (childCategory.isEmpty()) {
             return enterLastCategory(id);
         }
+        Category category1 = CategoryService.getCategoryById(id);
+        System.out.println(category1.getName());
         for (Category category : childCategory) {
             System.out.println(category);
         }
+        System.out.println();
         System.out.println("0.Back   1.Add   2.Enter");
         int step = scannerInt.nextInt();
         if (step == 0) {
-            Category category = CategoryService.getCategoryById(id);
-            return enterCategory(category.getParentId());
+            return enterCategory(category1.getParentId());
         }
         if (step == 1) return id;
         if (step == 2) {
             System.out.println("Enter Id");
             id = UUID.fromString(scannerStr.nextLine());
+            System.out.println();
             for (Category category : childCategory) {
                 if (category.getId().equals(id)) {
                     return enterCategory(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category\n");
         }
         return enterCategory(id);
     }
 
     public static UUID enterLastCategory(UUID id) {
         Category category = CategoryService.getCategoryById(id);
+        Category category1 = CategoryService.getCategoryById(id);
+        System.out.println(category1.getName() +"\n");
         if (category.getNodeType() == null || category.getNodeType()){
             System.out.println("0.Back   1.Add");
             int step = scannerInt.nextInt();
@@ -362,8 +368,10 @@ public class Main {
 
         int step;
         if (categories.isEmpty()) {
+            System.out.println();
             Category category = CategoryService.getCategoryById(id);
             List<Product> productList = productService.getProductsByCategoryId(category.getId());
+            System.out.println(category.getName());
             for (Product product : productList) {
                 System.out.println(product);
             }
@@ -401,7 +409,7 @@ public class Main {
                     return enterCategoryProduct(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category\n");
         }
         return enterCategory(id);
     }

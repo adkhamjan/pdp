@@ -11,12 +11,6 @@ public class CategoryService {
     private static final String fileName = "categories.xml";
     private static List<Category> categories;
 
-//    @SneakyThrows
-//    public CategoryService() {
-//        categories = new ArrayList<>();
-//        categories = FileUtil.readFromXml(fileName, CategoryListWrapper.class);
-//    }
-
     @SneakyThrows
     public CategoryService() {
         CategoryListWrapper wrapper = FileUtil.readFromXml(fileName, CategoryListWrapper.class);
