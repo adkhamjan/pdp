@@ -1,4 +1,3 @@
-
 package uz.pdp;
 
 import uz.pdp.model.*;
@@ -71,44 +70,62 @@ public class Main {
                         1. Add Product to Cart
                         2. My cart
                         3. Deleted Cart
-                        4. My Orders list
-                        5. List all Orders
+                        4. To Order
+                        5. My Orders list
+                        6. List all Orders
                         0. Exit
                         """);
                 step = scannerInt.nextInt();
                 switch (step) {
                     case 1 -> {
-                        UUID productId = selectProduct(null);
-                        if (productId == null) {
+                        int step1 = 1;
+                        while (step1 != 0) {
+                            UUID productId = selectProduct(null);
+                            if (productId == null) {
+                                break;
+                            }
+                            System.out.println("Enter quantity");
+                            int quantity = scannerInt.nextInt();
+                            CartItem cartItem = new CartItem(cart.getId(), productId, quantity);
+                            System.out.println(cartService.addProductToCart(cart, cartItem));
+                            System.out.println("0.Back    1.Sotib olishni davom ettirish");
+                            step1 = scannerInt.nextInt();
+                        }
+                    }
+                    case 2 -> {
+                        Cart cart1 = cartService.getCartByCartId(cart.getId());
+                        if (cart1 == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
                             break;
                         }
-                        System.out.println("Enter quantity");
-                        int quantity = scannerInt.nextInt();
-                        System.out.println(cartService.addProductToCart(productId, currUser.getId(), cartId, quantity));
-                        else{
-                            System.out.println("Not found cart! create cart");
-                        }
-                    }
-                    case 3 -> {
-                        List<List<Cart>> cartlist = cartService.getCartByUserId(currUser.getId());
-                        for (List<Cart> carts : cartlist) {
-                            for (Cart cart : carts) {
-                                Product product = ProductService.getProductById(cart.getProductId());
-                                String productName = product.getProductName();
-
-                                System.out.print(productName + ":" + cart.getQuantity() + ", productActive:" + product.isActive() + "; ");
-                            }
-                            System.out.println();
-                        }
-                    }
-                    case 4 -> {
-                        List<Cart> carts = cartService.getAllCarts();
-                        for (Cart cart : carts) {
-                            boolean productActive = ProductService.getProductById(cart.getProductId()).isActive();
-                            String productName = ProductService.getProductById(cart.getProductId()).getProductName();
-                            System.out.println(productName + ":" + cart.getQuantity() + ", productActive:" + productActive + ", " + cart);
+                        List<CartItem> cartItems = cart1.getCartList();
+                        System.out.print("Total price:" + cart1.getTotalPrice()+" ");
+                        for (CartItem cartItem : cartItems) {
+                            String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
+                            System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
                         }
                         System.out.println();
+                    }
+                    case 3 -> {
+                        System.out.println(cartService.deletedCart(cart.getId()));
+                        cart = new Cart(currUser.getId());
+                    }
+                    case 4 -> {
+                        Cart currCart = cartService.getCartByCartId(cart.getId());
+                        if (currCart == null) {
+                            System.out.println("Sizda cart mavjud emas \n");
+                            break;
+                        }
+                        cartService.addCartToOrders(currCart);
+                        cart = new Cart(currUser.getId());
+                    }
+                    case 5 -> {
+                        List<Cart> orders = cartService.getOrdersByUserId(currUser.getId());
+                        showCart(orders, currUser);
+                    }
+                    case 6 -> {
+                        List<Cart> orders = cartService.getAllOrders();
+                        showCart(orders, currUser);
                     }
                 }
             }
@@ -239,6 +256,7 @@ public class Main {
         for (Category category : categories) {
             System.out.println(category);
         }
+        System.out.println();
         System.out.println("0.Back   1.Add   2.Enter");
         int step = scannerInt.nextInt();
         if (step == 0) {
@@ -255,7 +273,7 @@ public class Main {
                     return enterCategory(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category \n");
         }
         return enterParentCategory();
     }
@@ -268,31 +286,36 @@ public class Main {
         if (childCategory.isEmpty()) {
             return enterLastCategory(id);
         }
+        Category category1 = CategoryService.getCategoryById(id);
+        System.out.println(category1.getName());
         for (Category category : childCategory) {
             System.out.println(category);
         }
+        System.out.println();
         System.out.println("0.Back   1.Add   2.Enter");
         int step = scannerInt.nextInt();
         if (step == 0) {
-            Category category = CategoryService.getCategoryById(id);
-            return enterCategory(category.getParentId());
+            return enterCategory(category1.getParentId());
         }
         if (step == 1) return id;
         if (step == 2) {
             System.out.println("Enter Id");
             id = UUID.fromString(scannerStr.nextLine());
+            System.out.println();
             for (Category category : childCategory) {
                 if (category.getId().equals(id)) {
                     return enterCategory(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category\n");
         }
         return enterCategory(id);
     }
 
     public static UUID enterLastCategory(UUID id) {
         Category category = CategoryService.getCategoryById(id);
+        Category category1 = CategoryService.getCategoryById(id);
+        System.out.println(category1.getName() +"\n");
         if (category.getNodeType() == null || category.getNodeType()){
             System.out.println("0.Back   1.Add");
             int step = scannerInt.nextInt();
@@ -328,8 +351,11 @@ public class Main {
 
         int step;
         if (categories.isEmpty()) {
+            System.out.println();
             Category category = CategoryService.getCategoryById(id);
-            List<Product> productList = productService.getProductsByCategoryId(category.getId());
+             assert category != null;
+             List<Product> productList = productService.getProductsByCategoryId(category.getId());
+            System.out.println(category.getName());
             for (Product product : productList) {
                 System.out.println(product);
             }
@@ -357,7 +383,8 @@ public class Main {
                 return null;
             }
             Category category = CategoryService.getCategoryById(id);
-            return enterCategoryProduct(category.getParentId());
+             assert category != null;
+             return enterCategoryProduct(category.getParentId());
         }
         if (step == 1) {
             System.out.println("Enter Id");
@@ -367,7 +394,7 @@ public class Main {
                     return enterCategoryProduct(id);
                 }
             }
-            System.out.println("Not found category");
+            System.out.println("Not found category\n");
         }
         return enterCategory(id);
     }
@@ -395,7 +422,6 @@ public class Main {
             for (Product product : productList) {
                 System.out.println(product);
             }
-            System.out.println();
             if (productList.isEmpty()) {
                 System.out.println("0.Back");
                 step = scannerInt.nextInt();
@@ -428,7 +454,8 @@ public class Main {
                 return null;
             }
             Category category = CategoryService.getCategoryById(id);
-            return selectProduct(category.getParentId());
+             assert category != null;
+             return selectProduct(category.getParentId());
         }
         if (step == 1) {
             System.out.println("Enter Id");
@@ -441,5 +468,19 @@ public class Main {
             System.out.println("Not found category");
         }
         return selectProduct(id);
+    }
+
+    public static  void showCart(List<Cart> orders, User currUser) {
+        for (Cart order : orders) {
+            List<CartItem> cartItems = order.getCartList();
+            System.out.print("Total price:" + order.getTotalPrice()+" ");
+            for (CartItem cartItem : cartItems) {
+                Product product = ProductService.getProductById(cartItem.getProductId());
+                String productName = product.getProductName();
+                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
