@@ -4,6 +4,7 @@
     <active>true</active>
     <name>Texnika</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
+    <nodeType>true</nodeType>
   </Category>
   <Category>
     <id>68877412-5bf3-464b-b6fb-8cd8a5fdf488</id>
@@ -83,6 +84,7 @@
     <name>Iphone</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>362a3fed-5373-4994-b18a-fd6c304d8d4c</parentId>
+    <nodeType>false</nodeType>
   </Category>
   <Category>
     <id>feae06ae-4d59-45ec-921d-b92e2f2c8001</id>
@@ -99,32 +101,12 @@
     <parentId>362a3fed-5373-4994-b18a-fd6c304d8d4c</parentId>
   </Category>
   <Category>
-    <id>3e8b4966-508a-4964-93f6-2eca6b4e92a7</id>
-    <active>false</active>
-    <name>HP pavilion</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
-  </Category>
-  <Category>
-    <id>76e546eb-ce82-4ab3-9207-c2f600245561</id>
-    <active>false</active>
-    <name>MacBook</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
-  </Category>
-  <Category>
-    <id>b8575d32-ec1f-4ef7-bedc-13e9cc4dd63d</id>
-    <active>false</active>
-    <name>Lenova3</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
-  </Category>
-  <Category>
     <id>b5ade57a-7148-418d-bd79-f123f20f73cd</id>
     <active>true</active>
     <name>Markerlar</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>68877412-5bf3-464b-b6fb-8cd8a5fdf488</parentId>
+    <nodeType>false</nodeType>
   </Category>
   <Category>
     <id>88594fae-1e0f-40d9-9f76-4c061eb5e425</id>
@@ -132,6 +114,7 @@
     <name>Jiguli</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>bf766b3a-a4a7-4e93-b761-f291e9f1892c</parentId>
+    <nodeType>false</nodeType>
   </Category>
   <Category>
     <id>5cc95ef1-1812-4f7e-8674-fb17c15ec860</id>
@@ -139,6 +122,7 @@
     <name>Lavash</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>ce316166-e7e1-4d17-8bd1-58e78b65fd06</parentId>
+    <nodeType>false</nodeType>
   </Category>
   <Category>
     <id>0d24eb99-a734-49c0-8835-c5f34a7cb393</id>
@@ -155,18 +139,12 @@
     <parentId>ce316166-e7e1-4d17-8bd1-58e78b65fd06</parentId>
   </Category>
   <Category>
-    <id>7ea77b76-efe0-4271-bf35-dd805750f42b</id>
-    <active>false</active>
-    <name>HP Pavilion</name>
-    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
-    <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
-  </Category>
-  <Category>
     <id>6b425bed-d6f9-48ce-bbfe-a63a988d7a40</id>
     <active>true</active>
     <name>MacBook</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>3d685267-9101-454c-a1fb-1450723fa5ce</parentId>
+    <nodeType>false</nodeType>
   </Category>
   <Category>
     <id>27b6a248-28be-4f44-a9be-cf3cd7f0ada5</id>

@@ -145,7 +145,7 @@ public class Main {
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
-                    UUID parentId = enterParentCategory();
+                    UUID parentId = chooseCategory(null, false);
                     if (parentId == null) {
                         break;
                     }
@@ -174,9 +174,11 @@ public class Main {
                     System.out.println();
                 }
                 case 3 -> {
-                    System.out.println(" Id kiriting");
-                    UUID id = UUID.fromString(scannerStr.nextLine());
-                    System.out.println(categoryService.deleted(id));
+                    UUID categoryId = chooseCategory(null, true);
+                    if (categoryId == null) {
+                        break;
+                    }
+                    System.out.println(categoryService.deleted(categoryId));
                 }
                 case 4 -> {
                     List<Category> categories = categoryService.getALLCategories();
@@ -203,7 +205,7 @@ public class Main {
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
-                    UUID categoryId = enterCategoryProduct(null);
+                    UUID categoryId = selectCategoryForProduct(null);
                     if (categoryId == null) {
                         break;
                     }
@@ -249,227 +251,186 @@ public class Main {
         }
     }
 
-
-    // to find parent
-    public static UUID enterParentCategory() {
-        List<Category> categories = categoryService.getParentCategories();
-        for (Category category : categories) {
-            System.out.println(category);
-        }
-        System.out.println();
-        System.out.println("0.Back   1.Add   2.Enter");
-        int step = scannerInt.nextInt();
-        if (step == 0) {
-            return null;
-        }
-        if (step == 1) {
-            return UUID.fromString("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e");
-        }
-        if (step == 2) {
-            System.out.println("Enter Id");
-            UUID id = UUID.fromString(scannerStr.nextLine());
-            for (Category category : categories) {
-                if (category.getId().equals(id)) {
-                    return enterCategory(id);
-                }
-            }
-            System.out.println("Not found category \n");
-        }
-        return enterParentCategory();
-    }
-
-    public static UUID enterCategory(UUID id) {
-        if (id == null) {
-            return enterParentCategory();
-        }
-        List<Category> childCategory = categoryService.getChildCategoryById(id);
-        if (childCategory.isEmpty()) {
-            return enterLastCategory(id);
-        }
-        Category category1 = CategoryService.getCategoryById(id);
-        System.out.println(category1.getName());
-        for (Category category : childCategory) {
-            System.out.println(category);
-        }
-        System.out.println();
-        System.out.println("0.Back   1.Add   2.Enter");
-        int step = scannerInt.nextInt();
-        if (step == 0) {
-            return enterCategory(category1.getParentId());
-        }
-        if (step == 1) return id;
-        if (step == 2) {
-            System.out.println("Enter Id");
-            id = UUID.fromString(scannerStr.nextLine());
+    public static UUID enterLastCategory(Category category, boolean isDelete) {
+        while (true) {
             System.out.println();
-            for (Category category : childCategory) {
-                if (category.getId().equals(id)) {
-                    return enterCategory(id);
-                }
+            if (category != null) {
+                System.out.println(category.getName());
             }
-            System.out.println("Not found category\n");
-        }
-        return enterCategory(id);
-    }
-
-    public static UUID enterLastCategory(UUID id) {
-        Category category = CategoryService.getCategoryById(id);
-        Category category1 = CategoryService.getCategoryById(id);
-        System.out.println(category1.getName() +"\n");
-        if (category.getNodeType() == null || category.getNodeType()){
-            System.out.println("0.Back   1.Add");
-            int step = scannerInt.nextInt();
-            if (step == 0) {
-                return enterCategory(category.getParentId());
-            }
-            if (step == 1) return id;
-            return enterCategory(id);
-        }
-        System.out.println("0.Back");
-        int step = scannerInt.nextInt();
-        if (step == 0) {
-            return enterCategory(category.getParentId());
-        }
-        return enterCategory(id);
-    }
-
-    public static UUID enterCategoryProduct(UUID id) {
-        List<Category> categories;
-        if (id == null) {
-            categories = categoryService.getParentCategories();
-            for (Category category : categories) {
-                System.out.println(category);
-            }
-            System.out.println();
-        } else {
-            categories = categoryService.getChildCategoryById(id);
-            for (Category category : categories) {
-                System.out.println(category);
-            }
-            System.out.println();
-        }
-
-        int step;
-        if (categories.isEmpty()) {
-            System.out.println();
-            Category category = CategoryService.getCategoryById(id);
-            if (category == null) {
-                return null;
-            }
-            List<Product> productList = productService.getProductsByCategoryId(category.getId());
-            System.out.println(category.getName());
-            for (Product product : productList) {
-                System.out.println(product);
-            }
-            System.out.println();
-            if (category.getNodeType() == null || !category.getNodeType()){
-                System.out.println("0.Back   1.Add");
-                step = scannerInt.nextInt();
+            if (category == null || category.getNodeType() == null || category.getNodeType() || isDelete){
+                System.out.println("0.Back   1.Choose");
+                int step = scannerInt.nextInt();
                 if (step == 0) {
-                    return enterCategoryProduct(category.getParentId());
+                    return (category != null) ? category.getParentId() : null;
                 }
-                if (step == 1) return id;
-                return enterCategoryProduct(id);
+                if (step == 1) return (category != null) ? category.getId() : UUID.fromString("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e");
             }
-            System.out.println("0.Back");
-            step = scannerInt.nextInt();
-            if (step == 0) {
-                return enterCategoryProduct(category.getParentId());
+            else {
+                System.out.println("0.Back");
+                int step = scannerInt.nextInt();
+                if (step == 0) {
+                    return category.getParentId();
+                }
             }
-            return enterCategoryProduct(id);
         }
-        System.out.println("0.Back   1.Enter");
-        step = scannerInt.nextInt();
-        if (step == 0) {
+    }
+
+    public static UUID chooseCategory(UUID id, boolean isDelete) {
+        while (true) {
+            List<Category> childCategories;
+            Category category;
             if (id == null) {
-                return null;
+                childCategories = categoryService.getParentCategories();
+                category = null;
+            } else {
+                childCategories = categoryService.getChildCategoryById(id);
+                category = CategoryService.getCategoryById(id);
             }
-            Category category = CategoryService.getCategoryById(id);
-             assert category != null;
-             return enterCategoryProduct(category.getParentId());
-        }
-        if (step == 1) {
-            System.out.println("Enter Id");
-            id = UUID.fromString(scannerStr.nextLine());
-            for (Category category : categories) {
-                if (category.getId().equals(id)) {
-                    return enterCategoryProduct(id);
+
+            if (childCategories.isEmpty()) {
+                UUID id1 = enterLastCategory(category, isDelete);
+                if (id == null) return id1;
+                if (id.equals(id1)) return id;
+                id = id1;
+            } else {
+                showChildCategories(childCategories, category);
+                System.out.println("0.Back   1.Choose   2.Enter");
+                int step = scannerInt.nextInt();
+                if (step == 0) {
+                    if (category == null) return null;
+                    id = category.getParentId();
+                } else if (step == 1) {
+                    if (id == null) return UUID.fromString("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e");
+                    return id;
+                } else if (step == 2) {
+                    System.out.println("Enter number");
+                    int temp = scannerInt.nextInt();
+                    if (temp >= 1 && temp <= childCategories.size()) {
+                        id = childCategories.get(temp - 1).getId();
+                    }
+                    else {
+                        System.out.println("Not found category\n");
+                    }
                 }
+                else System.out.println("Not found number\n");
+            }
+        }
+    }
+
+    public static <T> void showChildCategories(List<T> t, Category parentCategory) {
+        if (parentCategory != null) {
+            System.out.println(parentCategory.getName());
+        }
+        int i = 1;
+        for (T item : t) {
+            System.out.println(i++ + ". " + item);
+        }
+        System.out.println();
+    }
+
+    public static List<Product> showProducts(Category parentCategory, boolean isNumber) {
+        List<Product> productList = productService.getProductsByCategoryId(parentCategory.getId());
+        int i = 1;
+        System.out.println(parentCategory.getName());
+        for (Product product : productList) {
+            if (isNumber) {
+                System.out.println(i++ + ". " + product);
+            }
+            else System.out.println(product);
+        }
+        System.out.println();
+        return productList;
+    }
+
+    public static UUID enterCategory(Category category, List<Category> childCategories) {
+        while (true) {
+            showChildCategories(childCategories, category);
+            System.out.println("0. Back   \nEnter number");
+            int temp = scannerInt.nextInt();
+            if (temp == 0) {
+                return (category != null) ? category.getParentId() : null;
+            }
+            if (temp >= 1 && temp <= childCategories.size()) {
+                return childCategories.get(temp - 1).getId();
             }
             System.out.println("Not found category\n");
         }
-        return enterCategory(id);
+    }
+
+    public static UUID selectCategoryForProduct(UUID id) {
+        while (true) {
+            List<Category> childCategories;
+            Category category;
+            if (id == null) {
+                childCategories = categoryService.getParentCategories();
+                category = null;
+            } else {
+                childCategories = categoryService.getChildCategoryById(id);
+                category = CategoryService.getCategoryById(id);
+            }
+
+            if (childCategories.isEmpty()) {
+                showProducts(category, false);
+                if (category.getNodeType() == null || !category.getNodeType()) {
+                    System.out.println("0. Back   1. Add");
+                    int step = scannerInt.nextInt();
+                    if (step == 0) {
+                        id = category.getParentId();
+                    } else if (step == 1) {
+                        return id;
+                    }
+                } else {
+                    System.out.println("0. Back");
+                    int step = scannerInt.nextInt();
+                    if (step == 0) {
+                        id = category.getParentId();
+                    }
+                }
+            } else {
+                UUID id1 = enterCategory(category, childCategories);
+                if (id == null && id1 == null) return null;
+                id = id1;
+            }
+        }
+    }
+
+    public static UUID chooseProduct(Category category) {
+        int temp;
+        while (true) {
+            List<Product> productList = showProducts(category, true);
+            System.out.println("0.Back \nEnter number");
+            temp = scannerInt.nextInt();
+            if (temp == 0) {
+                return category.getParentId();
+            } else if (temp >= 1 && temp <= productList.size()) {
+                return productList.get(temp - 1).getId();
+            } else System.out.println("Not found category\n");
+        }
     }
 
     public static UUID selectProduct(UUID id) {
-        List<Category> categories;
-        if (id == null) {
-            categories = categoryService.getParentCategories();
-            for (Category category : categories) {
-                System.out.println(category);
-            }
-            System.out.println();
-        } else {
-            categories = categoryService.getChildCategoryById(id);
-            for (Category category : categories) {
-                System.out.println(category);
-            }
-            System.out.println();
-        }
-
-        int step;
-        if (categories.isEmpty()) {
+        while (true) {
+            List<Category> categories;
             Category category = CategoryService.getCategoryById(id);
-            List<Product> productList = productService.getProductsByCategoryId(category.getId());
-            for (Product product : productList) {
-                System.out.println(product);
-            }
-            if (productList.isEmpty()) {
-                System.out.println("0.Back");
-                step = scannerInt.nextInt();
-                if (step == 0) {
-                    return selectProduct(category.getParentId());
-                }
-                return selectProduct(id);
-            }
-            System.out.println("0.Back   1.Choice");
-            step = scannerInt.nextInt();
-            if (step == 0) {
-                return selectProduct(category.getParentId());
-            }
-            if (step == 1) {
-                System.out.println("Enter product Id");
-                UUID productId = UUID.fromString(scannerStr.nextLine());
-                for (Product product : productList) {
-                    if (product.getId().equals(productId)) {
-                        return productId;
-                    }
-                }
-                System.out.println("Not found productId");
-                return selectProduct(id);
-            }
-        }
-        System.out.println("0.Back   1.Enter");
-        step = scannerInt.nextInt();
-        if (step == 0) {
             if (id == null) {
-                return null;
+                categories = categoryService.getParentCategories();
+            } else {
+                categories = categoryService.getChildCategoryById(id);
             }
-            Category category = CategoryService.getCategoryById(id);
-             assert category != null;
-             return selectProduct(category.getParentId());
-        }
-        if (step == 1) {
-            System.out.println("Enter Id");
-            id = UUID.fromString(scannerStr.nextLine());
-            for (Category category : categories) {
-                if (category.getId().equals(id)) {
-                    return selectProduct(id);
+
+            if (categories.isEmpty()) {
+                UUID id1 = chooseProduct(category);
+                if (category.getParentId().equals(id1)) {
+                    id = id1;
                 }
+                else return id1;
             }
-            System.out.println("Not found category");
+            else {
+                UUID id1 = enterCategory(category, categories);
+                if (id == null && id1 == null) return null;
+                id = id1;
+            }
         }
-        return selectProduct(id);
     }
 
     public static  void showCart(List<Cart> orders, User currUser) {

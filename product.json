@@ -42,7 +42,7 @@
   "price" : 16000000
 }, {
   "id" : "9d7b1a8e-8ca1-48c5-b294-49f50715bc1f",
-  "active" : false,
+  "active" : true,
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "klassik lavash",
   "price" : 29000000
@@ -52,4 +52,10 @@
   "categoryId" : "b5ade57a-7148-418d-bd79-f123f20f73cd",
   "productName" : "ruchka",
   "price" : 3000
+}, {
+  "id" : "345022f6-67f0-4a83-b0fd-4d54ce197e43",
+  "active" : false,
+  "categoryId" : "a5db7a53-e3a4-40f4-a1db-c5b9e569feea",
+  "productName" : "Iphone 15 pro",
+  "price" : 10000000
 } ]

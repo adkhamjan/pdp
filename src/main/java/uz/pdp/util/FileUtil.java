@@ -16,7 +16,7 @@ public class FileUtil {
 
     static {
         objectMapper = JsonMapper.builder().enable(MapperFeature.PROPAGATE_TRANSIENT_MARKER).build();
-        xmlMapper = XmlMapper.builder().serializationInclusion(JsonInclude.Include.NON_NULL) // <<<< MUHIM QATOR
+        xmlMapper = XmlMapper.builder().serializationInclusion(JsonInclude.Include.NON_NULL)
                 .build();
     }
 
@@ -33,12 +33,6 @@ public class FileUtil {
     public static <T> void writeToXml(String path, T t) throws IOException {
         xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path), t);
     }
-
-//    public static <T> List<T> readFromXml(String path, Class<T> clazz) throws IOException {
-//        return xmlMapper.readValue(new File(path),
-//                xmlMapper.getTypeFactory().constructCollectionType(List.class, clazz)
-//        );
-//    }
 
     public static <T> T readFromXml(String path, Class<T> clazz) throws IOException {
         return xmlMapper.readValue(new File(path), clazz);
