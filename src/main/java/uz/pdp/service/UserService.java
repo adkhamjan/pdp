@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserService {
     private static final String fileName = "users.xml";
-    private List<User> users;
+    private final List<User> users;
 
     @SneakyThrows
     public UserService() {

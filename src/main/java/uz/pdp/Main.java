@@ -32,12 +32,12 @@ public class Main {
                     String userName = scannerStr.nextLine();
                     System.out.print(" Passwordingizni kiriting:");
                     String password = scannerStr.nextLine();
-                    userService.add(new User(name, userName, password, USER));
+                    System.out.println(userService.add(new User(name, userName, password, USER)));
                 }
                 case 2 -> {
-                    System.out.print(" usernameni kiriting:");
+                    System.out.print("usernameni kiriting:");
                     String username = scannerStr.nextLine();
-                    System.out.print(" password kiriting:");
+                    System.out.print("password kiriting:");
                     String password = scannerStr.nextLine();
                     User currUser = userService.login(username, password);
                     if (currUser == null) {
