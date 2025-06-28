@@ -11,11 +11,12 @@ import java.util.UUID;
 @AllArgsConstructor @NoArgsConstructor
 public class Cart extends BaseModel {
     private UUID userId;
-    private List<CartItem> cartList;
+    private List<CartItem> cartItemList;
+    private  int totalPrice;
 
-    public Cart(UUID userId) {
-        super();
-        cartList = new ArrayList<>();
+    public Cart(UUID userId, UUID cartId) {
+        super(cartId);
+        cartItemList = new ArrayList<>();
         this.userId = userId;
     }
 

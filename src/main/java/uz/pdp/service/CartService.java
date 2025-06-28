@@ -3,6 +3,7 @@ package uz.pdp.service;
 import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
 import uz.pdp.model.CartItem;
+import uz.pdp.model.User;
 import uz.pdp.util.FileUtil;
 
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
 public class CartService {
     private final String fileName = "orders.json";
     private List<Cart> orderList;
-    private List<Cart> cartList;
+    private final List<Cart> cartList;
 
     @SneakyThrows
     public CartService() {
@@ -24,24 +25,32 @@ public class CartService {
         FileUtil.write(fileName, orderList);
     }
 
-    public String addProductToCart(Cart currCart, CartItem cartItem) {
+    public String addProductToCart(CartItem cartItem, User user) {
+        int price = priceCalculation(cartItem);
         for (Cart cart : cartList) {
-            if (cart.getId().equals(currCart.getId())) {
-                CartItem cartItem1 = hasCartItem(cart.getCartList(), cartItem);
+            if (cart.getId().equals(cartItem.getCartId())) {
+                CartItem cartItem1 = hasCartItem(cart.getCartItemList(), cartItem);
                 if (cartItem1 == null) {
-                    cart.getCartList().add(cartItem);
+                    cart.getCartItemList().add(cartItem);
                 } else {
                     cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
                 }
+                cart.setTotalPrice(cart.getTotalPrice() + price);
                 return "Successful";
             }
         }
-        createCart(currCart);
-        currCart.getCartList().add(cartItem);
+        Cart currCart = createCart(cartItem.getCartId(), user);
+        currCart.getCartItemList().add(cartItem);
+        currCart.setTotalPrice(price);
         return "Successful";
     }
 
-    public CartItem hasCartItem(List<CartItem> cartItemList, CartItem cartItem) {
+    private int priceCalculation(CartItem cartItem) {
+        int price = ProductService.getProductById(cartItem.getProductId()).getPrice();
+        return price * cartItem.getQuantity();
+    }
+
+    private CartItem hasCartItem(List<CartItem> cartItemList, CartItem cartItem) {
         for (CartItem item : cartItemList) {
             if (item.getProductId().equals(cartItem.getProductId())) {
                 return item;
@@ -97,43 +106,9 @@ public class CartService {
         return orderList;
     }
 
-    public void createCart(Cart cart) {
+    public Cart createCart(UUID cartId, User user) {
+        Cart cart = new Cart(user.getId(), cartId);
         cartList.add(cart);
+        return cart;
     }
-
-//    public String addProductToCart(UUID productId, UUID userId, UUID cartId, int quantity) {
-//        Product product = ProductService.getProductById(productId);
-//        if (product != null && product.isActive()) {
-//            Cart newCart = new Cart(cartId, userId, productId, quantity);
-//            List<Cart> carts = cartMapByCartId.get(cartId);
-//            if (carts == null) {
-//                carts = new ArrayList<>();
-//                carts.add(newCart);
-//                cartMapByCartId.put(cartId, carts);
-//
-//                Set<UUID> cartIds = cartMapByUserId.get(userId);
-//                if (cartIds == null) {
-//                    cartIds = new HashSet<>();
-//                }
-//                cartIds.add(cartId);
-//                cartMapByUserId.put(userId, cartIds);
-//
-//                cartList.add(newCart);
-//                saveCarts();
-//                return "Successful \n";
-//            }
-//            for (Cart cart : carts) {
-//                if (cart.getProductId().equals(productId)) {
-//                    cart.setQuantity(cart.getQuantity() + quantity);
-//                    saveCarts();
-//                    return "Successful \n";
-//                }
-//            }
-//            cartList.add(newCart);
-//            carts.add(newCart);
-//            saveCarts();
-//            return "Successful \n";
-//        }
-//        return "not found product \n";
-//    }
 }
