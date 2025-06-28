@@ -63,10 +63,15 @@ public class Main {
                 }
             }
         } else {
-            Cart cart = new Cart(currUser.getId());
-            int step = 10;
-            while (step != 0) {
-                System.out.println("""
+            userMenu(currUser);
+        }
+    }
+
+    public static void userMenu(User currUser) {
+        UUID cartId = UUID.randomUUID();
+        int step = 10;
+        while (step != 0) {
+            System.out.println("""
                         1. Add Product to Cart
                         2. My cart
                         3. Deleted Cart
@@ -75,58 +80,57 @@ public class Main {
                         6. List all Orders
                         0. Exit
                         """);
-                step = scannerInt.nextInt();
-                switch (step) {
-                    case 1 -> {
-                        int step1 = 1;
-                        while (step1 != 0) {
-                            UUID productId = selectProduct(null);
-                            if (productId == null) {
-                                break;
-                            }
-                            System.out.println("Enter quantity");
-                            int quantity = scannerInt.nextInt();
-                            CartItem cartItem = new CartItem(cart.getId(), productId, quantity);
-                            System.out.println(cartService.addProductToCart(cart, cartItem));
-                            System.out.println("0.Back    1.Sotib olishni davom ettirish");
-                            step1 = scannerInt.nextInt();
-                        }
-                    }
-                    case 2 -> {
-                        Cart cart1 = cartService.getCartByCartId(cart.getId());
-                        if (cart1 == null) {
-                            System.out.println("Sizda cart mavjud emas \n");
+            step = scannerInt.nextInt();
+            switch (step) {
+                case 1 -> {
+                    int step1 = 1;
+                    while (step1 != 0) {
+                        UUID productId = selectProduct(null);
+                        if (productId == null) {
                             break;
                         }
-                        List<CartItem> cartItems = cart1.getCartList();
-                        System.out.print("Total price:" + cart1.getTotalPrice()+" ");
-                        for (CartItem cartItem : cartItems) {
-                            String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
-                            System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
-                        }
-                        System.out.println();
+                        System.out.println("Enter quantity");
+                        int quantity = scannerInt.nextInt();
+                        CartItem cartItem = new CartItem(cartId, productId, quantity);
+                        System.out.println(cartService.addProductToCart(cartItem, currUser));
+                        System.out.println("0.Back    1.Sotib olishni davom ettirish");
+                        step1 = scannerInt.nextInt();
                     }
-                    case 3 -> {
-                        System.out.println(cartService.deletedCart(cart.getId()));
-                        cart = new Cart(currUser.getId());
+                }
+                case 2 -> {
+                    Cart cart1 = cartService.getCartByCartId(cartId);
+                    if (cart1 == null) {
+                        System.out.println("Sizda cart mavjud emas \n");
+                        break;
                     }
-                    case 4 -> {
-                        Cart currCart = cartService.getCartByCartId(cart.getId());
-                        if (currCart == null) {
-                            System.out.println("Sizda cart mavjud emas \n");
-                            break;
-                        }
-                        cartService.addCartToOrders(currCart);
-                        cart = new Cart(currUser.getId());
+                    List<CartItem> cartItems = cart1.getCartItemList();
+                    System.out.print("Total price:" + cart1.getTotalPrice()+" ");
+                    for (CartItem cartItem : cartItems) {
+                        String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
+                        System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
                     }
-                    case 5 -> {
-                        List<Cart> orders = cartService.getOrdersByUserId(currUser.getId());
-                        showCart(orders, currUser);
+                    System.out.println();
+                }
+                case 3 -> {
+                    System.out.println(cartService.deletedCart(cartId));
+                    cartId = UUID.randomUUID();
+                }
+                case 4 -> {
+                    Cart currCart = cartService.getCartByCartId(cartId);
+                    if (currCart == null) {
+                        System.out.println("Sizda cart mavjud emas \n");
+                        break;
                     }
-                    case 6 -> {
-                        List<Cart> orders = cartService.getAllOrders();
-                        showCart(orders, currUser);
-                    }
+                    cartService.addCartToOrders(currCart);
+                    cartId = UUID.randomUUID();
+                }
+                case 5 -> {
+                    List<Cart> orders = cartService.getOrdersByUserId(currUser.getId());
+                    showCart(orders, currUser);
+                }
+                case 6 -> {
+                    List<Cart> orders = cartService.getAllOrders();
+                    showCart(orders, currUser);
                 }
             }
         }
@@ -435,7 +439,7 @@ public class Main {
 
     public static  void showCart(List<Cart> orders, User currUser) {
         for (Cart order : orders) {
-            List<CartItem> cartItems = order.getCartList();
+            List<CartItem> cartItems = order.getCartItemList();
             System.out.print("Total price:" + order.getTotalPrice()+" ");
             for (CartItem cartItem : cartItems) {
                 Product product = ProductService.getProductById(cartItem.getProductId());

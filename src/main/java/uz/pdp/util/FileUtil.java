@@ -3,8 +3,10 @@ package uz.pdp.util;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +17,13 @@ public class FileUtil {
     private static final XmlMapper xmlMapper;
 
     static {
-        objectMapper = JsonMapper.builder().enable(MapperFeature.PROPAGATE_TRANSIENT_MARKER).build();
+        objectMapper = JsonMapper.builder().enable(MapperFeature.PROPAGATE_TRANSIENT_MARKER)
+                .addModule(new JavaTimeModule()).build();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         xmlMapper = XmlMapper.builder().serializationInclusion(JsonInclude.Include.NON_NULL)
-                .build();
+                .addModule(new JavaTimeModule()).build();
+        xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     public static <T> void write(String path, T t) throws IOException {

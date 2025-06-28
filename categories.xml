@@ -1,6 +1,7 @@
 <categories>
   <Category>
     <id>0c282bc3-6b14-411f-98ec-a36473bea473</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Texnika</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -8,12 +9,15 @@
   </Category>
   <Category>
     <id>68877412-5bf3-464b-b6fb-8cd8a5fdf488</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Konstovar</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
+    <nodeType>true</nodeType>
   </Category>
   <Category>
     <id>bf766b3a-a4a7-4e93-b761-f291e9f1892c</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Avtomobil</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -21,6 +25,7 @@
   </Category>
   <Category>
     <id>ce316166-e7e1-4d17-8bd1-58e78b65fd06</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Foods</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -28,6 +33,7 @@
   </Category>
   <Category>
     <id>79710bdb-231e-4578-8f96-f90a5ca70700</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>maishiy texnika</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -36,6 +42,7 @@
   </Category>
   <Category>
     <id>362a3fed-5373-4994-b18a-fd6c304d8d4c</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Telefonlar</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -44,6 +51,7 @@
   </Category>
   <Category>
     <id>3d685267-9101-454c-a1fb-1450723fa5ce</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Kompyuterlar</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -52,6 +60,7 @@
   </Category>
   <Category>
     <id>32524c9c-a847-44a1-80b0-76c270c0449f</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Televizor</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -59,6 +68,7 @@
   </Category>
   <Category>
     <id>7708f6c4-2c20-4b0a-8548-162df7618e95</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Changyutgich</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -66,6 +76,7 @@
   </Category>
   <Category>
     <id>6d838e9b-30e7-4fa1-b4bd-1223e4084425</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Kirmoshina</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -73,6 +84,7 @@
   </Category>
   <Category>
     <id>aced413b-e9a2-4aba-b79b-7e9362bb59e3</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Muzlatgich</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -80,6 +92,7 @@
   </Category>
   <Category>
     <id>a5db7a53-e3a4-40f4-a1db-c5b9e569feea</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Iphone</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -88,6 +101,7 @@
   </Category>
   <Category>
     <id>feae06ae-4d59-45ec-921d-b92e2f2c8001</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Samsung</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -95,6 +109,7 @@
   </Category>
   <Category>
     <id>350dc551-03a6-4a75-bdd2-131a174f0c79</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Redmi</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -102,6 +117,7 @@
   </Category>
   <Category>
     <id>b5ade57a-7148-418d-bd79-f123f20f73cd</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Markerlar</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -110,6 +126,7 @@
   </Category>
   <Category>
     <id>88594fae-1e0f-40d9-9f76-4c061eb5e425</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Jiguli</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -118,6 +135,7 @@
   </Category>
   <Category>
     <id>5cc95ef1-1812-4f7e-8674-fb17c15ec860</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Lavash</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -126,6 +144,7 @@
   </Category>
   <Category>
     <id>0d24eb99-a734-49c0-8835-c5f34a7cb393</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>BYD</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -133,6 +152,7 @@
   </Category>
   <Category>
     <id>b8c13c9b-5ab7-429f-b208-9742ae2926bd</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Hot-Dog</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -140,6 +160,7 @@
   </Category>
   <Category>
     <id>6b425bed-d6f9-48ce-bbfe-a63a988d7a40</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>MacBook</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
@@ -148,9 +169,19 @@
   </Category>
   <Category>
     <id>27b6a248-28be-4f44-a9be-cf3cd7f0ada5</id>
+    <createdDate>2025-06-28T13:32:02.8417774</createdDate>
     <active>true</active>
     <name>Chevrolet</name>
     <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
     <parentId>bf766b3a-a4a7-4e93-b761-f291e9f1892c</parentId>
+    <nodeType>false</nodeType>
+  </Category>
+  <Category>
+    <id>092bdc87-b77c-4f9f-8d14-713312cd1e3a</id>
+    <createdDate>2025-06-28T13:32:57.9707061</createdDate>
+    <active>true</active>
+    <name>Kitoblar</name>
+    <createdById>ce72e6af-cdf1-4d40-a25e-62b5a9567c9e</createdById>
+    <parentId>68877412-5bf3-464b-b6fb-8cd8a5fdf488</parentId>
   </Category>
 </categories>
