@@ -5,6 +5,7 @@ import uz.pdp.model.Category;
 import uz.pdp.util.FileUtil;
 import uz.pdp.model.Product;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ProductService {
@@ -44,6 +45,16 @@ public class ProductService {
             }
         }
         saveProducts();
+    }
+
+    public void updateProduct(Product product, UUID productId) {
+        Product product1 = getProductById(productId);
+        if (product1 != null && product1.isActive()) {
+            product1.setProductName(product.getProductName());
+            product1.setPrice(product.getPrice());
+            product1.setUpdateDate(LocalDateTime.now());
+            saveProducts();
+        }
     }
 
     public static Product getProductById(UUID id){
@@ -86,6 +97,12 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return products;
+        List<Product> activeProduct = new ArrayList<>();
+        for (Product product : products) {
+            if(product.isActive()) {
+                activeProduct.add(product);
+            }
+        }
+        return activeProduct;
     }
 }
