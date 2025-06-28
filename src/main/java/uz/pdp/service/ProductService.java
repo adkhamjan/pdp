@@ -69,6 +69,7 @@ public class ProductService {
             products.add(product);
             productMap.put(product.getId(), product);
             saveProducts();
+            CategoryService.saveCategories();
             return "Successful \n";
         }
         return "Not found category \n";
