@@ -18,7 +18,7 @@ public class CategoryService {
     }
 
     @SneakyThrows
-    public void saveCategories() {
+    public static void saveCategories() {
         FileUtil.writeToXml(fileName, new CategoryListWrapper(categories));
     }
 
