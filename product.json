@@ -1,55 +1,71 @@
 [ {
   "id" : "7a14a5d3-a302-47ed-be8c-590f42a8ebfd",
+  "createdDate" : "2025-06-28T13:38:28.9697665",
   "active" : true,
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "Big lavash",
   "price" : 30000
 }, {
   "id" : "2ccb8ac3-bf56-44b6-9172-167d422c234f",
+  "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
   "categoryId" : "a5db7a53-e3a4-40f4-a1db-c5b9e569feea",
   "productName" : "Iphone 14 pro max",
   "price" : 15000000
 }, {
   "id" : "0fa0438e-983a-4a35-8dd9-8e16f92515e5",
+  "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
   "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
   "productName" : "Artel",
   "price" : 3500000
 }, {
   "id" : "d7383cc2-58b6-44e9-8e76-19cd6e56325f",
+  "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
   "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
   "productName" : "mac Air m3",
   "price" : 150000000
 }, {
   "id" : "3b636de3-ca4b-4bf9-b8a3-1f53a7d3065d",
+  "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
   "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
   "productName" : "mac pro m3",
   "price" : 25000000
 }, {
   "id" : "03beb0f8-f897-478a-97be-d75385960d85",
+  "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
   "categoryId" : "feae06ae-4d59-45ec-921d-b92e2f2c8001",
   "productName" : "Galaxy S25 Ultra",
   "price" : 12000000
 }, {
   "id" : "f46fd74b-6f70-471f-a897-ed41d65a14f0",
+  "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
   "categoryId" : "88594fae-1e0f-40d9-9f76-4c061eb5e425",
   "productName" : "Vaz 2106",
   "price" : 16000000
 }, {
   "id" : "9d7b1a8e-8ca1-48c5-b294-49f50715bc1f",
+  "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : false,
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "klassik lavash",
   "price" : 29000000
 }, {
   "id" : "bb69919b-9627-4e5e-818a-c4d6850bec36",
+  "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
   "categoryId" : "b5ade57a-7148-418d-bd79-f123f20f73cd",
   "productName" : "ruchka",
   "price" : 3000
+}, {
+  "id" : "4c87fbac-37a9-46d4-bf6c-29bfa9df162f",
+  "createdDate" : "2025-06-28T13:39:08.2766193",
+  "active" : true,
+  "categoryId" : "27b6a248-28be-4f44-a9be-cf3cd7f0ada5",
+  "productName" : "Cobalt",
+  "price" : 160000000
 } ]

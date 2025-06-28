@@ -13,26 +13,29 @@ public class UserService {
     private static final String fileName = "users.xml";
     private List<User> users;
 
+    @SneakyThrows
     public UserService() {
-        users = new ArrayList<>();
-        try {
-            UserListWrapper wrapper = FileUtil.readFromXml(fileName, UserListWrapper.class);
-            users = wrapper.getUsers() != null ? wrapper.getUsers() : new ArrayList<>();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UserListWrapper wrapper = FileUtil.readFromXml(fileName, UserListWrapper.class);
+        users = wrapper.getUsers() != null ? wrapper.getUsers() : new ArrayList<>();
     }
 
     @SneakyThrows
     public String add(User user)  {
-        for (User user1 : users) {
-            if(user.getUserName().equals(user1.getUserName())){
-                return "Unsuccessful \n";
-            }
+        if (hasUser(user)) {
+            return "Unsuccessful";
         }
         users.add(user);
         FileUtil.writeToXml(fileName,new UserListWrapper(users));
         return "successful \n";
+    }
+
+    public boolean hasUser(User user) {
+        for (User user1 : users) {
+            if(user.getUserName().equals(user1.getUserName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public User login(String userName, String password){
@@ -42,7 +45,6 @@ public class UserService {
             }
         }
         return null;
-
     }
 
     public List<User> getAllUsers() throws IOException{
