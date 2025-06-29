@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UserService {
     private static final String fileName = "users.xml";
@@ -44,33 +46,33 @@ public class UserService {
     }
 
     public boolean hasUser(User user) {
-        for (User user1 : users) {
-            if (user.getUserName().equals(user1.getUserName())) {
-                return true;
-            }
-        }
-        return false;
+//        for (User user1 : users) {
+//            if (user.getUserName().equals(user1.getUserName())) {
+//                return true;
+//            }
+//        }
+//        return false;
+        return users.stream().anyMatch(user1 -> user1.getUserName().equals(user.getUserName()));
     }
 
-    public User login(String userName, String password) {
-        for (User user : users) {
-            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-                return user;
-            }
-        }
-        return null;
+    public Optional<User> login(String userName, String password) {
+//        for (User user : users) {
+//            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+//                return user;
+//            }
+//        }
+//        return null;
+        return users.stream().filter(u -> u.getUserName().equals(userName) && u.getPassword().equals(password))
+                .findFirst();
     }
 
-    public List<User> getAllUsers() throws IOException {
-        return users;
-    }
-
-    private User getByUserId(UUID userId) {
-        for (User user : users) {
-            if (user.getId().equals(userId) && user.isActive()) {
-                return user;
-            }
-        }
-        return null;
+    private Optional<User> getByUserId(UUID userId) {
+//        for (User user : users) {
+//            if (user.getId().equals(userId) && user.isActive()) {
+//                return user;
+//            }
+//        }
+//        return null;
+        return users.stream().filter(u -> u.getId().equals(userId) && u.isActive()).findFirst();
     }
 }
