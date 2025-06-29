@@ -5,6 +5,7 @@ import uz.pdp.model.*;
 import uz.pdp.util.FileUtil;
 import uz.pdp.wrapper.CategoryListWrapper;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class CategoryService {
@@ -81,6 +82,16 @@ public class CategoryService {
         }
         ProductService.deletedProductsByCategoryId(id);
         getCategoryById(id).setActive(false);
+    }
+
+    public void updateCategory(Category category, UUID categoryId, UUID userId) {
+        Category updateCategory = getCategoryById(categoryId);
+        if (updateCategory != null) {
+            updateCategory.setName(category.getName());
+            updateCategory.setUpdatedById(userId);
+            updateCategory.setUpdateDate(LocalDateTime.now());
+            saveCategories();
+        }
     }
 
     public static Category getCategoryById(UUID id) {
