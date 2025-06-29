@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+
 import static uz.pdp.enums.UserType.ADMIN;
 import static uz.pdp.enums.UserType.USER;
 
@@ -32,12 +33,12 @@ public class Main {
                     String userName = scannerStr.nextLine();
                     System.out.print(" Passwordingizni kiriting:");
                     String password = scannerStr.nextLine();
-                    userService.add(new User(name, userName, password, USER));
+                    System.out.println(userService.add(new User(name, userName, password, USER)));
                 }
                 case 2 -> {
-                    System.out.print(" usernameni kiriting:");
+                    System.out.print("usernameni kiriting:");
                     String username = scannerStr.nextLine();
-                    System.out.print(" password kiriting:");
+                    System.out.print("password kiriting:");
                     String password = scannerStr.nextLine();
                     User currUser = userService.login(username, password);
                     if (currUser == null) {
@@ -72,14 +73,15 @@ public class Main {
         int step = 10;
         while (step != 0) {
             System.out.println("""
-                        1. Add Product to Cart
-                        2. My cart
-                        3. Deleted Cart
-                        4. To Order
-                        5. My Orders list
-                        6. List all Orders
-                        0. Exit
-                        """);
+                    1. Add Product to Cart
+                    2. My cart
+                    3. Deleted Cart
+                    4. To Order
+                    5. My Orders list
+                    6. List all Orders
+                    7. Update User
+                    0. Exit
+                    """);
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
@@ -104,7 +106,7 @@ public class Main {
                         break;
                     }
                     List<CartItem> cartItems = cart1.getCartItemList();
-                    System.out.print("Total price:" + cart1.getTotalPrice()+" ");
+                    System.out.print("Total price:" + cart1.getTotalPrice() + " ");
                     for (CartItem cartItem : cartItems) {
                         String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
                         System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
@@ -132,6 +134,14 @@ public class Main {
                     List<Cart> orders = cartService.getAllOrders();
                     showCart(orders, currUser);
                 }
+                case 7 -> {
+                    User user = new User();
+                    System.out.print("Enter name : ");
+                    user.setName(scannerStr.nextLine());
+                    System.out.print("Enter password");
+                    user.setPassword(scannerStr.nextLine());
+                    userService.updateUser(user, currUser.getId());
+                }
             }
         }
     }
@@ -144,6 +154,7 @@ public class Main {
                     2. Get ChildCategory By Id
                     3. Delete Category
                     4. All Category
+                    5. Update Category
                     0. Exit
                     """);
             step = scannerInt.nextInt();
@@ -191,6 +202,17 @@ public class Main {
                     }
                     System.out.println();
                 }
+                case 5 -> {
+                    UUID categoryId = chooseCategory(null, true);
+                    if (categoryId == null) {
+                        break;
+                    }
+
+                    Category category = new Category();
+                    System.out.print("Enter Name : ");
+                    category.setName(scannerStr.nextLine());
+                    categoryService.updateCategory(category, categoryId, currUser.getId());
+                }
             }
         }
     }
@@ -204,6 +226,7 @@ public class Main {
                     3. Delete Product
                     4. All Product
                     5. All Category
+                    6. Update Product
                     0. Exit
                     """);
             step = scannerInt.nextInt();
@@ -231,11 +254,11 @@ public class Main {
                     System.out.println();
                 }
                 case 3 -> {
-                    UUID id = selectProduct(null);
-                    if (id == null) {
+                    UUID productId = selectProduct(null);
+                    if (productId == null) {
                         break;
                     }
-                    System.out.println(productService.deletedProduct(id));
+                    System.out.println(productService.deletedProduct(productId));
                 }
                 case 4 -> {
                     List<Product> products = productService.getAllProducts();
@@ -251,6 +274,18 @@ public class Main {
                     }
                     System.out.println();
                 }
+                case 6 -> {
+                    UUID productId = selectProduct(null);
+                    if (productId == null) {
+                        break;
+                    }
+                    Product product = new Product();
+                    System.out.print("Enter Product name : ");
+                    product.setProductName(scannerStr.nextLine());
+                    System.out.println("Enter Product price");
+                    product.setPrice(scannerInt.nextInt());
+                    productService.updateProduct(product, productId);
+                }
             }
         }
     }
@@ -261,15 +296,15 @@ public class Main {
             if (category != null) {
                 System.out.println(category.getName());
             }
-            if (category == null || category.getNodeType() == null || category.getNodeType() || isDelete){
+            if (category == null || category.getNodeType() == null || category.getNodeType() || isDelete) {
                 System.out.println("0.Back   1.Choose");
                 int step = scannerInt.nextInt();
                 if (step == 0) {
                     return (category != null) ? category.getParentId() : null;
                 }
-                if (step == 1) return (category != null) ? category.getId() : UUID.fromString("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e");
-            }
-            else {
+                if (step == 1)
+                    return (category != null) ? category.getId() : UUID.fromString("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e");
+            } else {
                 System.out.println("0.Back");
                 int step = scannerInt.nextInt();
                 if (step == 0) {
@@ -311,12 +346,10 @@ public class Main {
                     int temp = scannerInt.nextInt();
                     if (temp >= 1 && temp <= childCategories.size()) {
                         id = childCategories.get(temp - 1).getId();
-                    }
-                    else {
+                    } else {
                         System.out.println("Not found category\n");
                     }
-                }
-                else System.out.println("Not found number\n");
+                } else System.out.println("Not found number\n");
             }
         }
     }
@@ -339,8 +372,7 @@ public class Main {
         for (Product product : productList) {
             if (isNumber) {
                 System.out.println(i++ + ". " + product);
-            }
-            else System.out.println(product);
+            } else System.out.println(product);
         }
         System.out.println();
         return productList;
@@ -424,12 +456,12 @@ public class Main {
 
             if (categories.isEmpty()) {
                 UUID id1 = chooseProduct(category);
-                if (category.getParentId().equals(id1)) {
+                if (id1 == null) {
+                    id = null;
+                } else if (category != null && category.getParentId().equals(id1)) {
                     id = id1;
                 }
-                else return id1;
-            }
-            else {
+            } else {
                 UUID id1 = enterCategory(category, categories);
                 if (id == null && id1 == null) return null;
                 id = id1;
@@ -437,14 +469,14 @@ public class Main {
         }
     }
 
-    public static  void showCart(List<Cart> orders, User currUser) {
+    public static void showCart(List<Cart> orders, User currUser) {
         for (Cart order : orders) {
             List<CartItem> cartItems = order.getCartItemList();
-            System.out.print("Total price:" + order.getTotalPrice()+" ");
+            System.out.print("Total price:" + order.getTotalPrice() + " ");
             for (CartItem cartItem : cartItems) {
                 Product product = ProductService.getProductById(cartItem.getProductId());
                 String productName = product.getProductName();
-                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive()+";  ");
+                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive() + ";  ");
             }
             System.out.println();
         }
