@@ -68,8 +68,8 @@ public class CategoryService {
 //            }
 //        }
 //        return childCategory;
-        return categories.stream().filter(category -> category.isActive() && category.getParentId() != null && category.getParentId().equals(id))
-                .collect(Collectors.toList());
+        return categories.stream().filter(category -> category.isActive() && category.getParentId() != null &&
+                        category.getParentId().equals(id)).collect(Collectors.toList());
     }
 
     public String deleted(UUID id) {
@@ -83,9 +83,7 @@ public class CategoryService {
     }
 
     private void deletedChild(Category currCategory) {
-        List<Category> children = categories.stream().filter(c -> c.isActive() &&
-                        c.getParentId() != null && c.getParentId().equals(currCategory.getId())).toList();
-
+        List<Category> children = getChildCategoryById(currCategory.getId());
         if (!children.isEmpty()) {
             children.forEach(this::deletedChild);
         } else {

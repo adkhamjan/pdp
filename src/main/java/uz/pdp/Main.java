@@ -3,10 +3,7 @@ package uz.pdp;
 import uz.pdp.model.*;
 import uz.pdp.service.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 
 import static uz.pdp.enums.UserType.ADMIN;
@@ -324,7 +321,13 @@ public class Main {
                 category = null;
             } else {
                 childCategories = categoryService.getChildCategoryById(id);
-                category = CategoryService.getCategoryById(id);
+                Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
+                if (optionalCategory.isPresent()) {
+                    category = optionalCategory.get();
+                }
+                else {
+                    throw new RuntimeException();
+                }
             }
 
             if (childCategories.isEmpty()) {
@@ -403,11 +406,17 @@ public class Main {
                 category = null;
             } else {
                 childCategories = categoryService.getChildCategoryById(id);
-                category = CategoryService.getCategoryById(id);
+                Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
+                if (optionalCategory.isPresent()) {
+                    category = optionalCategory.get();
+                }
+                else {
+                    throw new RuntimeException();
+                }
             }
 
             if (childCategories.isEmpty()) {
-                showProducts(category, false);
+                showProducts(Objects.requireNonNull(category), false);
                 if (category.getNodeType() == null || !category.getNodeType()) {
                     System.out.println("0. Back   1. Add");
                     int step = scannerInt.nextInt();
@@ -448,11 +457,19 @@ public class Main {
     public static UUID selectProduct(UUID id) {
         while (true) {
             List<Category> categories;
-            Category category = CategoryService.getCategoryById(id);
+            Category category;
             if (id == null) {
                 categories = categoryService.getParentCategories();
+                category = null;
             } else {
                 categories = categoryService.getChildCategoryById(id);
+                Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
+                if (optionalCategory.isPresent()) {
+                    category = optionalCategory.get();
+                }
+                else {
+                    throw new RuntimeException();
+                }
             }
 
             if (categories.isEmpty()) {
