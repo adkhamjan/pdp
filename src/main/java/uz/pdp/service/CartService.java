@@ -3,6 +3,7 @@ package uz.pdp.service;
 import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
 import uz.pdp.model.CartItem;
+import uz.pdp.model.Product;
 import uz.pdp.model.User;
 import uz.pdp.util.FileUtil;
 
@@ -46,7 +47,11 @@ public class CartService {
     }
 
     private int priceCalculation(CartItem cartItem) {
-        int price = ProductService.getProductById(cartItem.getProductId()).getPrice();
+        Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+        if (optionalProduct.isEmpty()) {
+            throw new RuntimeException();
+        }
+        int price = optionalProduct.get().getPrice();
         return price * cartItem.getQuantity();
     }
 
