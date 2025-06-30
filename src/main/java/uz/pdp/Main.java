@@ -4,6 +4,7 @@ import uz.pdp.model.*;
 import uz.pdp.service.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -40,11 +41,11 @@ public class Main {
                     String username = scannerStr.nextLine();
                     System.out.print("password kiriting:");
                     String password = scannerStr.nextLine();
-                    User currUser = userService.login(username, password);
-                    if (currUser == null) {
+                    Optional<User> optionalUser = userService.login(username, password);
+                    if (optionalUser.isEmpty()) {
                         System.out.println("Parol yoki Username xato qayta kiriting !!! ");
                     } else {
-                        login(currUser);
+                        login(optionalUser.get());
                     }
                 }
             }
