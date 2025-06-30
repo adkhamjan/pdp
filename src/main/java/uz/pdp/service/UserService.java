@@ -5,13 +5,11 @@ import uz.pdp.util.FileUtil;
 import uz.pdp.model.User;
 import uz.pdp.wrapper.UserListWrapper;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class UserService {
     private static final String fileName = "users.xml";
