@@ -109,7 +109,11 @@ public class Main {
                     List<CartItem> cartItems = cart1.getCartItemList();
                     System.out.print("Total price:" + cart1.getTotalPrice() + " ");
                     for (CartItem cartItem : cartItems) {
-                        String productName = ProductService.getProductById(cartItem.getProductId()).getProductName();
+                        String productName = "Yo'q";
+                        Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+                        if (optionalProduct.isPresent()) {
+                            productName = optionalProduct.get().getProductName();
+                        }
                         System.out.print(productName + ":" + cartItem.getQuantity() + "   ");
                     }
                     System.out.println();
@@ -475,9 +479,12 @@ public class Main {
             List<CartItem> cartItems = order.getCartItemList();
             System.out.print("Total price:" + order.getTotalPrice() + " ");
             for (CartItem cartItem : cartItems) {
-                Product product = ProductService.getProductById(cartItem.getProductId());
-                String productName = product.getProductName();
-                System.out.print(productName + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive() + ";  ");
+                Product product;
+                Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+                if (optionalProduct.isPresent()) {
+                    product = optionalProduct.get();
+                } else throw new RuntimeException();
+                System.out.print(product.getProductName() + ":" + cartItem.getQuantity() + ", productActive:" + product.isActive() + ";  ");
             }
             System.out.println();
         }
