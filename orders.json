@@ -2,6 +2,7 @@
   "id" : "c493dfb4-dbd0-403f-9f36-16f5c38f0eab",
   "createdDate" : "2025-06-28T13:45:17.9771861",
   "active" : true,
+  "updateDate" : null,
   "userId" : "b94017e7-1f42-43da-90f6-69505a6f55b2",
   "cartItemList" : [ {
     "cartId" : "c493dfb4-dbd0-403f-9f36-16f5c38f0eab",
@@ -17,6 +18,7 @@
   "id" : "c86f5d58-e761-470e-875f-aefb7a8638de",
   "createdDate" : "2025-06-28T13:47:08.4176646",
   "active" : true,
+  "updateDate" : null,
   "userId" : "bd04d975-d98b-4c51-b0cf-bbc2682b82da",
   "cartItemList" : [ {
     "cartId" : "c86f5d58-e761-470e-875f-aefb7a8638de",
@@ -28,4 +30,16 @@
     "quantity" : 2
   } ],
   "totalPrice" : 90000
+}, {
+  "id" : "8765e823-3426-413d-8731-1251f5a46027",
+  "createdDate" : "2025-07-01T16:02:30.2991798",
+  "active" : true,
+  "updateDate" : null,
+  "userId" : "bd04d975-d98b-4c51-b0cf-bbc2682b82da",
+  "cartItemList" : [ {
+    "cartId" : "8765e823-3426-413d-8731-1251f5a46027",
+    "productId" : "3b636de3-ca4b-4bf9-b8a3-1f53a7d3065d",
+    "quantity" : 1
+  } ],
+  "totalPrice" : 25000000
 } ]
