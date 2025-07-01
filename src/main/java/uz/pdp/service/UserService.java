@@ -23,8 +23,9 @@ public class UserService {
 
     @SneakyThrows
     public void updateUser(User user, UUID userId) {
-        User user1 = getByUserId(userId);
-        if (user1 != null) {
+        Optional<User> optionalUser = getByUserId(userId);
+        if (optionalUser.isPresent()) {
+            User user1 = optionalUser.get();
             user1.setPassword(user.getPassword());
             user1.setName(user.getName());
             user1.setUpdateDate(LocalDateTime.now());
