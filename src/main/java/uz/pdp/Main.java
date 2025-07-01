@@ -21,26 +21,26 @@ public class Main {
     public static void main(String[] args) {
         int step = 10;
         while (step != 0) {
-            System.out.println("1.Registor   2.Login    0.Exit");
+            System.out.println("1.Register   2.Login    0.Exit");
             step = scannerInt.nextInt();
             switch (step) {
                 case 1 -> {
-                    System.out.print(" enter name:");
+                    System.out.print(" Enter name:");
                     String name = scannerStr.nextLine();
-                    System.out.print(" Username kiriting:");
+                    System.out.print(" Enter Username:");
                     String userName = scannerStr.nextLine();
-                    System.out.print(" Passwordingizni kiriting:");
+                    System.out.print(" Enter password:");
                     String password = scannerStr.nextLine();
                     System.out.println(userService.add(new User(name, userName, password, USER)));
                 }
                 case 2 -> {
-                    System.out.print("usernameni kiriting:");
+                    System.out.print("Enter Username:");
                     String username = scannerStr.nextLine();
-                    System.out.print("password kiriting:");
+                    System.out.print("Enter password:");
                     String password = scannerStr.nextLine();
                     Optional<User> optionalUser = userService.login(username, password);
                     if (optionalUser.isEmpty()) {
-                        System.out.println("Parol yoki Username xato qayta kiriting !!! ");
+                        System.out.println("Password or Username incorrect, please re-enter !!! ");
                     } else {
                         login(optionalUser.get());
                     }
@@ -53,7 +53,7 @@ public class Main {
         if (currUser.getTypeUser().equals(ADMIN)) {
             int step = 1;
             while (step != 0) {
-                System.out.println("1. Category    2.Product  0.Exit");
+                System.out.println("1. Category  2.Product  0.Exit");
                 step = scannerInt.nextInt();
                 if (step == 1) {
                     setCategoryService(currUser);
@@ -93,14 +93,14 @@ public class Main {
                         int quantity = scannerInt.nextInt();
                         CartItem cartItem = new CartItem(cartId, productId, quantity);
                         System.out.println(cartService.addProductToCart(cartItem, currUser));
-                        System.out.println("0.Back    1.Sotib olishni davom ettirish");
+                        System.out.println("0.Back    1.Continue shopping");
                         step1 = scannerInt.nextInt();
                     }
                 }
                 case 2 -> {
                     Cart cart1 = cartService.getCartByCartId(cartId);
                     if (cart1 == null) {
-                        System.out.println("Sizda cart mavjud emas \n");
+                        System.out.println("You do not have a cart \n");
                         break;
                     }
                     List<CartItem> cartItems = cart1.getCartItemList();
@@ -122,7 +122,7 @@ public class Main {
                 case 4 -> {
                     Cart currCart = cartService.getCartByCartId(cartId);
                     if (currCart == null) {
-                        System.out.println("Sizda cart mavjud emas \n");
+                        System.out.println("You do not have a cart. \n");
                         break;
                     }
                     cartService.addCartToOrders(currCart);
@@ -167,7 +167,7 @@ public class Main {
                         break;
                     }
                     Category category = new Category();
-                    System.out.println("Kategoriya nomi: ");
+                    System.out.println("Categories name: ");
                     category.setName(scannerStr.nextLine());
                     category.setCreatedById(currUser.getId());
                     if (String.valueOf(parentId).equals("ce72e6af-cdf1-4d40-a25e-62b5a9567c9e")) {
@@ -182,7 +182,7 @@ public class Main {
                         System.out.println(category);
                     }
                     System.out.println();
-                    System.out.println(" Id kiriting");
+                    System.out.println(" Enter Id");
                     UUID id = UUID.fromString(scannerStr.nextLine());
                     List<Category> childCategory = categoryService.getChildCategoryById(id);
                     for (Category category : childCategory) {
@@ -328,8 +328,7 @@ public class Main {
                 Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
                 if (optionalCategory.isPresent()) {
                     category = optionalCategory.get();
-                }
-                else {
+                } else {
                     throw new RuntimeException();
                 }
             }
@@ -413,8 +412,7 @@ public class Main {
                 Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
                 if (optionalCategory.isPresent()) {
                     category = optionalCategory.get();
-                }
-                else {
+                } else {
                     throw new RuntimeException();
                 }
             }
@@ -470,8 +468,7 @@ public class Main {
                 Optional<Category> optionalCategory = CategoryService.getCategoryById(id);
                 if (optionalCategory.isPresent()) {
                     category = optionalCategory.get();
-                }
-                else {
+                } else {
                     throw new RuntimeException();
                 }
             }
