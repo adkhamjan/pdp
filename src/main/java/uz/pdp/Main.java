@@ -479,6 +479,8 @@ public class Main {
                     id = null;
                 } else if (category != null && category.getParentId().equals(id1)) {
                     id = id1;
+                } else {
+                    return id1;
                 }
             } else {
                 UUID id1 = enterCategory(category, categories);
