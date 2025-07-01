@@ -8,6 +8,7 @@ import uz.pdp.model.User;
 import uz.pdp.util.FileUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CartService {
     private final String fileName = "orders.json";
@@ -28,19 +29,31 @@ public class CartService {
 
     public String addProductToCart(CartItem cartItem, User user) {
         int price = priceCalculation(cartItem);
-        for (Cart cart : cartList) {
-            if (cart.getId().equals(cartItem.getCartId())) {
-                CartItem cartItem1 = hasCartItem(cart.getCartItemList(), cartItem);
-                if (cartItem1 == null) {
-                    cart.getCartItemList().add(cartItem);
-                } else {
-                    cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
-                }
-                cart.setTotalPrice(cart.getTotalPrice() + price);
-                return "Successful";
+//        for (Cart cart : cartList) {
+//            if (cart.getId().equals(cartItem.getCartId())) {
+//                CartItem cartItem1 = hasCartItem(cart.getCartItemList(), cartItem);
+//                if (cartItem1 == null) {
+//                    cart.getCartItemList().add(cartItem);
+//                } else {
+//                    cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
+//                }
+//                cart.setTotalPrice(cart.getTotalPrice() + price);
+//                return "Successful";
+//            }
+//        }
+        Cart currCart = cartList.stream().filter(cart -> cart.getId().equals(cartItem.getCartId())).
+                findFirst().orElse(null);
+        if (currCart != null) {
+            CartItem cartItem1 = hasCartItem(currCart.getCartItemList(), cartItem);
+            if (cartItem1 == null) {
+                currCart.getCartItemList().add(cartItem);
+            } else {
+                cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
             }
+            currCart.setTotalPrice(currCart.getTotalPrice() + price);
+            return "Successful";
         }
-        Cart currCart = createCart(cartItem.getCartId(), user);
+        currCart = createCart(cartItem.getCartId(), user);
         currCart.getCartItemList().add(cartItem);
         currCart.setTotalPrice(price);
         return "Successful";
@@ -56,34 +69,33 @@ public class CartService {
     }
 
     private CartItem hasCartItem(List<CartItem> cartItemList, CartItem cartItem) {
-        for (CartItem item : cartItemList) {
-            if (item.getProductId().equals(cartItem.getProductId())) {
-                return item;
-            }
-        }
-        return null;
+        return cartItemList.stream()
+                .filter(item -> item.getProductId().equals(cartItem.getProductId()))
+                .findFirst()
+                .orElse(null);
+
+//        for (CartItem item : cartItemList) {
+//            if (item.getProductId().equals(cartItem.getProductId())) {
+//                return item;
+//            }
+//        }
+//        return null;
     }
 
     public Cart getCartByCartId(UUID cartId) {
-        for (Cart cart : cartList) {
-            if (cart.getId().equals(cartId)) {
-                return cart;
-            }
-        }
-        return null;
-    }
+        return cartList.stream().filter(cart -> cart.getId().equals(cartId))
+                .findFirst().orElse(null);
 
-    public Cart getCartById(UUID id) {
-        for (Cart cart : cartList) {
-            if (cart.getId().equals(id)) {
-                return cart;
-            }
-        }
-        return null;
+//        for (Cart cart : cartList) {
+//            if (cart.getId().equals(cartId)) {
+//                return cart;
+//            }
+//        }
+//        return null;
     }
 
     public String deletedCart(UUID cartId) {
-        Cart cart = getCartById(cartId);
+        Cart cart = getCartByCartId(cartId);
         if (cart == null) {
             return "not found cart";
         }
@@ -98,13 +110,16 @@ public class CartService {
     }
 
     public List<Cart> getOrdersByUserId(UUID userId) {
-        List<Cart> carts = new ArrayList<>();
-        for (Cart cart : orderList) {
-            if (cart.getUserId().equals(userId)) {
-                carts.add(cart);
-            }
-        }
-        return carts;
+        return orderList.stream().filter(cart -> cart.getUserId().equals(userId))
+                .collect(Collectors.toList());
+
+//        List<Cart> carts = new ArrayList<>();
+//        for (Cart cart : orderList) {
+//            if (cart.getUserId().equals(userId)) {
+//                carts.add(cart);
+//            }
+//        }
+//        return carts;
     }
 
     public List<Cart> getAllOrders() {
