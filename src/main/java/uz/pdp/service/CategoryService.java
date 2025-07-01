@@ -7,6 +7,7 @@ import uz.pdp.wrapper.CategoryListWrapper;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CategoryService {
     private static final String fileName = "categories.xml";
@@ -24,17 +25,20 @@ public class CategoryService {
     }
 
     public String addCategory(Category category, UUID id) {
-        Category category1 = getByName(category.getName());
-        if (category1 != null) {
+        Optional<Category> optional = getByName(category.getName());
+        if (optional.isPresent()) {
             return "Mavjud kategoriya";
         }
-        Category toCategory = getCategoryById(id);
-        if (toCategory != null && (toCategory.getNodeType() == null || toCategory.getNodeType())) {
-            toCategory.setNodeType(true);
-            category.setParentId(id);
-            categories.add(category);
-            saveCategories();
-            return "Successful \n";
+        Optional<Category> optionalCategory = getCategoryById(id);
+        if (optionalCategory.isPresent()) {
+            Category toCategory = optionalCategory.get();
+            if (toCategory.getNodeType() == null || toCategory.getNodeType()) {
+                toCategory.setNodeType(true);
+                category.setParentId(id);
+                categories.add(category);
+                saveCategories();
+                return "Successful \n";
+            }
         }
         return "Not found category \n";
     }
@@ -45,48 +49,53 @@ public class CategoryService {
         return "Successful \n";
     }
 
-    private Category getByName(String name) {
-        for (Category category : categories) {
-            if (category.isActive() && category.getName().equals(name)) {
-                return category;
-            }
-        }
-        return null;
+    private Optional<Category> getByName(String name) {
+//        for (Category category : categories) {
+//            if (category.isActive() && category.getName().equals(name)) {
+//                return category;
+//            }
+//        }
+//        return null;
+        return categories.stream().filter(category -> category.getName().equals(name) && category.isActive())
+                .findFirst();
     }
 
     public List<Category> getChildCategoryById(UUID id) {
-        List<Category> childCategory = new ArrayList<>();
-        for (Category category : categories) {
-            if (category.isActive() && category.getParentId() != null && category.getParentId().equals(id)) {
-                childCategory.add(category);
-            }
-        }
-        return childCategory;
+//        List<Category> childCategory = new ArrayList<>();
+//        for (Category category : categories) {
+//            if (category.isActive() && category.getParentId() != null && category.getParentId().equals(id)) {
+//                childCategory.add(category);
+//            }
+//        }
+//        return childCategory;
+        return categories.stream().filter(category -> category.isActive() && category.getParentId() != null &&
+                        category.getParentId().equals(id)).collect(Collectors.toList());
     }
 
     public String deleted(UUID id) {
-        Category currCategory = getCategoryById(id);
-        if (currCategory != null) {
-            deletedChild(id);
+        Optional<Category> optionalCategory = getCategoryById(id);
+        if (optionalCategory.isPresent()) {
+            deletedChild(optionalCategory.get());
             saveCategories();
             return "Successful \n";
         }
         return "Not found category \n";
     }
 
-    private void deletedChild(UUID id) {
-        for (Category category : categories) {
-            if (category.isActive() && category.getParentId() != null && category.getParentId().equals(id)) {
-                deletedChild(category.getId());
-            }
+    private void deletedChild(Category currCategory) {
+        List<Category> children = getChildCategoryById(currCategory.getId());
+        if (!children.isEmpty()) {
+            children.forEach(this::deletedChild);
+        } else {
+            ProductService.deletedProductsByCategoryId(currCategory.getId());
         }
-        ProductService.deletedProductsByCategoryId(id);
-        getCategoryById(id).setActive(false);
+        currCategory.setActive(false);
     }
 
     public void updateCategory(Category category, UUID categoryId, UUID userId) {
-        Category updateCategory = getCategoryById(categoryId);
-        if (updateCategory != null) {
+        Optional<Category> optionalCategory = getCategoryById(categoryId);
+        if (optionalCategory.isPresent()) {
+            Category updateCategory = optionalCategory.get();
             updateCategory.setName(category.getName());
             updateCategory.setUpdatedById(userId);
             updateCategory.setUpdateDate(LocalDateTime.now());
@@ -94,32 +103,37 @@ public class CategoryService {
         }
     }
 
-    public static Category getCategoryById(UUID id) {
-        for (Category category : categories) {
-            if (category.isActive() && category.getId().equals(id)) {
-                return category;
-            }
-        }
-        return null;
+    public static Optional<Category> getCategoryById(UUID id) {
+//        for (Category category : categories) {
+//            if (category.isActive() && category.getId().equals(id)) {
+//                return category;
+//            }
+//        }
+//        return null;
+        return categories.stream().filter(category -> category.isActive() && category.getId().equals(id))
+                .findFirst();
     }
 
     public List<Category> getALLCategories() {
-        List<Category> categoryList = new ArrayList<>();
-        for (Category category : categories) {
-            if (category.isActive()) {
-                categoryList.add(category);
-            }
-        }
-        return categoryList;
+//        List<Category> categoryList = new ArrayList<>();
+//        for (Category category : categories) {
+//            if (category.isActive()) {
+//                categoryList.add(category);
+//            }
+//        }
+//        return categoryList;
+        return categories.stream().filter(BaseModel::isActive).collect(Collectors.toList());
     }
 
     public List<Category> getParentCategories() {
-        List<Category> categoryList = new ArrayList<>();
-        for (Category category : categories) {
-            if (category.isActive() && category.getParentId() == null) {
-                categoryList.add(category);
-            }
-        }
-        return categoryList;
+//        List<Category> categoryList = new ArrayList<>();
+//        for (Category category : categories) {
+//            if (category.isActive() && category.getParentId() == null) {
+//                categoryList.add(category);
+//            }
+//        }
+//        return categoryList;
+        return categories.stream().filter(category -> category.isActive() && category.getParentId() == null)
+                .collect(Collectors.toList());
     }
 }

@@ -5,13 +5,11 @@ import uz.pdp.util.FileUtil;
 import uz.pdp.model.User;
 import uz.pdp.wrapper.UserListWrapper;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class UserService {
     private static final String fileName = "users.xml";
@@ -25,8 +23,9 @@ public class UserService {
 
     @SneakyThrows
     public void updateUser(User user, UUID userId) {
-        User user1 = getByUserId(userId);
-        if (user1 != null) {
+        Optional<User> optionalUser = getByUserId(userId);
+        if (optionalUser.isPresent()) {
+            User user1 = optionalUser.get();
             user1.setPassword(user.getPassword());
             user1.setName(user.getName());
             user1.setUpdateDate(LocalDateTime.now());
