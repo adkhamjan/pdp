@@ -62,7 +62,7 @@ public class CartService {
     private int priceCalculation(CartItem cartItem) {
         Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
         if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
+            throw new RuntimeException("Not found product");
         }
         int price = optionalProduct.get().getPrice();
         return price * cartItem.getQuantity();
