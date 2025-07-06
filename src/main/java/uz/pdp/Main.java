@@ -1,5 +1,9 @@
 package uz.pdp;
 
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import uz.pdp.bot.ECommerceBot;
 import uz.pdp.model.*;
 import uz.pdp.service.*;
 
@@ -17,8 +21,18 @@ public class Main {
     static ProductService productService = new ProductService();
     static CartService cartService = new CartService();
     static CategoryService categoryService = new CategoryService();
+    static LanguageService languageService = new LanguageService();
 
     public static void main(String[] args) {
+
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(new ECommerceBot(categoryService));
+            System.out.println("Bot started successful");
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
         int step = 10;
         while (step != 0) {
             System.out.println("1.Register   2.Login    0.Exit");
@@ -480,6 +494,7 @@ public class Main {
                 } else if (category != null && category.getParentId().equals(id1)) {
                     id = id1;
                 } else {
+
                     return id1;
                 }
             } else {
