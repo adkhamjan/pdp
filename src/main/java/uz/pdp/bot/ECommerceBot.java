@@ -9,20 +9,15 @@ import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import uz.pdp.bot.factory.OrderInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ReplyKeyboardFactory;
 import uz.pdp.bot.service.CategoryBotService;
 import uz.pdp.bot.service.LanguageBotService;
 import uz.pdp.bot.service.ProductBotService;
 import uz.pdp.enums.UserType;
-import uz.pdp.model.CartItem;
-import uz.pdp.model.Category;
-import uz.pdp.model.Product;
-import uz.pdp.model.User;
+import uz.pdp.model.*;
 import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
 import uz.pdp.service.ProductService;
@@ -44,6 +39,7 @@ public class ECommerceBot extends TelegramLongPollingBot {
     private static List<String> menuNames = LanguageBotService.getMenuNames();
     private static List<String> settingsName = LanguageBotService.getSettingNames();
     private static final String[] inlineProducts = {"-", "1", "+", "Savatga saqlash"};
+    private static final String[] inlineOrders = {"Buyurtma berish", "O'chirish"};
     private static Map<Long, BotState> userStates = new HashMap<>();
     private static final String userIdsFile;
     private static final String cartIdByUserIdFile;
@@ -85,6 +81,7 @@ public class ECommerceBot extends TelegramLongPollingBot {
             Long chatId = message.getChatId();
             Long telUserId = message.getFrom().getId();
             UUID userId = userIds.get(telUserId);
+            UUID cartId = cartIdByUserId.get(userId);
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
@@ -120,9 +117,41 @@ public class ECommerceBot extends TelegramLongPollingBot {
                 sendMessage.setText(menuNames.getFirst());
                 sendMessage.setReplyMarkup(categoryBotService.getInlineKeyboard());
             } else if (text.equals(menuNames.get(1))) {
-                sendMessage.setText("bo'sh");
+                List<Cart> orders = CART_SERVICE.getOrdersByUserId(userId);
+                if (orders.isEmpty()) {
+                    sendMessage.setText("⛔\uFE0F Buyurtma mavjud emas!");
+                }else {
+                    for (Cart order : orders) {
+                        List<CartItem> cartItems = order.getCartItemList();
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Umumiy narx:").append(order.getTotalPrice()).append("\n");
+                        for (CartItem cartItem : cartItems) {
+                            Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+                            optionalProduct.ifPresent(product -> sb.append(product.getProductName()).append(": ").
+                                    append(cartItem.getQuantity()).append("\n"));
+                        }
+                        sendMessage.setText(sb.toString());
+                        execute(sendMessage);
+                    }
+                }
             } else if (text.equals(menuNames.get(2))) {
-                sendMessage.setText("bo'sh");
+                Cart cart = CART_SERVICE.getCartByCartId(cartId);
+                if (cart == null) {
+                    sendMessage.setText("\uD83D\uDED2 Savatingiz bo'sh \uD83D\uDDD1");
+                } else {
+                    List<CartItem> cartItems = cart.getCartItemList();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Umumiy narx:").append(cart.getTotalPrice()).append("\n");
+                    for (CartItem cartItem : cartItems) {
+                        Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+                        optionalProduct.ifPresent(product -> sb.append(product.getProductName()).append(": ").
+                                append(cartItem.getQuantity()).append("\n"));
+                    }
+                    sendMessage.setText(sb.toString());
+                    InlineKeyboardMarkup i = new OrderInlineKeyboardMarkup(List.of(inlineOrders), 2)
+                            .createInlineKeyboard();
+                    sendMessage.setReplyMarkup(i);
+                }
             } else if (text.equals(menuNames.getLast())) {
                 sendMessage.setText(menuNames.getLast());
                 sendMessage.setReplyMarkup(ReplyKeyboardFactory.createSettingReplyKeyboardMarkup(settingsName));
@@ -133,8 +162,9 @@ public class ECommerceBot extends TelegramLongPollingBot {
                 sendMessage.setText(menuNames.getFirst());
                 sendMessage.setReplyMarkup(ReplyKeyboardFactory.createReplyKeyboardMarkup(menuNames));
             }
-
-                execute(sendMessage);
+                if (!text.equals(menuNames.get(1))) {
+                    execute(sendMessage);
+                }
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
@@ -291,8 +321,31 @@ public class ECommerceBot extends TelegramLongPollingBot {
                         int quantity = Integer.parseInt(data.split(":")[2]);
                         CartItem cartItem = new CartItem(cartId, productId, quantity);
                         CART_SERVICE.addProductToCart(cartItem, userId);
-                        cartIdByUserId.put(userId, UUID.randomUUID());
+
                         editMessageText.setText("Savatga qo'shildi");
+                        editMessageText.setReplyMarkup(null);
+                    }
+                } else if (data.startsWith("ORDER:")) {
+                    String callback = data.split(":")[1];
+                    if (callback.equals(inlineOrders[0])) {
+                        Cart cart = CART_SERVICE.getCartByCartId(cartId);
+                        CART_SERVICE.addCartToOrders(cart);
+                        cartId = UUID.randomUUID();
+                        cartIdByUserId.put(userId, cartId);
+                        saveToFile();
+
+                        editMessageText.setText("Buyurtma berildi");
+                        editMessageText.setReplyMarkup(null);
+                    } else if (callback.equals(inlineOrders[1])) {
+                        CART_SERVICE.deletedCart(cartId);
+                        cartId = UUID.randomUUID();
+                        cartIdByUserId.put(userId, cartId);
+                        saveToFile();
+
+                        editMessageText.setText("Savat o'chirildi");
+                        editMessageText.setReplyMarkup(null);
+                    } else if (callback.equals("Back")) {
+                        editMessageText.setText(menuNames.getFirst());
                         editMessageText.setReplyMarkup(null);
                     }
                 }
