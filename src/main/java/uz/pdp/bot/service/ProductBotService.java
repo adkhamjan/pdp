@@ -3,6 +3,7 @@ package uz.pdp.bot.service;
 import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import uz.pdp.bot.factory.ProductInlineKeyboardMarkup;
+import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
 import uz.pdp.model.Product;
 import uz.pdp.service.ProductService;
 
