@@ -1,0 +1,20 @@
+<Users>
+  <user>
+    <id>7e7d218d-1b3f-419a-9c43-6168d381ab1d</id>
+    <createdDate>2025-07-07T13:12:25.7715295</createdDate>
+    <active>true</active>
+    <name>Adham</name>
+    <userName>adkhamjan_13</userName>
+    <phoneNumber>+998904917705</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+  <user>
+    <id>04ced071-20bc-449f-b23d-005e4d85596c</id>
+    <createdDate>2025-07-07T13:14:54.8797259</createdDate>
+    <active>true</active>
+    <name>Sharof</name>
+    <userName>Muq1mov_oo4</userName>
+    <phoneNumber>+998930002579</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+</Users>
