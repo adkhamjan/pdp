@@ -27,7 +27,7 @@ public class Main {
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(new ECommerceBot(categoryService));
+            botsApi.registerBot(new ECommerceBot(categoryService, productService, cartService, userService));
             System.out.println("Bot started successful");
         } catch (TelegramApiException e) {
             e.printStackTrace();
@@ -106,7 +106,7 @@ public class Main {
                         System.out.println("Enter quantity");
                         int quantity = scannerInt.nextInt();
                         CartItem cartItem = new CartItem(cartId, productId, quantity);
-                        System.out.println(cartService.addProductToCart(cartItem, currUser));
+                        System.out.println(cartService.addProductToCart(cartItem, currUser.getId()));
                         System.out.println("0.Back    1.Continue shopping");
                         step1 = scannerInt.nextInt();
                     }
@@ -155,7 +155,7 @@ public class Main {
                     System.out.print("Enter name : ");
                     user.setName(scannerStr.nextLine());
                     System.out.print("Enter password");
-                    user.setPassword(scannerStr.nextLine());
+                    user.setPhoneNumber(scannerStr.nextLine());
                     userService.updateUser(user, currUser.getId());
                 }
             }

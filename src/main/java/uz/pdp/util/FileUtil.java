@@ -1,6 +1,7 @@
 package uz.pdp.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -10,7 +11,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class FileUtil {
     private static final ObjectMapper objectMapper;
@@ -42,6 +46,11 @@ public class FileUtil {
 
     public static <T> T readFromXml(String path, Class<T> clazz) throws IOException {
         return xmlMapper.readValue(new File(path), clazz);
+    }
+
+    public static <V> Map<V, UUID> readMap(String filePath, Class<V> valueType) throws IOException {
+        JavaType mapType = objectMapper.getTypeFactory().constructMapType(Map.class, valueType, UUID.class);
+        return objectMapper.readValue(new File(filePath), mapType);
     }
 
 }
