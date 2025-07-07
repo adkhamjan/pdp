@@ -27,7 +27,7 @@ public class CartService {
         FileUtil.write(fileName, orderList);
     }
 
-    public String addProductToCart(CartItem cartItem, User user) {
+    public String addProductToCart(CartItem cartItem, UUID userId) {
         int price = priceCalculation(cartItem);
 //        for (Cart cart : cartList) {
 //            if (cart.getId().equals(cartItem.getCartId())) {
@@ -53,7 +53,7 @@ public class CartService {
             currCart.setTotalPrice(currCart.getTotalPrice() + price);
             return "Successful";
         }
-        currCart = createCart(cartItem.getCartId(), user);
+        currCart = createCart(cartItem.getCartId(), userId);
         currCart.getCartItemList().add(cartItem);
         currCart.setTotalPrice(price);
         return "Successful";
@@ -126,8 +126,8 @@ public class CartService {
         return orderList;
     }
 
-    public Cart createCart(UUID cartId, User user) {
-        Cart cart = new Cart(user.getId(), cartId);
+    public Cart createCart(UUID cartId, UUID userId) {
+        Cart cart = new Cart(userId, cartId);
         cartList.add(cart);
         return cart;
     }

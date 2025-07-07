@@ -11,6 +11,6 @@ import uz.pdp.enums.UserType;
 public class User extends BaseModel {
     private String name;
     private String userName;
-    private String password;
+    private String phoneNumber;
     private UserType typeUser;
 }

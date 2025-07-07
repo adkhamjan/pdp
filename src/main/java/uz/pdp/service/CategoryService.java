@@ -136,4 +136,12 @@ public class CategoryService {
         return categories.stream().filter(category -> category.isActive() && category.getParentId() == null)
                 .collect(Collectors.toList());
     }
+
+    public UUID getParentIdByChildId(UUID categoryId) {
+        Optional<Category> optionalCategory = getCategoryById(categoryId);
+        if (optionalCategory.isPresent()) {
+            return optionalCategory.get().getParentId();
+        }
+        return null;
+    }
 }
