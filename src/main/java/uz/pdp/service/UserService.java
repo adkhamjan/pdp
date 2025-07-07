@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class UserService {
-    private static final String fileName = "users.xml";
+    private static final String fileName = "usersBot.xml";
     private final List<User> users;
 
     @SneakyThrows
@@ -26,7 +26,7 @@ public class UserService {
         Optional<User> optionalUser = getByUserId(userId);
         if (optionalUser.isPresent()) {
             User user1 = optionalUser.get();
-            user1.setPassword(user.getPassword());
+            user1.setPhoneNumber(user.getPhoneNumber());
             user1.setName(user.getName());
             user1.setUpdateDate(LocalDateTime.now());
             FileUtil.writeToXml(fileName, new UserListWrapper(users));
@@ -61,7 +61,7 @@ public class UserService {
 //            }
 //        }
 //        return null;
-        return users.stream().filter(u -> u.getUserName().equals(userName) && u.getPassword().equals(password))
+        return users.stream().filter(u -> u.getUserName().equals(userName) && u.getPhoneNumber().equals(password))
                 .findFirst();
     }
 

@@ -1,10 +1,12 @@
 package uz.pdp.bot.factory;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ReplyKeyboardFactory {
@@ -44,5 +46,21 @@ public class ReplyKeyboardFactory {
             rows.add(row);
         }
         return r;
+    }
+
+    public static ReplyKeyboardMarkup createSendContactReplyKeyboardMarkup() {
+        KeyboardButton contactButton = new KeyboardButton();
+        contactButton.setText("📱 Raqamni yuborish");
+        contactButton.setRequestContact(true);
+
+        KeyboardRow row = new KeyboardRow();
+        row.add(contactButton);
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboardMarkup.setKeyboard(Collections.singletonList(row));
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+
+        return keyboardMarkup;
     }
 }
