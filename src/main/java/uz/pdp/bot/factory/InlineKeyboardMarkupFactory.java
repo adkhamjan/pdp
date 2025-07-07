@@ -7,10 +7,11 @@ import uz.pdp.bot.factory.wrapper.RecordWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public abstract class InlineKeyboardMarkupFactory<T> {
-    private final List<T> records;
+    protected final List<T> records;
     private final int colCount;
 
     public InlineKeyboardMarkup createInlineKeyboard() {
@@ -38,8 +39,12 @@ public abstract class InlineKeyboardMarkupFactory<T> {
         if (!row.isEmpty()) {
             rows.add(row);
         }
+
+        rows.add(createBackInlineKeyboard());
         return i;
     }
+
+    protected abstract List<InlineKeyboardButton> createBackInlineKeyboard();
 
     protected abstract RecordWrapper wrapper(T t);
 }
