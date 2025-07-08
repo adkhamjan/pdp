@@ -1,1 +1,13 @@
-[ ]
+[ {
+  "id" : "5effe008-c736-41e6-8381-250533193862",
+  "createdDate" : "2025-07-08T15:59:01.022446",
+  "active" : true,
+  "updateDate" : null,
+  "userId" : "6881d870-bc37-425e-9954-0afd40a00573",
+  "cartItemList" : [ {
+    "cartId" : "5effe008-c736-41e6-8381-250533193862",
+    "productId" : "7a14a5d3-a302-47ed-be8c-590f42a8ebfd",
+    "quantity" : 1
+  } ],
+  "totalPrice" : 30000
+} ]
