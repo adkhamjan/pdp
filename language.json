@@ -1,0 +1,19 @@
+[ {
+  "id" : "6b8ca837-32a9-4cee-a218-cad716e7ca3d",
+  "createdDate" : "2025-07-05T13:28:40.0137001",
+  "active" : true,
+  "updateDate" : null,
+  "name" : "Uzbek"
+}, {
+  "id" : "10853d6c-2ec3-4163-9a0c-bc5e48f76f75",
+  "createdDate" : "2025-07-05T13:28:40.0137001",
+  "active" : true,
+  "updateDate" : null,
+  "name" : "English"
+}, {
+  "id" : "3a65dfd5-db6c-45b1-b12a-60491e80fc08",
+  "createdDate" : "2025-07-05T13:28:40.0137001",
+  "active" : true,
+  "updateDate" : null,
+  "name" : "Russian"
+} ]

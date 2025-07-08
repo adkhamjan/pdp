@@ -4,30 +4,36 @@ import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
 import uz.pdp.model.CartItem;
 import uz.pdp.model.Product;
-import uz.pdp.model.User;
 import uz.pdp.util.FileUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CartService {
-    private final String fileName = "orders.json";
+    private final String orderFileName = "orders.json";
+    private final String cartFileName = "carts.json";
     private List<Cart> orderList;
-    private final List<Cart> cartList;
+    private List<Cart> cartList;
 
     @SneakyThrows
     public CartService() {
         orderList = new ArrayList<>();
         cartList = new ArrayList<>();
-        orderList = FileUtil.read(fileName, Cart.class);
+        orderList = FileUtil.read(orderFileName, Cart.class);
+        cartList = FileUtil.read(cartFileName, Cart.class);
     }
 
     @SneakyThrows
     private void saveCarts() {
-        FileUtil.write(fileName, orderList);
+        FileUtil.write(cartFileName, cartList);
     }
 
-    public String addProductToCart(CartItem cartItem, User user) {
+    @SneakyThrows
+    private void saveOrders() {
+        FileUtil.write(orderFileName, orderList);
+    }
+
+    public String addProductToCart(CartItem cartItem, UUID userId) {
         int price = priceCalculation(cartItem);
 //        for (Cart cart : cartList) {
 //            if (cart.getId().equals(cartItem.getCartId())) {
@@ -51,18 +57,20 @@ public class CartService {
                 cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
             }
             currCart.setTotalPrice(currCart.getTotalPrice() + price);
+            saveCarts();
             return "Successful";
         }
-        currCart = createCart(cartItem.getCartId(), user);
+        currCart = createCart(cartItem.getCartId(), userId);
         currCart.getCartItemList().add(cartItem);
         currCart.setTotalPrice(price);
+        saveCarts();
         return "Successful";
     }
 
     private int priceCalculation(CartItem cartItem) {
         Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
         if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
+            throw new RuntimeException("Not found product");
         }
         int price = optionalProduct.get().getPrice();
         return price * cartItem.getQuantity();
@@ -100,13 +108,14 @@ public class CartService {
             return "not found cart";
         }
         cartList.remove(cart);
+        saveCarts();
         return "Successful";
     }
 
     public void addCartToOrders(Cart cart) {
         orderList.add(cart);
-        saveCarts();
         deletedCart(cart.getId());
+        saveOrders();
     }
 
     public List<Cart> getOrdersByUserId(UUID userId) {
@@ -126,8 +135,8 @@ public class CartService {
         return orderList;
     }
 
-    public Cart createCart(UUID cartId, User user) {
-        Cart cart = new Cart(user.getId(), cartId);
+    public Cart createCart(UUID cartId, UUID userId) {
+        Cart cart = new Cart(userId, cartId);
         cartList.add(cart);
         return cart;
     }
