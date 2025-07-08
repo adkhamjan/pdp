@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import uz.pdp.bot.ECommerceBot;
 import uz.pdp.model.Cart;
 import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
@@ -21,7 +22,7 @@ public class CallbackHandlerService extends BotHandlerService {
 
     @SneakyThrows
     @Override
-    public BotApiMethod<?> handler(Update update) {
+    public BotApiMethod<?> handler(Update update, ECommerceBot eCommerceBot) {
         if (update.hasCallbackQuery()) {
             Long chatId = update.getCallbackQuery().getMessage().getChatId();
             Long telUserId = update.getCallbackQuery().getFrom().getId();
@@ -52,7 +53,7 @@ public class CallbackHandlerService extends BotHandlerService {
                 return categoryBotService.getEditMessageByCategory(data, editMessageText, messages);
             } else if (data.startsWith("PRODUCT:")) {
                 ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
-                return productBotService.getEditMessageByProduct(editMessageText, data, inlineProducts);
+                return productBotService.getEditMessageByProduct(editMessageText, data, inlineProducts, eCommerceBot);
             } else if (data.startsWith("NUMBER")) {
                 ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
                 return productBotService.getEditMessageProductQuantity(editMessageText, data, inlineProducts, cartId, userId, CART_SERVICE);
