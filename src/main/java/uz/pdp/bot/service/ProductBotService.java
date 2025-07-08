@@ -1,6 +1,7 @@
 package uz.pdp.bot.service;
 
 import lombok.RequiredArgsConstructor;
+
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import uz.pdp.bot.ECommerceBot;
+
 import uz.pdp.bot.factory.ProductInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
 import uz.pdp.model.CartItem;
@@ -32,8 +34,10 @@ public class ProductBotService {
                 .createInlineKeyboard();
     }
 
+
     @SneakyThrows
     public EditMessageText getEditMessageByProduct(EditMessageText editMessageText, String data, String[] inlineProducts, ECommerceBot eCommerceBot) {
+
         String strId = data.split(":")[1];
         if (strId.equals("Back")) {
             UUID productId = UUID.fromString(data.split(":")[2]);
@@ -48,7 +52,9 @@ public class ProductBotService {
             Optional<Product> optionalProduct = ProductService.getProductById(productId);
             if (optionalProduct.isPresent()) {
                 Product product = optionalProduct.get();
+
                 inlineProducts[1] = "1";
+
 
 
 
@@ -56,10 +62,12 @@ public class ProductBotService {
                 inlineProducts[1] = "1";
                 InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
                 editMessageText.setReplyMarkup(i);
+
                 org.telegram.telegrambots.meta.api.methods.send.SendPhoto photo = new org.telegram.telegrambots.meta.api.methods.send.SendPhoto();
                 photo.setChatId(String.valueOf(editMessageText.getChatId()));
                 photo.setPhoto(new org.telegram.telegrambots.meta.api.objects.InputFile(product.getImageUrl()));
                 eCommerceBot.execute(photo);
+
             }
         }
         return editMessageText;

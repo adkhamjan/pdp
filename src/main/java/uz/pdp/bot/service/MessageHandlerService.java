@@ -7,7 +7,9 @@ import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
 import uz.pdp.bot.ECommerceBot;
+
 import uz.pdp.bot.factory.OrderInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ReplyKeyboardFactory;
 import uz.pdp.enums.UserType;
@@ -34,7 +36,9 @@ public class MessageHandlerService extends BotHandlerService {
 
     @SneakyThrows
     @Override
+
     public BotApiMethod<?> handler(Update update, ECommerceBot eCommerceBot) {
+
         if (update.hasMessage()) {
             Message message = update.getMessage();
             String text = message.getText();
