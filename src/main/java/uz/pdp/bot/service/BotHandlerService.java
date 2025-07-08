@@ -3,6 +3,7 @@ package uz.pdp.bot.service;
 import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import uz.pdp.bot.ECommerceBot;
 import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
 import uz.pdp.service.ProductService;
@@ -41,7 +42,7 @@ public abstract class BotHandlerService {
         }
     }
 
-    public abstract BotApiMethod<?> handler(Update update);
+    public abstract BotApiMethod<?> handler(Update update, ECommerceBot eCommerceBot);
 
     protected void saveToFile() throws IOException {
         FileUtil.write(userIdsFile, userIds);
