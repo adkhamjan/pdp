@@ -48,8 +48,8 @@ public class FileUtil {
         return xmlMapper.readValue(new File(path), clazz);
     }
 
-    public static <V> Map<V, UUID> readMap(String filePath, Class<V> valueType) throws IOException {
-        JavaType mapType = objectMapper.getTypeFactory().constructMapType(Map.class, valueType, UUID.class);
+    public static <K, V> Map<K, V> readMap(String filePath, Class<K> KeyType, Class<V> valueType) throws IOException {
+        JavaType mapType = objectMapper.getTypeFactory().constructMapType(Map.class, KeyType, valueType);
         return objectMapper.readValue(new File(filePath), mapType);
     }
 
