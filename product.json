@@ -78,7 +78,6 @@
   "categoryId" : "b5ade57a-7148-418d-bd79-f123f20f73cd",
   "productName" : "ruchka",
   "price" : 3000,
-
   "imageUrl" : "https://yandex.ru/images/search?p=1&text=Ruchka&pos=1&rpt=simage&img_url=https%3A%2F%2Fwww.24-karat.ru%2Fupload%2Fiblock%2F2ab%2FIMG_0613.JPG&lr=194600"
 }, {
   "id" : "4c87fbac-37a9-46d4-bf6c-29bfa9df162f",
@@ -154,7 +153,6 @@
   "imageUrl" : "https://yandex.ru/images/search?text=Avtomat+kir+mashinasi&pos=8&rpt=simage&img_url=https%3A%2F%2Funivershop.uz%2Fwp-content%2Fuploads%2F2020%2F09%2FZFG60-S1212S.png&from=tabbar&lr=194600"
 }, {
   "id" : "117b43ed-0db8-4fb1-b673-320a5be6a635",
-
   "createdDate" : "2025-07-08T15:26:41.7931847",
   "active" : true,
   "updateDate" : null,
@@ -233,7 +231,6 @@
   "categoryId" : "092bdc87-b77c-4f9f-8d14-713312cd1e3a",
   "productName" : "Head First",
   "price" : 700000,
-
   "imageUrl" : "https://yandex.ru/images/search?text=head+first+java&pos=1&rpt=simage&img_url=https%3A%2F%2Fdumka.top%2Fimage%2Fcache%2Fcatalog%2F3-a-izdatel%2F0-kd-0.7.4%2F107-1000x1000.jpg&from=tabbar&lr=194600"
 }, {
   "id" : "25553a4a-27ab-4778-b0fa-83abac2b15f3",
@@ -306,7 +303,6 @@
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "Mini Lavash",
   "price" : 20000,
-
   "imageUrl" : "https://yandex.ru/images/search?text=Mini+Lavash&pos=2&rpt=simage&img_url=https%3A%2F%2Fstatic.tildacdn.com%2Fstor3531-3734-4937-a433-323937386666%2F49137672.jpg&from=tabbar&lr=194600"
 }, {
   "id" : "706c8803-c7c5-4e77-b42c-216cc4f91807",
@@ -317,7 +313,7 @@
   "productName" : "Sirniy Lavash",
   "price" : 33000,
   "imageUrl" : "https://yandex.ru/images/search?text=Sirniy+Lavash&pos=13&rpt=simage&img_url=https%3A%2F%2Fstatic.tildacdn.com%2Fstor6536-3537-4032-b432-323163383533%2F16261524.png&from=tabbar&lr=194600"
-},  {
+}, {
   "id" : "765ca5a5-d1d8-4d68-bd18-9dc0f0ddaeef",
   "createdDate" : "2025-07-08T16:23:20.4316155",
   "active" : true,
@@ -353,4 +349,67 @@
   "productName" : "Piyoz",
   "price" : 2500,
   "imageUrl" : "https://yandex.ru/images/search?text=Piyoz&pos=14&rpt=simage&img_url=https%3A%2F%2Fnoviydoctor.com%2Fwp-content%2Fuploads%2F2025%2F06%2F8photo70.jpg&from=tabbar&lr=194600"
-}]
+}, {
+  "id" : "3e372b02-de87-4b07-9829-91f403ea00c6",
+  "createdDate" : "2025-07-08T18:53:25.84651",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "feae06ae-4d59-45ec-921d-b92e2f2c8001",
+  "productName" : "Samsung A15",
+  "price" : 250000,
+  "imageUrl" : null
+}, {
+  "id" : "e327395d-8615-4cb0-857d-1e84b365cef2",
+  "createdDate" : "2025-07-08T18:54:37.2580764",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "a5db7a53-e3a4-40f4-a1db-c5b9e569feea",
+  "productName" : "Iphone 12",
+  "price" : 7000000,
+  "imageUrl" : null
+}, {
+  "id" : "93eff47c-c37b-4a44-bdd3-922cecaf3e4a",
+  "createdDate" : "2025-07-08T18:55:11.0731726",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "350dc551-03a6-4a75-bdd2-131a174f0c79",
+  "productName" : "Redmi Note 12",
+  "price" : 1775000,
+  "imageUrl" : null
+}, {
+  "id" : "59517c70-4f76-44e1-85cd-1ca4dceec8e1",
+  "createdDate" : "2025-07-08T18:55:38.9211596",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "350dc551-03a6-4a75-bdd2-131a174f0c79",
+  "productName" : "Redmi 14 Pro",
+  "price" : 2000000,
+  "imageUrl" : null
+}, {
+  "id" : "6266ddae-0e01-4788-8b41-fbca5d9c505d",
+  "createdDate" : "2025-07-08T18:56:12.124044",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "350dc551-03a6-4a75-bdd2-131a174f0c79",
+  "productName" : "Redmi 12",
+  "price" : 100000,
+  "imageUrl" : null
+}, {
+  "id" : "91d4b5c5-4501-472f-8e94-d1b321e315e9",
+  "createdDate" : "2025-07-08T18:57:37.0120179",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "32524c9c-a847-44a1-80b0-76c270c0449f",
+  "productName" : "Samsung ",
+  "price" : 2500000,
+  "imageUrl" : null
+}, {
+  "id" : "f96d39c1-c67a-4c01-a22f-5caf7731acdc",
+  "createdDate" : "2025-07-08T18:58:56.1054365",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "32524c9c-a847-44a1-80b0-76c270c0449f",
+  "productName" : " Samsung smart",
+  "price" : 32000,
+  "imageUrl" : null
+} ]

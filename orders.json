@@ -1,65 +1,25 @@
 [ {
-  "id" : "54ccc3d9-31a4-4500-ba0e-159fe31bf580",
-  "createdDate" : "2025-07-08T15:56:33.6285173",
+  "id" : "8cd1e202-ff8a-46d1-8614-639d3321ec97",
+  "createdDate" : "2025-07-08T19:10:49.389737",
   "active" : true,
   "updateDate" : null,
-  "userId" : "24563930-930b-4a5b-8ca4-947d7212ad66",
+  "userId" : "15067395-bf20-4e24-8094-23cec00aa98e",
   "cartItemList" : [ {
-    "cartId" : "54ccc3d9-31a4-4500-ba0e-159fe31bf580",
-    "productId" : "2ccb8ac3-bf56-44b6-9172-167d422c234f",
+    "cartId" : "8cd1e202-ff8a-46d1-8614-639d3321ec97",
+    "productId" : "d63de07c-c33c-4f94-996f-3a0ca48ea2a1",
     "quantity" : 2
   } ],
-  "totalPrice" : 30000000
+  "totalPrice" : 10000000
 }, {
-  "id" : "91d1d5b1-9346-4089-a48a-8978dfc3d149",
-  "createdDate" : "2025-07-08T16:30:56.680749",
+  "id" : "b75cf834-da58-4603-ba58-9abcfa7b7b30",
+  "createdDate" : "2025-07-08T19:11:49.4762403",
   "active" : true,
   "updateDate" : null,
-  "userId" : "24563930-930b-4a5b-8ca4-947d7212ad66",
+  "userId" : "acf88bf5-f64a-4e90-bb17-a1f26aa2037c",
   "cartItemList" : [ {
-    "cartId" : "91d1d5b1-9346-4089-a48a-8978dfc3d149",
-    "productId" : "bb69919b-9627-4e5e-818a-c4d6850bec36",
-    "quantity" : 2
-  } ],
-  "totalPrice" : 6000
-}, {
-  "id" : "5effe008-c736-41e6-8381-250533193862",
-  "createdDate" : "2025-07-08T15:59:01.022446",
-  "active" : true,
-  "updateDate" : null,
-  "userId" : "6881d870-bc37-425e-9954-0afd40a00573",
-  "cartItemList" : [ {
-    "cartId" : "5effe008-c736-41e6-8381-250533193862",
-    "productId" : "7a14a5d3-a302-47ed-be8c-590f42a8ebfd",
-    "quantity" : 2
-  } ],
-  "totalPrice" : 60000
-}, {
-  "id" : "04cc0181-9526-4eb2-9aef-3edeb63254b2",
-  "createdDate" : "2025-07-08T18:07:46.8756542",
-  "active" : true,
-  "updateDate" : null,
-  "userId" : "044c860e-f432-4f70-817d-bb097e46cae8",
-  "cartItemList" : [ {
-    "cartId" : "04cc0181-9526-4eb2-9aef-3edeb63254b2",
-    "productId" : "794f0874-6923-4b02-b0ad-017823e36120",
-    "quantity" : 2
-  } ],
-  "totalPrice" : 30000000
-}, {
-  "id" : "9cd5dee2-9a9b-4ef8-a23b-34635ca913de",
-  "createdDate" : "2025-07-08T18:09:45.7897672",
-  "active" : true,
-  "updateDate" : null,
-  "userId" : "044c860e-f432-4f70-817d-bb097e46cae8",
-  "cartItemList" : [ {
-    "cartId" : "9cd5dee2-9a9b-4ef8-a23b-34635ca913de",
-    "productId" : "794f0874-6923-4b02-b0ad-017823e36120",
+    "cartId" : "b75cf834-da58-4603-ba58-9abcfa7b7b30",
+    "productId" : "d63de07c-c33c-4f94-996f-3a0ca48ea2a1",
     "quantity" : 4
-  }, {
-    "cartId" : "9cd5dee2-9a9b-4ef8-a23b-34635ca913de",
-    "productId" : "a1650e2a-8a14-4eae-96bb-0ec91c942269",
-    "quantity" : 3
   } ],
-  "totalPrice" : 60060000
+  "totalPrice" : 20000000
 } ]
