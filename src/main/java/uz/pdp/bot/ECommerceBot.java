@@ -27,9 +27,11 @@ public class ECommerceBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
-            execute(messageHandler.handler(update));
+
+            execute(messageHandler.handler(update, this));
         } else if (update.hasCallbackQuery()) {
-            execute(callbackHandler.handler(update));
+            execute(callbackHandler.handler(update, this));
+
         }
     }
 
