@@ -31,10 +31,10 @@ public class LanguageBotService {
         }
     }
 
-    public static InlineKeyboardMarkup getInlineKeyboard() {
+    public static InlineKeyboardMarkup getInlineKeyboard(String back) {
         List<Language> languages = LanguageService.getLanguage();
         return new LanguageInlineKeyboardMarkup(languages, 3)
-                .createInlineKeyboard();
+                .createInlineKeyboard(back);
     }
 
     public static Map<String, String> getTexts(String lang) {
@@ -56,20 +56,19 @@ public class LanguageBotService {
         switch (langId) {
             case "6b8ca837-32a9-4cee-a218-cad716e7ca3d" -> {
                 languages.put(userId, "uz");
-                editMessageText.setText("Til muvaffaqiyatli o‘zgartirildi");
                 messages = uz_messages;
             }
             case "10853d6c-2ec3-4163-9a0c-bc5e48f76f75" -> {
                 languages.put(userId, "eng");
-                editMessageText.setText("Language changed successfully");
                 messages = eng_messages;
             }
             case "3a65dfd5-db6c-45b1-b12a-60491e80fc08" -> {
                 languages.put(userId, "rus");
-                editMessageText.setText("Язык успешно изменен");
                 messages = rus_messages;
             }
         }
+        editMessageText.setText(messages.get("language.changed"));
+
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(editMessageText.getChatId());
 

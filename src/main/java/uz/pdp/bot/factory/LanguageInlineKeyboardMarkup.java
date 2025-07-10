@@ -14,10 +14,10 @@ public class LanguageInlineKeyboardMarkup extends InlineKeyboardMarkupFactory<La
     }
 
     @Override
-    protected List<InlineKeyboardButton> createBackInlineKeyboard() {
+    protected List<InlineKeyboardButton> createBackInlineKeyboard(String back) {
         List<InlineKeyboardButton> rowBack = new ArrayList<>();
         InlineKeyboardButton btn = new InlineKeyboardButton();
-        btn.setText("Back");
+        btn.setText(back);
         btn.setCallbackData("LANGUAGE:Back");
         rowBack.add(btn);
         return rowBack;
