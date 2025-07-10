@@ -1,0 +1,11 @@
+package uz.pdp.enums;
+
+public enum BotState {
+    WAITING_CONTACT,
+    MAIN_MENU,
+    SELECTING_CATEGORY,
+    VIEWING_PRODUCT,
+    VIEWING_CART,
+    VIEWING_SETTING,
+    CONFIRMING_ORDER
+}

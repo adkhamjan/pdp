@@ -2,104 +2,146 @@ package uz.pdp.service;
 
 import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
-import uz.pdp.util.FileUtil;
+import uz.pdp.model.CartItem;
 import uz.pdp.model.Product;
+import uz.pdp.model.User;
+import uz.pdp.util.FileUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CartService {
-    private final String fileName = "carts.json";
+    private final String orderFileName = "orders.json";
+    private final String cartFileName = "carts.json";
+    private List<Cart> orderList;
     private List<Cart> cartList;
-    private Map<UUID, List<Cart>> cartMapByCartId;
-    private Map<UUID, Set<UUID>> cartMapByUserId;
 
     @SneakyThrows
     public CartService() {
-        cartList = FileUtil.read(fileName, Cart.class);
-        cartMapByCartId = new HashMap<>();
-        cartMapByUserId = new HashMap<>();
-
-//        for (Cart cart : cartList) {
-//            List<Cart> carts = cartMapByCartId.get(cart.getCartId());
-//            if (carts == null) {
-//                carts = new ArrayList<>();
-//            }
-//            carts.add(cart);
-//            cartMapByCartId.put(cart.getCartId(), carts);
-//        }
-//
-//        for (Cart cart : cartList) {
-//            Set<UUID> cartIds = cartMapByUserId.get(cart.getUserId());
-//            if (cartIds == null) {
-//                cartIds = new HashSet<>();
-//            }
-//            cartIds.add(cart.getCartId());
-//            cartMapByUserId.put(cart.getUserId(), cartIds);
-//        }
-    }
-
-    private List<Cart> getCartListByCartId(UUID cartId) {
-        return cartMapByCartId.get(cartId);
+        orderList = new ArrayList<>();
+        cartList = new ArrayList<>();
+        orderList = FileUtil.read(orderFileName, Cart.class);
+        cartList = FileUtil.read(cartFileName, Cart.class);
     }
 
     @SneakyThrows
     private void saveCarts() {
-        FileUtil.write(fileName, cartList);
+        FileUtil.write(cartFileName, cartList);
     }
 
-    public List<List<Cart>> getCartByUserId(UUID userId) {
-        Set<UUID> cartIds = cartMapByUserId.get(userId);
-        List<List<Cart>> list = new ArrayList<>(new ArrayList<>());
-        if (cartIds == null) {
-            return list;
-        }
-        for (UUID cartId : cartIds) {
-            list.add(getCartListByCartId(cartId));
-        }
-        return list;
+    @SneakyThrows
+    private void saveOrders() {
+        FileUtil.write(orderFileName, orderList);
     }
 
-    public List<Cart> getAllCarts() {
-        return cartList;
-    }
-
-    public UUID createCart(){
-        return UUID.randomUUID();
-    }
-
-//    public String addProductToCart(UUID productId, UUID userId, UUID cartId, int quantity) {
-//        Product product = ProductService.getProductById(productId);
-//        if (product != null && product.isActive()) {
-//            Cart newCart = new Cart(cartId, userId, productId, quantity);
-//            List<Cart> carts = cartMapByCartId.get(cartId);
-//            if (carts == null) {
-//                carts = new ArrayList<>();
-//                carts.add(newCart);
-//                cartMapByCartId.put(cartId, carts);
-//
-//                Set<UUID> cartIds = cartMapByUserId.get(userId);
-//                if (cartIds == null) {
-//                    cartIds = new HashSet<>();
+    public String addProductToCart(CartItem cartItem, UUID userId) {
+        int price = priceCalculation(cartItem);
+//        for (Cart cart : cartList) {
+//            if (cart.getId().equals(cartItem.getCartId())) {
+//                CartItem cartItem1 = hasCartItem(cart.getCartItemList(), cartItem);
+//                if (cartItem1 == null) {
+//                    cart.getCartItemList().add(cartItem);
+//                } else {
+//                    cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
 //                }
-//                cartIds.add(cartId);
-//                cartMapByUserId.put(userId, cartIds);
-//
-//                cartList.add(newCart);
-//                saveCarts();
-//                return "Successful \n";
+//                cart.setTotalPrice(cart.getTotalPrice() + price);
+//                return "Successful";
 //            }
-//            for (Cart cart : carts) {
-//                if (cart.getProductId().equals(productId)) {
-//                    cart.setQuantity(cart.getQuantity() + quantity);
-//                    saveCarts();
-//                    return "Successful \n";
-//                }
-//            }
-//            cartList.add(newCart);
-//            carts.add(newCart);
-//            saveCarts();
-//            return "Successful \n";
 //        }
-//        return "not found product \n";
-//    }
+        Cart currCart = cartList.stream().filter(cart -> cart.getId().equals(cartItem.getCartId())).
+                findFirst().orElse(null);
+        if (currCart != null) {
+            CartItem cartItem1 = hasCartItem(currCart.getCartItemList(), cartItem);
+            if (cartItem1 == null) {
+                currCart.getCartItemList().add(cartItem);
+            } else {
+                cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
+            }
+            currCart.setTotalPrice(currCart.getTotalPrice() + price);
+            saveCarts();
+            return "Successful";
+        }
+        currCart = createCart(cartItem.getCartId(), userId);
+        currCart.getCartItemList().add(cartItem);
+        currCart.setTotalPrice(price);
+        saveCarts();
+        return "Successful";
+    }
+
+    private int priceCalculation(CartItem cartItem) {
+        Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
+        if (optionalProduct.isEmpty()) {
+            throw new RuntimeException("Not found product");
+        }
+        int price = optionalProduct.get().getPrice();
+        return price * cartItem.getQuantity();
+    }
+
+    private CartItem hasCartItem(List<CartItem> cartItemList, CartItem cartItem) {
+        return cartItemList.stream()
+                .filter(item -> item.getProductId().equals(cartItem.getProductId()))
+                .findFirst()
+                .orElse(null);
+
+//        for (CartItem item : cartItemList) {
+//            if (item.getProductId().equals(cartItem.getProductId())) {
+//                return item;
+//            }
+//        }
+//        return null;
+    }
+
+    public Cart getCartByCartId(UUID cartId) {
+        return cartList.stream().filter(cart -> cart.getId().equals(cartId))
+                .findFirst().orElse(null);
+
+//        for (Cart cart : cartList) {
+//            if (cart.getId().equals(cartId)) {
+//                return cart;
+//            }
+//        }
+//        return null;
+    }
+
+    public String deletedCart(UUID cartId) {
+        Cart cart = getCartByCartId(cartId);
+        if (cart == null) {
+            return "not found cart";
+        }
+        cartList.remove(cart);
+        saveCarts();
+        return "Successful";
+    }
+
+    public void addCartToOrders(Cart cart) {
+        orderList.add(cart);
+        deletedCart(cart.getId());
+        saveOrders();
+    }
+
+    public List<Cart> getOrdersByUserId(UUID userId) {
+        return orderList.stream().filter(cart -> cart.getUserId().equals(userId))
+                .collect(Collectors.toList());
+
+//        List<Cart> carts = new ArrayList<>();
+//        for (Cart cart : orderList) {
+//            if (cart.getUserId().equals(userId)) {
+//                carts.add(cart);
+//            }
+//        }
+//        return carts;
+    }
+
+    public List<Cart> getAllOrders() {
+        return orderList;
+    }
+
+    public Cart createCart(UUID cartId, UUID userId) {
+        Cart cart = new Cart(userId, cartId);
+        cartList.add(cart);
+        return cart;
+    }
+
+
+
 }
