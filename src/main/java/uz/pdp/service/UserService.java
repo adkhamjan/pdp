@@ -36,9 +36,9 @@ public class UserService {
 
     @SneakyThrows
     public String add(User user) {
-        if (hasUser(user)) {
-            return "Unsuccessful";
-        }
+//        if (hasUser(user)) {
+//            return "Unsuccessful";
+//        }
         users.add(user);
         FileUtil.writeToXml(fileName, new UserListWrapper(users));
         return "successful \n";

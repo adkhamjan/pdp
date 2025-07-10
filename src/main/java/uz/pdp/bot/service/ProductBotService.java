@@ -3,10 +3,13 @@ package uz.pdp.bot.service;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
+
 import uz.pdp.bot.ECommerceBot;
 import uz.pdp.bot.factory.ProductInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
@@ -17,6 +20,7 @@ import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
 import uz.pdp.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +37,7 @@ public class ProductBotService {
     }
 
     @SneakyThrows
-    public EditMessageText getEditMessageByProduct(EditMessageText editMessageText, String data, String[] inlineProducts, ECommerceBot eCommerceBot) {
+    public BotApiMethod<?> getBotApiMethodByProduct(EditMessageText editMessageText, String data, String[] inlineProducts, ECommerceBot eCommerceBot) {
         String strId = data.split(":")[1];
         if (strId.equals("Back")) {
             UUID productId = UUID.fromString(data.split(":")[2]);
@@ -43,49 +47,68 @@ public class ProductBotService {
                 CategoryBotService categoryBotService = new CategoryBotService(categoryService, productService);
                 return categoryBotService.getEditMessageByParentCategory(editMessageText, product.getCategoryId());
             }
-        } else {
-            UUID productId = UUID.fromString(strId);
-            Optional<Product> optionalProduct = ProductService.getProductById(productId);
-            if (optionalProduct.isPresent()) {
-                Product product = optionalProduct.get();
-                inlineProducts[1] = "1";
-
-
-
-                editMessageText.setText("Nomi: " + product.getProductName() + "\n" + "Narxi: " + product.getPrice());
-                inlineProducts[1] = "1";
-                InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
-                editMessageText.setReplyMarkup(i);
-                org.telegram.telegrambots.meta.api.methods.send.SendPhoto photo = new org.telegram.telegrambots.meta.api.methods.send.SendPhoto();
-                photo.setChatId(String.valueOf(editMessageText.getChatId()));
-                photo.setPhoto(new org.telegram.telegrambots.meta.api.objects.InputFile(product.getImageUrl()));
-                eCommerceBot.execute(photo);
-            }
         }
-        return editMessageText;
+        DeleteMessage deleteMessage = new DeleteMessage();
+        deleteMessage.setChatId(editMessageText.getChatId());
+        deleteMessage.setMessageId(editMessageText.getMessageId());
+
+        org.telegram.telegrambots.meta.api.methods.send.SendPhoto sendPhoto = new org.telegram.telegrambots.meta.api.methods.send.SendPhoto();
+
+        UUID productId = UUID.fromString(strId);
+        Optional<Product> optionalProduct = ProductService.getProductById(productId);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            inlineProducts[1] = "1";
+            InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
+
+            sendPhoto.setChatId(editMessageText.getChatId());
+            sendPhoto.setPhoto(new org.telegram.telegrambots.meta.api.objects.InputFile(product.getImageUrl()));
+            sendPhoto.setCaption("Nomi: " + product.getProductName() + "\n" + "Narxi: " + product.getPrice());
+            sendPhoto.setReplyMarkup(i);
+            eCommerceBot.execute(sendPhoto);
+        }
+        return deleteMessage;
     }
 
-    public EditMessageText getEditMessageProductQuantity(EditMessageText editMessageText, String data, String[] inlineProducts, UUID cartId, UUID userId, CartService cartService) {
+    public List<BotApiMethod<?>> getEditMessageProductQuantity(EditMessageText editMessageText, String data, String[] inlineProducts, UUID cartId, UUID userId, CartService cartService) {
+        List<BotApiMethod<?>> result = new ArrayList<>();
+
         String strId = data.split(":")[1];
         if (strId.equals("Back")) {
             return getEditMessageQuantityBack(editMessageText, data);
-        } else if (strId.equals(inlineProducts[0])) {
-            return getEditMessageAddProduct(editMessageText, data, inlineProducts);
         } else if (strId.equals(inlineProducts[2])) {
-            return getEditMessageSubtractionProduct(editMessageText, data, inlineProducts);
+            result.add(getEditMessageReplyMarkupAddProduct(editMessageText, data, inlineProducts));
+        } else if (strId.equals(inlineProducts[0])) {
+            EditMessageReplyMarkup subtractionProduct = subtractionProduct(editMessageText, data, inlineProducts);
+            if (subtractionProduct != null) {
+                result.add(subtractionProduct);
+            }
         } else if (strId.equals(inlineProducts[3])) {
             UUID productId = UUID.fromString(data.split(":")[3]);
             int quantity = Integer.parseInt(data.split(":")[2]);
             CartItem cartItem = new CartItem(cartId, productId, quantity);
             cartService.addProductToCart(cartItem, userId);
 
-            editMessageText.setText("Savatga qo'shildi");
-            editMessageText.setReplyMarkup(null);
+            DeleteMessage deleteMessage = new DeleteMessage();
+            deleteMessage.setChatId(editMessageText.getChatId());
+            deleteMessage.setMessageId(editMessageText.getMessageId());
+
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(editMessageText.getChatId());
+            sendMessage.setText("Savatga qo'shildi");
+            result.add(deleteMessage);
+            result.add(sendMessage);
         }
-        return editMessageText;
+        return result;
     }
 
-    private EditMessageText getEditMessageQuantityBack(EditMessageText editMessageText, String data) {
+    private List<BotApiMethod<?>> getEditMessageQuantityBack(EditMessageText editMessageText, String data) {
+        DeleteMessage deleteMessage = new DeleteMessage();
+        deleteMessage.setChatId(editMessageText.getChatId());
+        deleteMessage.setMessageId(editMessageText.getMessageId());
+        List<BotApiMethod<?>> result = new ArrayList<>();
+        result.add(deleteMessage);
+
         UUID productId = UUID.fromString(data.split(":")[2]);
         Optional<Product> optionalProduct = ProductService.getProductById(productId);
         if (optionalProduct.isPresent()) {
@@ -93,42 +116,44 @@ public class ProductBotService {
             Optional<Category> optionalCategory = CategoryService.getCategoryById(product.getCategoryId());
             if (optionalCategory.isPresent()) {
                 Category category = optionalCategory.get();
-                editMessageText.setText(category.getName());
-                editMessageText.setReplyMarkup(getInlineKeyboard(category.getId()));
+                SendMessage sendMessage = new SendMessage();
+                sendMessage.setChatId(editMessageText.getChatId());
+                sendMessage.setText(category.getName());
+                sendMessage.setReplyMarkup(getInlineKeyboard(category.getId()));
+                result.add(sendMessage);
             }
         }
-        return editMessageText;
+        return result;
     }
 
-    private EditMessageText getEditMessageAddProduct(EditMessageText editMessageText, String data, String[] inlineProducts) {
+    private EditMessageReplyMarkup subtractionProduct(EditMessageText editMessageText, String data, String[] inlineProducts) {
+        EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+        editMessageReplyMarkup.setMessageId(editMessageText.getMessageId());
+        editMessageReplyMarkup.setChatId(editMessageText.getChatId());
+
         int count = Integer.parseInt(data.split(":")[2]);
         if (count > 1) {
             count -= 1;
             inlineProducts[1] = String.valueOf(count);
             UUID productId = UUID.fromString(data.split(":")[3]);
-            Optional<Product> optionalProduct = ProductService.getProductById(productId);
-            if (optionalProduct.isPresent()) {
-                Product product = optionalProduct.get();
-                editMessageText.setText("Nomi: " + product.getProductName() + "\n" + "Narxi: " + product.getPrice());
-                InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
-                editMessageText.setReplyMarkup(i);
-            }
+            InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
+            editMessageReplyMarkup.setReplyMarkup(i);
+            return editMessageReplyMarkup;
         }
-        return editMessageText;
+        return null;
     }
 
-    private EditMessageText getEditMessageSubtractionProduct(EditMessageText editMessageText, String data, String[] inlineProducts) {
+    private EditMessageReplyMarkup getEditMessageReplyMarkupAddProduct(EditMessageText editMessageText, String data, String[] inlineProducts) {
+        EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+        editMessageReplyMarkup.setMessageId(editMessageText.getMessageId());
+        editMessageReplyMarkup.setChatId(editMessageText.getChatId());
+
         int count = Integer.parseInt(data.split(":")[2]) + 1;
         inlineProducts[1] = String.valueOf(count);
         UUID productId = UUID.fromString(data.split(":")[3]);
-        Optional<Product> optionalProduct = ProductService.getProductById(productId);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            editMessageText.setText("Nomi: " + product.getProductName() + "\n" + "Narxi: " + product.getPrice());
-            InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
-            editMessageText.setReplyMarkup(i);
-        }
-        return editMessageText;
+        InlineKeyboardMarkup i = new ProductNumberInlineKeyboardMarkup(List.of(inlineProducts), 3, productId).createInlineKeyboard();
+        editMessageReplyMarkup.setReplyMarkup(i);
+        return editMessageReplyMarkup;
     }
 
 }
