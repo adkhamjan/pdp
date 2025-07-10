@@ -1,6 +1,5 @@
 package uz.pdp.bot.factory;
 
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class ReplyKeyboardFactory {
 
-    public static ReplyKeyboardMarkup createReplyKeyboardMarkup(List<String> buttons) {
+    public static ReplyKeyboardMarkup createMenuReplyKeyboardMarkup(List<String> buttons) {
         ReplyKeyboardMarkup r = new ReplyKeyboardMarkup();
         r.setResizeKeyboard(true);
         List<KeyboardRow> rows = new ArrayList<>();
@@ -34,15 +33,24 @@ public class ReplyKeyboardFactory {
         return r;
     }
 
-    public static ReplyKeyboardMarkup createSettingReplyKeyboardMarkup(List<String> buttons) {
+    public static ReplyKeyboardMarkup createReplyKeyboardMarkup(List<String> buttons, int colCount) {
         ReplyKeyboardMarkup r = new ReplyKeyboardMarkup();
         r.setResizeKeyboard(true);
         List<KeyboardRow> rows = new ArrayList<>();
         r.setKeyboard(rows);
 
-        for (String button : buttons) {
-            KeyboardRow row = new KeyboardRow();
+        int index = 0;
+        KeyboardRow row = new KeyboardRow();
+        for (String button: buttons) {
+            index ++;
             row.add(new KeyboardButton(button));
+            if (index % colCount == 0) {
+                rows.add(row);
+                row = new KeyboardRow();
+            }
+        }
+
+        if (!row.isEmpty()) {
             rows.add(row);
         }
         return r;

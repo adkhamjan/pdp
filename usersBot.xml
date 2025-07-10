@@ -1,10 +1,24 @@
 <Users>
-
-
-
   <user>
-    <id>24563930-930b-4a5b-8ca4-947d7212ad66</id>
-    <createdDate>2025-07-08T15:55:30.0430224</createdDate>
+    <id>d01c08d4-d4e5-4d07-9605-6b33c1d26c03</id>
+    <createdDate>2025-07-08T20:06:55.9710073</createdDate>
+    <active>true</active>
+    <name>Ahadjon</name>
+    <userName>ganiyev_ahadjon</userName>
+    <phoneNumber>998993425107</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+  <user>
+    <id>2f706881-ac6c-404b-9808-56f956fa2759</id>
+    <createdDate>2025-07-09T15:00:23.9701555</createdDate>
+    <active>true</active>
+    <name>...</name>
+    <phoneNumber>62895619839292</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+  <user>
+    <id>09998a42-1766-424f-96b5-564276f249ff</id>
+    <createdDate>2025-07-09T15:46:53.4750593</createdDate>
     <active>true</active>
     <name>Adham</name>
     <userName>adkhamjan_13</userName>
@@ -12,12 +26,11 @@
     <typeUser>USER</typeUser>
   </user>
   <user>
-    <id>6881d870-bc37-425e-9954-0afd40a00573</id>
-    <createdDate>2025-07-08T15:58:02.2694043</createdDate>
+    <id>02d453d6-e4fb-487e-bd5a-a0962dfee263</id>
+    <createdDate>2025-07-09T15:48:32.5927685</createdDate>
     <active>true</active>
-    <name>..</name>
-    <phoneNumber>998200062431</phoneNumber>
+    <name>Adham</name>
+    <phoneNumber>998950673437</phoneNumber>
     <typeUser>USER</typeUser>
   </user>
-
 </Users>
