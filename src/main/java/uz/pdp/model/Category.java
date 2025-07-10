@@ -17,6 +17,7 @@ public class Category extends BaseModel{
     private UUID updatedById;
     private UUID parentId;
     private Boolean nodeType;
+    private String imageUrl;
 
     @Override
     public String toString() {

@@ -193,4 +193,11 @@
     <parentId>68877412-5bf3-464b-b6fb-8cd8a5fdf488</parentId>
     <nodeType>false</nodeType>
   </Category>
+  <Category>
+    <id>a850e416-e323-4c4f-8d72-3ee61b13851f</id>
+    <createdDate>2025-07-08T15:02:30.6361743</createdDate>
+    <active>true</active>
+    <name>Oziq-Ovqat</name>
+    <createdById>7e7d218d-1b3f-419a-9c43-6168d381ab1d</createdById>
+  </Category>
 </categories>
