@@ -61,7 +61,7 @@ public class UserService {
 //            }
 //        }
 //        return null;
-        return users.stream().filter(u -> u.getUserName().equals(userName) && u.getPhoneNumber().equals(password))
+        return users.stream().filter(u -> u.getUserName() != null && u.getUserName().equals(userName) && u.getPhoneNumber().equals(password))
                 .findFirst();
     }
 

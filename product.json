@@ -412,4 +412,13 @@
   "productName" : " Samsung smart",
   "price" : 32000,
   "imageUrl" : null
+}, {
+  "id" : "0d4614a4-a84e-4054-b7f8-f2ade68c59c8",
+  "createdDate" : "2025-07-10T12:44:47.7266912",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "32524c9c-a847-44a1-80b0-76c270c0449f",
+  "productName" : "Shivaki",
+  "price" : 3000000,
+  "imageUrl" : null
 } ]

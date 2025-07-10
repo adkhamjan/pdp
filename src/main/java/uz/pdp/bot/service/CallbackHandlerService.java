@@ -43,7 +43,7 @@ public class CallbackHandlerService extends BotHandlerService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
 
-        String[] inlineProducts = {"-", "1", "+", messages.get("cart.save")};
+        String[] inlineProducts = {"➖", "1", "➕", messages.get("cart.save")};
 
         if (data.startsWith("LANGUAGE:")) {
             result = LanguageBotService.getEditMessageChangeLang(editMessageText, data, messages, languages, userId);
@@ -53,10 +53,10 @@ public class CallbackHandlerService extends BotHandlerService {
             result.add(categoryBotService.getEditMessageByCategory(data, editMessageText, messages));
         } else if (data.startsWith("PRODUCT:")) {
             ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
-            result.add(productBotService.getBotApiMethodByProduct(editMessageText, data, inlineProducts, eCommerceBot));
-        } else if (data.startsWith("NUMBER")) {
+            result.add(productBotService.getBotApiMethodByProduct(editMessageText, data, inlineProducts, eCommerceBot, messages));
+        } else if (data.startsWith("NUM")) {
             ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
-            result = productBotService.getEditMessageProductQuantity(editMessageText, data, inlineProducts, cartId, userId, CART_SERVICE);
+            result = productBotService.getEditMessageProductQuantity(editMessageText, data, inlineProducts, cartId, userId, CART_SERVICE, messages);
         }
         return result;
     }
