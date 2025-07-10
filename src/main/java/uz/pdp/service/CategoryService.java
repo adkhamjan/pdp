@@ -98,7 +98,7 @@ public class CategoryService {
             Category updateCategory = optionalCategory.get();
             updateCategory.setName(category.getName());
             updateCategory.setUpdatedById(userId);
-            updateCategory.setUpdateDate(LocalDateTime.now());
+
             saveCategories();
         }
     }
