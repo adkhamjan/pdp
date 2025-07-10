@@ -1,35 +1,20 @@
 package uz.pdp.bot;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.Contact;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import uz.pdp.bot.factory.OrderInlineKeyboardMarkup;
-import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
-import uz.pdp.bot.factory.ReplyKeyboardFactory;
-import uz.pdp.bot.service.CategoryBotService;
-import uz.pdp.bot.service.LanguageBotService;
-import uz.pdp.bot.service.ProductBotService;
-import uz.pdp.enums.UserType;
-import uz.pdp.model.*;
+import uz.pdp.bot.service.*;
 import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
 import uz.pdp.service.ProductService;
 import uz.pdp.service.UserService;
-import uz.pdp.util.FileUtil;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 
-@RequiredArgsConstructor
 public class ECommerceBot extends TelegramLongPollingBot {
+
      private static final String USERNAME = "https://t.me/e_commerce_pro_Bot";
      private static final String BOT_TOKEN = "7766344482:AAEXYYB4phX2XvUnYZNhzVfO92dgormEg6c";
      private final CategoryService CATEGORY_SERVICE;
@@ -394,6 +379,4 @@ public class ECommerceBot extends TelegramLongPollingBot {
                e.printStackTrace();
           }
      }
-
-
 }

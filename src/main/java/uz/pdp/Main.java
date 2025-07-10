@@ -21,7 +21,6 @@ public class Main {
     static ProductService productService = new ProductService();
     static CartService cartService = new CartService();
     static CategoryService categoryService = new CategoryService();
-    static LanguageService languageService = new LanguageService();
 
     public static void main(String[] args) {
 
