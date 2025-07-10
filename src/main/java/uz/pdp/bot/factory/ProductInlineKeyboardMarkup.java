@@ -14,10 +14,10 @@ public class ProductInlineKeyboardMarkup extends InlineKeyboardMarkupFactory<Pro
     }
 
     @Override
-    protected List<InlineKeyboardButton> createBackInlineKeyboard() {
+    protected List<InlineKeyboardButton> createBackInlineKeyboard(String back) {
         List<InlineKeyboardButton> rowBack = new ArrayList<>();
         InlineKeyboardButton btn = new InlineKeyboardButton();
-        btn.setText("Back");
+        btn.setText(back);
         btn.setCallbackData("PRODUCT:Back:"+records.getFirst().getId());
         rowBack.add(btn);
         return rowBack;

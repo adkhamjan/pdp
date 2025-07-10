@@ -51,7 +51,7 @@ public class MessageHandlerService extends BotHandlerService {
                 messages.get("menu.cart"), messages.get("menu.settings"));
 
         if (message.hasContact() && userState.equals(BotState.WAITING_CONTACT)) {
-            result.add(registerContact(message, sendMessage, menuName));
+            result.add(registerContact(message, sendMessage, menuName, messages));
         } else if (text.equals("/start")) {
             result.add(sendMessage);
             if (!userIds.containsKey(tmeUserId)) {
@@ -59,7 +59,7 @@ public class MessageHandlerService extends BotHandlerService {
                 sendMessage.setReplyMarkup(ReplyKeyboardFactory.createSendContactReplyKeyboardMarkup());
                 userStates.put(chatId, BotState.WAITING_CONTACT);
             } else {
-                sendMessage.setText(messages.get("menu.menu"));
+                sendMessage.setText(messages.get("menu"));
                 sendMessage.setReplyMarkup(ReplyKeyboardFactory.createMenuReplyKeyboardMarkup(menuName));
                 userStates.put(tmeUserId, BotState.MAIN_MENU);
             }
@@ -67,8 +67,8 @@ public class MessageHandlerService extends BotHandlerService {
         } else if (!userState.equals(BotState.WAITING_CONTACT)) {
             if (text.equals(messages.get("menu.menu"))) {
                 CategoryBotService categoryBotService = new CategoryBotService(CATEGORY_SERVICE, PRODUCT_SERVICE);
-                sendMessage.setText("Bosh kategoriyalardan birini tanlang");
-                sendMessage.setReplyMarkup(categoryBotService.getInlineKeyboard());
+                sendMessage.setText(messages.get("main") + messages.get("category.select"));
+                sendMessage.setReplyMarkup(categoryBotService.getInlineKeyboard(messages.get("back")));
                 result.add(sendMessage);
             } else if (text.equals(messages.get("menu.orders"))) {
                 return getSendMessageOrders(chatId, userId, messages);
@@ -83,10 +83,10 @@ public class MessageHandlerService extends BotHandlerService {
                 saveStateToFile();
             } else if (text.equals(messages.get("language.change"))) {
                 sendMessage.setText(messages.get("language.prompt"));
-                sendMessage.setReplyMarkup(LanguageBotService.getInlineKeyboard());
+                sendMessage.setReplyMarkup(LanguageBotService.getInlineKeyboard(messages.get("back")));
                 result.add(sendMessage);
             } else if (text.equals(messages.get("back"))) {
-                sendMessage.setText(messages.get("menu.menu"));
+                sendMessage.setText(messages.get("menu"));
                 sendMessage.setReplyMarkup(ReplyKeyboardFactory.createMenuReplyKeyboardMarkup(menuName));
                 userStates.put(tmeUserId, BotState.MAIN_MENU);
                 saveStateToFile();
@@ -100,12 +100,12 @@ public class MessageHandlerService extends BotHandlerService {
     }
 
     @SneakyThrows
-    private SendMessage registerContact(Message message, SendMessage sendMessage, List<String> menuNames) {
+    private SendMessage registerContact(Message message, SendMessage sendMessage, List<String> menuNames, Map<String, String> messages) {
         Contact contact = message.getContact();
         String phoneNumber = contact.getPhoneNumber();
 
         sendMessage.setText("✅ Raqamingiz qabul qilindi: " + phoneNumber + "\nBotdan foydalanishingiz mumkin.");
-        sendMessage.setText(menuNames.getFirst());
+        sendMessage.setText(messages.get("menu"));
         sendMessage.setReplyMarkup(ReplyKeyboardFactory.createMenuReplyKeyboardMarkup(menuNames));
 
         String firstName = message.getFrom().getFirstName();
@@ -137,14 +137,15 @@ public class MessageHandlerService extends BotHandlerService {
                 StringBuilder sb = new StringBuilder();
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(chatId);
-
+                sb.append(messages.get("order.description")).append("\n");
                 List<CartItem> cartItems = order.getCartItemList();
-                sb.append(messages.get("product.price")).append(order.getTotalPrice()).append("\n");
                 for (CartItem cartItem : cartItems) {
                     Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
-                    optionalProduct.ifPresent(product -> sb.append(product.getProductName()).append(": ").
-                            append(cartItem.getQuantity()).append("\n"));
+                    optionalProduct.ifPresent(product -> sb.append("🔹 ").append(product.getProductName()).append(" — ")
+                            .append(cartItem.getQuantity()).append(messages.get("piece")).append("\n").append(messages.get("price")).append(product.getPrice()).append("\n=====================\n"));
                 }
+                sb.append(messages.get("total.price")).append(order.getTotalPrice()).append(" UZS");
+                sendMessage.setText(sb.toString());
                 sendMessage.setText(sb.toString());
                 result.add(sendMessage);
             }
@@ -160,12 +161,12 @@ public class MessageHandlerService extends BotHandlerService {
         } else {
             List<CartItem> cartItems = cart.getCartItemList();
             StringBuilder sb = new StringBuilder();
-            sb.append(messages.get("product.price")).append(cart.getTotalPrice()).append("\n");
             for (CartItem cartItem : cartItems) {
                 Optional<Product> optionalProduct = ProductService.getProductById(cartItem.getProductId());
-                optionalProduct.ifPresent(product -> sb.append(product.getProductName()).append(": ").
-                        append(cartItem.getQuantity()).append("\n"));
+                optionalProduct.ifPresent(product -> sb.append("🔹 ").append(product.getProductName()).append(" — ")
+                        .append(cartItem.getQuantity()).append(messages.get("piece")).append("\n").append(messages.get("price")).append(product.getPrice()).append("\n=====================\n"));
             }
+            sb.append(messages.get("total.price")).append(cart.getTotalPrice()).append(" UZS");
             sendMessage.setText(sb.toString());
             sendMessage.setReplyMarkup(ReplyKeyboardFactory.createReplyKeyboardMarkup(List.of(messages.get("cart.order"),
                     messages.get("cart.delete"), messages.get("back")), 2));
@@ -198,7 +199,7 @@ public class MessageHandlerService extends BotHandlerService {
             sendMessage.setText(messages.get("cart.cleared"));
             return sendMessage;
         } else if (text.equals(messages.get("back"))) {
-            sendMessage.setText(messages.get("cart.menu"));
+            sendMessage.setText(messages.get("menu"));
             sendMessage.setReplyMarkup(ReplyKeyboardFactory.createMenuReplyKeyboardMarkup(menuNames));
             userStates.put(tmeUserId, BotState.MAIN_MENU);
             saveStateToFile();
