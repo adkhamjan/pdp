@@ -55,7 +55,6 @@
 }, {
   "id" : "f46fd74b-6f70-471f-a897-ed41d65a14f0",
   "createdDate" : "2025-06-28T13:38:28.9737883",
-  "active" : false,
   "updateDate" : null,
   "categoryId" : "88594fae-1e0f-40d9-9f76-4c061eb5e425",
   "productName" : "Vaz 2106",
@@ -123,7 +122,6 @@
   "categoryId" : "6d838e9b-30e7-4fa1-b4bd-1223e4084425",
   "productName" : "Mini kir yuvish mashinasi",
   "price" : 2300,
-  "imageUrl" : "https://yandex.ru/images/search?text=Mini+kir+yuvish+mashinasi&pos=7&rpt=simage&img_url=https%3A%2F%2Ffrankfurt.apollo.olxcdn.com%2Fv1%2Ffiles%2Finaqekxhxgba-UZ%2Fimage%3Bs%3D1080x961&from=tabbar&lr=194600"
 }, {
   "id" : "090f0977-529a-424e-ab11-a780b27c914c",
   "createdDate" : "2025-07-08T15:24:01.8944036",
@@ -187,6 +185,7 @@
   "productName" : "Premier PRM 260TFDFW qora Музлатгичи",
   "price" : 470000,
   "imageUrl" : "https://yandex.ru/images/search?text=remier+PRM+260TFDFW+qora+Музлатгичи&pos=6&rpt=simage&img_url=https%3A%2F%2Fapi.cabinet.smart-market.uz%2Fuploads%2Fimages%2Fff808181fb0fc995333789c1&from=tabbar&lr=194600"
+
 }, {
   "id" : "f5a585b6-c4d4-4aa5-8297-d33a7bab77a8",
   "createdDate" : "2025-07-08T16:08:23.361058",
@@ -411,5 +410,14 @@
   "categoryId" : "32524c9c-a847-44a1-80b0-76c270c0449f",
   "productName" : " Samsung smart",
   "price" : 32000,
+  "imageUrl" : null
+}, {
+  "id" : "0d4614a4-a84e-4054-b7f8-f2ade68c59c8",
+  "createdDate" : "2025-07-10T12:44:47.7266912",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "32524c9c-a847-44a1-80b0-76c270c0449f",
+  "productName" : "Shivaki",
+  "price" : 3000000,
   "imageUrl" : null
 } ]

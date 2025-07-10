@@ -18,16 +18,16 @@ public class CategoryBotService {
     private final CategoryService categoryService;
     private final ProductService productService;
 
-    public InlineKeyboardMarkup getInlineKeyboard() {
+    public InlineKeyboardMarkup getInlineKeyboard(String back) {
         List<Category> categories = categoryService.getParentCategories();
         return new CategoryInlineKeyboardMarkup(categories, 3)
-                .createInlineKeyboard();
+                .createInlineKeyboard(back);
     }
 
-    public InlineKeyboardMarkup getInlineKeyboard(UUID id) {
+    public InlineKeyboardMarkup getInlineKeyboard(UUID id, String back) {
         List<Category> categories = categoryService.getChildCategoryById(id);
         return new CategoryInlineKeyboardMarkup(categories, 3)
-                .createInlineKeyboard();
+                .createInlineKeyboard(back);
     }
 
     public EditMessageText getEditMessageByCategory(String data, EditMessageText editMessageText, Map<String, String> messages) {
@@ -36,19 +36,19 @@ public class CategoryBotService {
             UUID categoryId = UUID.fromString(data.split(":")[2]);
             UUID parentId = categoryService.getParentIdByChildId(categoryId);
             if (parentId == null) {
-                editMessageText.setText(messages.get("menu.menu"));
+                editMessageText.setText(messages.get("menu"));
                 editMessageText.setReplyMarkup(null);
             } else {
                 UUID currId = categoryService.getParentIdByChildId(parentId);
                 if (currId == null) {
-                    editMessageText.setText(messages.get("menu.menu"));
-                    editMessageText.setReplyMarkup(getInlineKeyboard());
+                    editMessageText.setText(messages.get("main") + messages.get("category.select"));
+                    editMessageText.setReplyMarkup(getInlineKeyboard(messages.get("back")));
                 } else {
                     Optional<Category> optionalCategory = CategoryService.getCategoryById(currId);
                     if (optionalCategory.isPresent()) {
                         Category category = optionalCategory.get();
-                        editMessageText.setText(category.getName());
-                        editMessageText.setReplyMarkup(getInlineKeyboard(currId));
+                        editMessageText.setText(category.getName() + messages.get("category.select"));
+                        editMessageText.setReplyMarkup(getInlineKeyboard(currId, messages.get("back")));
                     }
                 }
             }
@@ -58,25 +58,25 @@ public class CategoryBotService {
             if (optionalCategory.isPresent()) {
                 Category category = optionalCategory.get();
                 if (category.getNodeType()) {
-                    editMessageText.setText(category.getName());
-                    editMessageText.setReplyMarkup(getInlineKeyboard(catId));
+                    editMessageText.setText(category.getName() + messages.get("category.select"));
+                    editMessageText.setReplyMarkup(getInlineKeyboard(catId, messages.get("back")));
                 } else {
                     ProductBotService productBotService = new ProductBotService(productService, categoryService);
-                    editMessageText.setText(category.getName());
-                    editMessageText.setReplyMarkup(productBotService.getInlineKeyboard(catId));
+                    editMessageText.setText(category.getName() + messages.get("product.select"));
+                    editMessageText.setReplyMarkup(productBotService.getInlineKeyboard(catId, messages.get("back")));
                 }
             }
         }
         return editMessageText;
     }
 
-    public EditMessageText getEditMessageByParentCategory(EditMessageText editMessageText, UUID categoryId) {
+    public EditMessageText getEditMessageByParentCategory(EditMessageText editMessageText, UUID categoryId, Map<String, String> messages) {
         UUID parentCategoryId = categoryService.getParentIdByChildId(categoryId);
         Optional<Category> optionalCategory = CategoryService.getCategoryById(parentCategoryId);
         if (optionalCategory.isPresent()) {
             Category category = optionalCategory.get();
-            editMessageText.setText(category.getName());
-            editMessageText.setReplyMarkup(getInlineKeyboard(parentCategoryId));
+            editMessageText.setText(category.getName() + messages.get("category.select"));
+            editMessageText.setReplyMarkup(getInlineKeyboard(parentCategoryId, messages.get("back")));
         }
         return editMessageText;
     }

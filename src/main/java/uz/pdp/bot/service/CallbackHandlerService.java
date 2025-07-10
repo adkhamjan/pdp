@@ -7,13 +7,13 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import uz.pdp.bot.ECommerceBot;
-
-import uz.pdp.model.Cart;
 import uz.pdp.service.CartService;
 import uz.pdp.service.CategoryService;
 import uz.pdp.service.ProductService;
 import uz.pdp.service.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,77 +24,41 @@ public class CallbackHandlerService extends BotHandlerService {
 
     @SneakyThrows
     @Override
+    public List<BotApiMethod<?>> handler(Update update, ECommerceBot eCommerceBot) {
+        List<BotApiMethod<?>> result = new ArrayList<>();
+        Long chatId = update.getCallbackQuery().getMessage().getChatId();
+        Long telUserId = update.getCallbackQuery().getFrom().getId();
+        UUID userId = userIds.get(telUserId);
+        UUID cartId = cartIdByUserId.get(userId);
 
-    public BotApiMethod<?> handler(Update update, ECommerceBot eCommerceBot) {
+        String data = update.getCallbackQuery().getData();
+        Integer messageId = update.getCallbackQuery().getMessage().getMessageId();
 
-        if (update.hasCallbackQuery()) {
-            Long chatId = update.getCallbackQuery().getMessage().getChatId();
-            Long telUserId = update.getCallbackQuery().getFrom().getId();
-            UUID userId = userIds.get(telUserId);
-            UUID cartId = cartIdByUserId.get(userId);
+        EditMessageText editMessageText = new EditMessageText();
+        editMessageText.setChatId(chatId);
+        editMessageText.setMessageId(messageId);
 
-            String data = update.getCallbackQuery().getData();
-            Integer messageId = update.getCallbackQuery().getMessage().getMessageId();
+        String lang = languages.get(userId);
+        Map<String, String> messages = LanguageBotService.getTexts(lang);
 
-            EditMessageText editMessageText = new EditMessageText();
-            editMessageText.setChatId(chatId);
-            editMessageText.setMessageId(messageId);
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
 
-            String lang = languages.get(userId);
-            Map<String, String> messages = LanguageBotService.getTexts(lang);
+        String[] inlineProducts = {"➖", "1", "➕", messages.get("cart.save")};
 
-            SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(chatId);
-
-            String[] inlineProducts = {"-", "1", "+", messages.get("cart.save")};
-
-            if (data.startsWith("LANGUAGE:")) {
-                EditMessageText editMessageText1 = LanguageBotService.getEditMessageChangeLang(editMessageText, data, messages, languages, userId);
-                saveLanguageToFile();
-                return editMessageText1;
-            } else if (data.startsWith("CATEGORY:")) {
-                CategoryBotService categoryBotService = new CategoryBotService(CATEGORY_SERVICE, PRODUCT_SERVICE);
-                return categoryBotService.getEditMessageByCategory(data, editMessageText, messages);
-            } else if (data.startsWith("PRODUCT:")) {
-                ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
-
-                return productBotService.getEditMessageByProduct(editMessageText, data, inlineProducts, eCommerceBot);
-
-            } else if (data.startsWith("NUMBER")) {
-                ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
-                return productBotService.getEditMessageProductQuantity(editMessageText, data, inlineProducts, cartId, userId, CART_SERVICE);
-            } else if (data.startsWith("ORDER:")) {
-                return getEditMessageByOrder(editMessageText, data, userId, cartId, messages);
-            }
-            return editMessageText;
+        if (data.startsWith("LANGUAGE:")) {
+            result = LanguageBotService.getEditMessageChangeLang(editMessageText, data, messages, languages, userId);
+            saveLanguageToFile();
+        } else if (data.startsWith("CATEGORY:")) {
+            CategoryBotService categoryBotService = new CategoryBotService(CATEGORY_SERVICE, PRODUCT_SERVICE);
+            result.add(categoryBotService.getEditMessageByCategory(data, editMessageText, messages));
+        } else if (data.startsWith("PRODUCT:")) {
+            ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
+            result.add(productBotService.getBotApiMethodByProduct(editMessageText, data, inlineProducts, eCommerceBot, messages));
+        } else if (data.startsWith("NUM")) {
+            ProductBotService productBotService = new ProductBotService(PRODUCT_SERVICE, CATEGORY_SERVICE);
+            result = productBotService.getEditMessageProductQuantity(editMessageText, data, inlineProducts, cartId, userId, CART_SERVICE, messages);
         }
-        return null;
-    }
-
-    @SneakyThrows
-    private EditMessageText getEditMessageByOrder(EditMessageText editMessageText, String data, UUID userId, UUID cartId, Map<String, String> messages) {
-        String callback = data.split(":")[1];
-        if (callback.equals(messages.get("cart.order"))) {
-            Cart cart = CART_SERVICE.getCartByCartId(cartId);
-            CART_SERVICE.addCartToOrders(cart);
-            cartId = UUID.randomUUID();
-            cartIdByUserId.put(userId, cartId);
-            saveToFile();
-
-            editMessageText.setText(messages.get("order.placed"));
-            editMessageText.setReplyMarkup(null);
-        } else if (callback.equals(messages.get("cart.delete"))) {
-            CART_SERVICE.deletedCart(cartId);
-            cartId = UUID.randomUUID();
-            cartIdByUserId.put(userId, cartId);
-            saveToFile();
-
-            editMessageText.setText(messages.get("cart.cleared"));
-            editMessageText.setReplyMarkup(null);
-        } else if (callback.equals("Back")) {
-            editMessageText.setText(messages.get("cart.menu"));
-            editMessageText.setReplyMarkup(null);
-        }
-        return editMessageText;
+        return result;
     }
 }
