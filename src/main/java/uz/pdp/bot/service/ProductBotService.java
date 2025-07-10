@@ -1,6 +1,7 @@
 package uz.pdp.bot.service;
 
 import lombok.RequiredArgsConstructor;
+
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 
 
 import uz.pdp.bot.ECommerceBot;
+
 import uz.pdp.bot.factory.ProductInlineKeyboardMarkup;
 import uz.pdp.bot.factory.ProductNumberInlineKeyboardMarkup;
 import uz.pdp.model.CartItem;
@@ -35,6 +37,7 @@ public class ProductBotService {
         return new ProductInlineKeyboardMarkup(products, 3)
                 .createInlineKeyboard();
     }
+
 
     @SneakyThrows
     public BotApiMethod<?> getBotApiMethodByProduct(EditMessageText editMessageText, String data, String[] inlineProducts, ECommerceBot eCommerceBot) {
