@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import uz.pdp.model.Cart;
 import uz.pdp.model.CartItem;
 import uz.pdp.model.Product;
+import uz.pdp.model.User;
 import uz.pdp.util.FileUtil;
 
 import java.util.*;
@@ -140,4 +141,7 @@ public class CartService {
         cartList.add(cart);
         return cart;
     }
+
+
+
 }

@@ -21,6 +21,7 @@ public class Product extends BaseModel {
                 ", id=" + id +
                 ", price=" + price +
                 ", categoryId=" + categoryId +
+                  ", imageUrl='" + imageUrl +
                 '}';
     }
 }
