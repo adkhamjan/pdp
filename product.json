@@ -1,72 +1,190 @@
-
 [ {
   "id" : "7a14a5d3-a302-47ed-be8c-590f42a8ebfd",
   "createdDate" : "2025-06-28T13:38:28.9697665",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "Big lavash",
-  "price" : 30000
+  "price" : 30000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Big+Lavash&img_url=https%3A%2F%2Fkvu.su%2Fuploads%2Fposts%2F2023-09%2Fshaurma.jpg&pos=1&rpt=simage&stype=image&lr=194600&parent-reqid=1751964749040985-1293061701296944701-balancer-l7leveler-kubr-yp-klg-174-BAL&source=serp"
 }, {
   "id" : "2ccb8ac3-bf56-44b6-9172-167d422c234f",
   "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "a5db7a53-e3a4-40f4-a1db-c5b9e569feea",
   "productName" : "Iphone 14 pro max",
-  "price" : 15000000
+  "price" : 15000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=3&from=tabbar&img_url=https%3A%2F%2Fobject.pscloud.io%2Fcms%2Fcms%2FUploads%2F14pro.jpg&text=Iphone+14+pro+max+photo&rpt=simage&lr=194600"
 }, {
   "id" : "0fa0438e-983a-4a35-8dd9-8e16f92515e5",
   "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
   "productName" : "Artel",
-  "price" : 3500000
+  "price" : 3500000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=27&from=tabbar&img_url=http%3A%2F%2Ffrankfurt.apollo.olxcdn.com%2Fv1%2Ffiles%2F3jmwowry2icp1-UZ%2Fimage&text=Artel&rpt=simage&lr=194600"
 }, {
   "id" : "d7383cc2-58b6-44e9-8e76-19cd6e56325f",
   "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
   "productName" : "mac Air m3",
-  "price" : 150000000
+  "price" : 150000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=1&from=tabbar&img_url=https%3A%2F%2Faytishnik.uz%2Fimages%2Fm3macbookairm3.png&text=mac+Air+m3+image&rpt=simage&lr=194600"
 }, {
   "id" : "3b636de3-ca4b-4bf9-b8a3-1f53a7d3065d",
   "createdDate" : "2025-06-28T13:38:28.971775",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "6b425bed-d6f9-48ce-bbfe-a63a988d7a40",
   "productName" : "mac pro m3",
-  "price" : 25000000
+  "price" : 25000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=30&img_url=http%3A%2F%2Favatars.dzeninfra.ru%2Fget-zen_doc%2F271828%2Fpub_66f0fee39f915f06cc685a1d_66f10369270cc26206279c40%2Fscale_1200&text=mac+pro+m3+image&rpt=simage&lr=194600"
 }, {
   "id" : "03beb0f8-f897-478a-97be-d75385960d85",
   "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "feae06ae-4d59-45ec-921d-b92e2f2c8001",
   "productName" : "Galaxy S25 Ultra",
-  "price" : 12000000
+  "price" : 12000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=21&img_url=https%3A%2F%2Fwww.bizzbuzz.news%2Fh-upload%2F2024%2F11%2F16%2F1943649-samsung-galaxy-s25.webp&text=Galaxy+S25+Ultra+&rpt=simage&lr=194600"
 }, {
   "id" : "f46fd74b-6f70-471f-a897-ed41d65a14f0",
   "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "88594fae-1e0f-40d9-9f76-4c061eb5e425",
   "productName" : "Vaz 2106",
-  "price" : 16000000
+  "price" : 16000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=15&img_url=https%3A%2F%2Favatars.mds.yandex.net%2Fget-shedevrum%2F10713989%2F96e60756b0a611ee8d7ed261b2905eb9%2Forig&text=Vaz+2106&rpt=simage&lr=194600"
 }, {
   "id" : "9d7b1a8e-8ca1-48c5-b294-49f50715bc1f",
   "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : false,
+  "updateDate" : null,
   "categoryId" : "5cc95ef1-1812-4f7e-8674-fb17c15ec860",
   "productName" : "klassik lavash",
-  "price" : 29000000
+  "price" : 29000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=7&img_url=https%3A%2F%2Fcs12.pikabu.ru%2Fpost_img%2F2022%2F05%2F25%2F10%2Fog_og_1653500566276470661.jpg&text=klassik+lavash&rpt=simage&lr=194600"
 }, {
   "id" : "bb69919b-9627-4e5e-818a-c4d6850bec36",
   "createdDate" : "2025-06-28T13:38:28.9737883",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "b5ade57a-7148-418d-bd79-f123f20f73cd",
   "productName" : "ruchka",
-  "price" : 3000
+  "price" : 3000,
+  "imageUrl" : "https://yandex.ru/images/search?p=1&text=Ruchka&pos=1&rpt=simage&img_url=https%3A%2F%2Fwww.24-karat.ru%2Fupload%2Fiblock%2F2ab%2FIMG_0613.JPG&lr=194600"
 }, {
   "id" : "4c87fbac-37a9-46d4-bf6c-29bfa9df162f",
   "createdDate" : "2025-06-28T13:39:08.2766193",
   "active" : true,
+  "updateDate" : null,
   "categoryId" : "27b6a248-28be-4f44-a9be-cf3cd7f0ada5",
   "productName" : "Cobalt",
-  "price" : 160000000
+  "price" : 160000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=37&img_url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F5UfVqv7B3Y4%2Fmaxresdefault.jpg&text=+beatiful+Cobalt&rpt=simage&lr=194600"
+}, {
+  "id" : "d63de07c-c33c-4f94-996f-3a0ca48ea2a1",
+  "createdDate" : "2025-07-08T15:17:40.3750892",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "7708f6c4-2c20-4b0a-8548-162df7618e95",
+  "productName" : "Vacuum Changyutgich",
+  "price" : 5000000,
+  "imageUrl" : "https://yandex.ru/images/search?pos=3&from=tabbar&img_url=https%3A%2F%2Ffrankfurt.apollo.olxcdn.com%2Fv1%2Ffiles%2F62ok3ftiu0p53-UZ%2Fimage&text=Vacuum+Changyutgich&rpt=simage&lr=194600"
+}, {
+  "id" : "d7900030-de56-4cf1-9281-158bf1bdd0ff",
+  "createdDate" : "2025-07-08T15:19:32.1891933",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "7708f6c4-2c20-4b0a-8548-162df7618e95",
+  "productName" : "Robot Changyutgich",
+  "price" : 2000000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Robot+Changyutgich&pos=14&rpt=simage&img_url=https%3A%2F%2Fs13emagst.akamaized.net%2Fproducts%2F32034%2F32033611%2Fimages%2Fres_22c2849555cfe0f04b30ad1f3141542f.jpg&from=tabbar&lr=194600"
+}, {
+  "id" : "c45765bf-0d17-40a5-bdb4-6b00d347cbc5",
+  "createdDate" : "2025-07-08T15:20:16.5362981",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "7708f6c4-2c20-4b0a-8548-162df7618e95",
+  "productName" : "Slindrli changyutgich",
+  "price" : 150000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Slindrli+changyutgich&pos=3&rpt=simage&img_url=https%3A%2F%2Fantava.com.ru%2Fwp-content%2Fuploads%2F2022%2F11%2F2-7.jpg&from=tabbar&lr=194600"
+}, {
+  "id" : "ad533860-0314-471f-aee8-3734faa9f67e",
+  "createdDate" : "2025-07-08T15:21:24.0399842",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "6d838e9b-30e7-4fa1-b4bd-1223e4084425",
+  "productName" : "Mini kir yuvish mashinasi",
+  "price" : 2300,
+  "imageUrl" :"https://yandex.ru/images/search?text=Mini+kir+yuvish+mashinasi&pos=7&rpt=simage&img_url=https%3A%2F%2Ffrankfurt.apollo.olxcdn.com%2Fv1%2Ffiles%2Finaqekxhxgba-UZ%2Fimage%3Bs%3D1080x961&from=tabbar&lr=194600"
+}, {
+  "id" : "090f0977-529a-424e-ab11-a780b27c914c",
+  "createdDate" : "2025-07-08T15:24:01.8944036",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "6d838e9b-30e7-4fa1-b4bd-1223e4084425",
+  "productName" : "Qurituvchi funksiyali kir yuvish mashinasi",
+  "price" : 330000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Qurituvchi+funksiyali+kir+yuvish+mashinasi&pos=13&rpt=simage&img_url=https%3A%2F%2Fimages.uzum.uz%2Fcp5e83vj2e4ghqns3880%2Foriginal.jpg&from=tabbar&lr=194600"
+}, {
+  "id" : "ea81f602-dd81-44d6-92fd-1f4fef578678",
+  "createdDate" : "2025-07-08T15:24:37.7799479",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "6d838e9b-30e7-4fa1-b4bd-1223e4084425",
+  "productName" : "Yarim avtomatik kir yuvish mashinasi",
+  "price" : 3000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Yarim+avtomatik+kir+yuvish+mashinasi&pos=9&rpt=simage&img_url=https%3A%2F%2Fassets.asaxiy.uz%2Fproduct%2Fitems%2Fdesktop%2Fa2ef406e2c2351e0b9e80029c909242d2023012012090963685BodpHT1x8Q.png.webp&from=tabbar&lr=194600"
+}, {
+  "id" : "9fe99d15-c62e-4fd9-86e2-5f852ed966d1",
+  "createdDate" : "2025-07-08T15:25:42.3272627",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "6d838e9b-30e7-4fa1-b4bd-1223e4084425",
+  "productName" : "Avtomat kir mashinasi",
+  "price" : 350000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Avtomat+kir+mashinasi&pos=8&rpt=simage&img_url=https%3A%2F%2Funivershop.uz%2Fwp-content%2Fuploads%2F2020%2F09%2FZFG60-S1212S.png&from=tabbar&lr=194600"
+}, {
+  "id" : "117b43ed-0db8-4fb1-b673-320a5be6a635",
+  "createdDate" : "2025-07-08T15:26:41.7931847",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
+  "productName" : "Samsung Muzlatgichlari",
+  "price" : 5000000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Samsung+Muzlatgichlari&pos=18&rpt=simage&img_url=https%3A%2F%2Fapi.cabinet.smart-market.uz%2Fuploads%2Fimages%2Fff808181a00fdb517a3b861c&from=tabbar&lr=194600"
+}, {
+  "id" : "dbbd6cf5-089b-4407-94fb-c63e1425aaca",
+  "createdDate" : "2025-07-08T15:30:37.4415634",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
+  "productName" : "Ferre BCD275 IX ",
+  "price" : 450000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Ferre+BCD275+IX+&pos=3&rpt=simage&img_url=https%3A%2F%2Fmini-io-api.texnomart.uz%2Fcatalog%2Fproduct%2F879%2F87920%2F203213%2Ffbc6faf9-9f26-4761-b532-cece09b7d637.webp&from=tabbar&lr=194600"
+}, {
+  "id" : "85a44172-0128-49be-9c0a-0b6b02484943",
+  "createdDate" : "2025-07-08T15:31:19.4664998",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
+  "productName" : "Premier PRM 261TFDFW Oq Музлатгичи",
+  "price" : 5000000,
+  "imageUrl" : "https://yandex.ru/images/search?text=Premier+PRM+261TFDFW+Oq+Музлатгичи%22&pos=2&rpt=simage&img_url=https%3A%2F%2Fzavq.uz%2Fwp-content%2Fuploads%2F2023%2F07%2Fan-00000288.webp&from=tabbar&lr=194600"
+}, {
+  "id" : "58368141-5263-4c58-ad50-f52aacf10ff0",
+  "createdDate" : "2025-07-08T15:32:21.0358384",
+  "active" : true,
+  "updateDate" : null,
+  "categoryId" : "aced413b-e9a2-4aba-b79b-7e9362bb59e3",
+  "productName" : "Premier PRM 260TFDFW qora Музлатгичи",
+  "price" : 470000,
+  "imageUrl" : "https://yandex.ru/images/search?text=remier+PRM+260TFDFW+qora+Музлатгичи&pos=6&rpt=simage&img_url=https%3A%2F%2Fapi.cabinet.smart-market.uz%2Fuploads%2Fimages%2Fff808181fb0fc995333789c1&from=tabbar&lr=194600"
 } ]

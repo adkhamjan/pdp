@@ -12,6 +12,7 @@ public class Product extends BaseModel {
     private UUID categoryId;
     private String productName;
     private int price;
+    private String imageUrl;
 
     @Override
     public String toString() {
@@ -20,6 +21,7 @@ public class Product extends BaseModel {
                 ", id=" + id +
                 ", price=" + price +
                 ", categoryId=" + categoryId +
+                  ", imageUrl='" + imageUrl +
                 '}';
     }
 }

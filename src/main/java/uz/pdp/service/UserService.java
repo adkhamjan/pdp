@@ -5,6 +5,9 @@ import uz.pdp.util.FileUtil;
 import uz.pdp.model.User;
 import uz.pdp.wrapper.UserListWrapper;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,6 @@ import java.util.UUID;
 public class UserService {
     private static final String fileName = "usersBot.xml";
     private final List<User> users;
-
     @SneakyThrows
     public UserService() {
         UserListWrapper wrapper = FileUtil.readFromXml(fileName, UserListWrapper.class);
@@ -73,5 +75,22 @@ public class UserService {
 //        }
 //        return null;
         return users.stream().filter(u -> u.getId().equals(userId) && u.isActive()).findFirst();
+    }
+
+
+    public void registerUser(Long userId, String username,String name) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println("ID: " + userId + " | Username: @" + username+" name : "+name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public User getByChatId(Long userId) {
+        return users.stream()
+                  .filter(user -> user.getId().equals(userId)).
+                  findFirst().
+                  orElse(null);
     }
 }

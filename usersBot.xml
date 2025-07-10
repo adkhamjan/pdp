@@ -6,7 +6,7 @@
     <name>Adham</name>
     <userName>adkhamjan_13</userName>
     <phoneNumber>+998904917705</phoneNumber>
-    <typeUser>USER</typeUser>
+    <typeUser>ADMIN</typeUser>
   </user>
   <user>
     <id>04ced071-20bc-449f-b23d-005e4d85596c</id>
@@ -15,6 +15,23 @@
     <name>Sharof</name>
     <userName>Muq1mov_oo4</userName>
     <phoneNumber>+998930002579</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+  <user>
+    <id>906319dd-797b-44d9-965b-bd9ad3d37fde</id>
+    <createdDate>2025-07-08T13:55:17.5847685</createdDate>
+    <active>true</active>
+    <name>1</name>
+    <userName>1</userName>
+    <phoneNumber>1</phoneNumber>
+    <typeUser>USER</typeUser>
+  </user>
+  <user>
+    <id>69b024f0-ca7b-4996-a921-e1cedc867d6b</id>
+    <createdDate>2025-07-08T14:09:25.9840221</createdDate>
+    <active>true</active>
+    <name>..</name>
+    <phoneNumber>998200062431</phoneNumber>
     <typeUser>USER</typeUser>
   </user>
 </Users>
