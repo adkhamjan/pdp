@@ -120,7 +120,7 @@ public class ProductBotService {
                 Category category = optionalCategory.get();
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(editMessageText.getChatId());
-                editMessageText.setText(category.getName() + messages.get("product.select"));
+                sendMessage.setText(category.getName() + messages.get("product.select"));
                 sendMessage.setReplyMarkup(getInlineKeyboard(category.getId(), messages.get("back")));
                 result.add(sendMessage);
             }

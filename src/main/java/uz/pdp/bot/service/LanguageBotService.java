@@ -72,7 +72,7 @@ public class LanguageBotService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(editMessageText.getChatId());
 
-        sendMessage.setText(messages.get("menu.menu"));
+        sendMessage.setText(messages.get("main"));
         List<String> menuName = List.of(messages.get("menu.menu"), messages.get("menu.orders"),
                 messages.get("menu.cart"), messages.get("menu.settings"));
         sendMessage.setReplyMarkup(ReplyKeyboardFactory.createMenuReplyKeyboardMarkup(menuName));
