@@ -1,1 +1,17 @@
-[ ]
+[ {
+  "id" : "9efc2bf8-25e5-447c-9154-86703b968c3d",
+  "createdDate" : "2025-07-12T14:43:51.593353",
+  "active" : true,
+  "updateDate" : null,
+  "userId" : "6b523353-3c61-45c8-aded-31b9128e3b2a",
+  "cartItemList" : [ {
+    "cartId" : "9efc2bf8-25e5-447c-9154-86703b968c3d",
+    "productId" : "4f7df7a2-5f25-4389-aa54-3c7635033258",
+    "quantity" : 2
+  }, {
+    "cartId" : "9efc2bf8-25e5-447c-9154-86703b968c3d",
+    "productId" : "03beb0f8-f897-478a-97be-d75385960d85",
+    "quantity" : 2
+  } ],
+  "totalPrice" : 324000000
+} ]
